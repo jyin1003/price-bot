@@ -4,13 +4,21 @@ categories:
       - tissue
     vendors:
       - coles
-    specific_products: []
+    specific_products:
+      coles:
+        - "9092540"
+        - "9161519"
+        - "6325314"
   toilet_paper:
     search_terms:
       - toilet paper
     vendors:
       - coles
-    specific_products: []
+    specific_products:
+      coles:
+        - "9152370"
+        - "1145428"
+        - "1619475"
   granola:
     search_terms:
       - granola
