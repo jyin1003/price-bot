@@ -1,4 +1,5 @@
-import logging, re
+import logging
+import re
 from datetime import date
 from urllib.parse import urlparse
 
@@ -6,14 +7,17 @@ import requests
 from bs4 import BeautifulSoup
 
 from data.model import PriceRecord
+from vendors.base import BaseVendor
 
 logger = logging.getLogger(__name__)
 
 
-class ChemistWarehouseVendor:
+class ChemistWarehouseVendor(BaseVendor):
     vendor_name = "chemist_warehouse"
 
-    def __init__(self) -> None:
+    def __init__(self, data_dir: str = "data") -> None:
+        super().__init__(data_dir=data_dir)
+
         self.base_url = "https://www.chemistwarehouse.com.au"
         self.session = requests.Session()
         self.session.headers.update(
@@ -25,14 +29,33 @@ class ChemistWarehouseVendor:
         )
 
     def search_products(self, search_term: str) -> list[dict]:
-        return self.fetch_specific_product(search_term)
+        """
+        Chemist Warehouse search is not implemented yet.
 
-    def fetch_specific_product(self, product_url: str) -> dict:
-        url = self._build_product_url(product_url)
+        BaseVendor expects this to return list[dict], so return an empty list.
+        Use specific_products with full product URLs for now.
+        """
+        logger.warning(
+            "Chemist Warehouse search is not implemented. "
+            "Use specific_products instead. search_term=%s",
+            search_term,
+        )
+        return []
+
+    def fetch_specific_product(self, product_id: str) -> dict | None:
+        try:
+            url = self._build_product_url(product_id)
+        except ValueError:
+            logger.exception("Invalid Chemist Warehouse product identifier: %s", product_id)
+            return None
 
         logger.debug("Chemist Warehouse GET request: %s", url)
 
-        response = self.session.get(url, timeout=30)
+        try:
+            response = self.session.get(url, timeout=30)
+        except requests.RequestException:
+            logger.exception("Chemist Warehouse request failed: %s", url)
+            return None
 
         logger.debug(
             "Chemist Warehouse response: status=%s reason=%s url=%s final_url=%s",
@@ -43,21 +66,20 @@ class ChemistWarehouseVendor:
         )
 
         if response.status_code < 200 or response.status_code >= 300:
-            raise RuntimeError(
-                f"Chemist Warehouse request failed: "
-                f"{response.status_code} {response.reason} - {url}"
+            logger.warning(
+                "Chemist Warehouse product fetch failed: status=%s reason=%s url=%s",
+                response.status_code,
+                response.reason,
+                url,
             )
+            return None
 
         return {
             "request_url": url,
             "final_url": response.url,
             "status_code": response.status_code,
             "reason": response.reason,
-            "headers": dict(response.headers),
-            "cookies": response.cookies.get_dict(),
-            "encoding": response.encoding,
-            "elapsed_seconds": response.elapsed.total_seconds(),
-            "requested_product_id": self._extract_buy_id(product_url),
+            "requested_product_id": self._extract_buy_id(product_id),
             "html": response.text,
         }
 
@@ -72,13 +94,9 @@ class ChemistWarehouseVendor:
         product_name = self._extract_product_name(soup)
         price = self._extract_price(soup)
 
-        # This is the stable fetch ID from the URL, e.g. /buy/86965/...
         buy_id = self._extract_buy_id(raw_product["final_url"])
-
-        # This is the page-level Chemist Warehouse product ID, if present.
         page_product_id = self._extract_page_product_id(soup)
 
-        # Prefer the /buy/<id> ID because it matches the URL you track.
         product_id = buy_id or page_product_id or raw_product["requested_product_id"]
 
         if not product_name:
