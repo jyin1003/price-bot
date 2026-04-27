@@ -3,13 +3,64 @@
 ## Overview
 Price Bot tracks price changes for specified products across multiple vendors. It retrieves current prices, compares them to historical highs, and outputs a summary of vendors, current prices, and price changes.
 
-## Usage
+## Setup
 ```
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-python main.py
 ```
+
+## Usage
+Run the full workflow for all configured vendors and categories:
+
+```powershell
+python main.py
+````
+
+Run without making vendor API calls. Useful for checking config selection before spending API requests:
+
+```powershell
+python main.py --no-fetch
+```
+
+Fetch only from specific vendors:
+
+```powershell
+python main.py --vendors coles
+```
+
+Fetch only specific categories from `products.yaml`:
+
+```powershell
+python main.py --categories tissue toilet_paper
+```
+
+Fetch only specific vendors and categories:
+
+```powershell
+python main.py --vendors coles --categories tissue
+```
+
+List available categories and supported vendors, then exit:
+
+```powershell
+python main.py --list-config
+```
+
+Enable detailed debug logging:
+
+```powershell
+python main.py --debug
+```
+
+| Argument        | Purpose                                                                        |
+| --------------- | ------------------------------------------------------------------------------ |
+| `--no-fetch` | Skips vendor API calls but still refreshes metrics from existing `price_history.` |
+| `--vendors`     | Limits the run to one or more vendors, e.g. `coles`, `woolworths`              |
+| `--categories`  | Limits the run to one or more categories defined in `products.yaml`            |
+| `--list-config` | Prints available categories and supported vendors, then exits                  |
+| `--debug`       | Enables detailed debug-level logging                                           |
+
 
 ## Data Sources & Update Frequency
 

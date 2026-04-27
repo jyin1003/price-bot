@@ -1,20 +1,12 @@
-from pathlib import Path
+import logging
+
 import pandas as pd
-import yaml
 
-from vendors.coles import ColesVendor
-from vendors.woolworths import WoolworthsVendor
 from data.model import PriceRecord, PRICE_HISTORY_COLUMNS, PRODUCTS_COLUMNS
-from config import DATA_DIR, PRODUCTS_YAML_PATH, PRICE_HISTORY_PATH, PRODUCTS_PATH
+from config import DATA_DIR, PRICE_HISTORY_PATH, PRODUCTS_PATH
+from setup import VENDOR_REGISTRY, load_products_config
 
-VENDOR_REGISTRY = {
-    "coles": ColesVendor,
-    "woolworths": WoolworthsVendor,
-}
-
-def load_products_config(path: Path = PRODUCTS_YAML_PATH) -> dict:
-    with open(path, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+logger = logging.getLogger(__name__)
 
 
 def ensure_data_files() -> None:
@@ -25,12 +17,15 @@ def ensure_data_files() -> None:
             PRICE_HISTORY_PATH,
             index=False,
         )
+        logger.info("Created price history file: %s", PRICE_HISTORY_PATH)
 
     if not PRODUCTS_PATH.exists():
         pd.DataFrame(columns=PRODUCTS_COLUMNS).to_csv(
             PRODUCTS_PATH,
             index=False,
         )
+        logger.info("Created products registry file: %s", PRODUCTS_PATH)
+
 
 def get_specific_products_for_vendor(
     category_config: dict,
@@ -49,32 +44,76 @@ def get_specific_products_for_vendor(
     )
 
 
-def fetch_all_prices(products_config: dict) -> list[PriceRecord]:
+def fetch_all_prices(
+    products_config: dict,
+    only_vendors: set[str] | None = None,
+    only_categories: set[str] | None = None,
+    dry_run: bool = False,
+) -> list[PriceRecord]:
     records: list[PriceRecord] = []
 
     categories = products_config.get("categories", {})
 
+    if not categories:
+        logger.warning("No categories found in products.yaml")
+        return records
+
     for category_name, category_config in categories.items():
+        if only_categories and category_name not in only_categories:
+            logger.debug("Skipping category due to category filter: %s", category_name)
+            continue
+
         search_terms = category_config.get("search_terms", [])
         vendors = category_config.get("vendors", [])
 
         for vendor_name in vendors:
-            if vendor_name not in VENDOR_REGISTRY:
-                print(f"[fetch_prices] Skipping unsupported vendor: {vendor_name}")
+            if only_vendors and vendor_name not in only_vendors:
+                logger.debug(
+                    "Skipping vendor due to vendor filter: category=%s vendor=%s",
+                    category_name,
+                    vendor_name,
+                )
                 continue
 
-            vendor_class = VENDOR_REGISTRY[vendor_name]
-            vendor = vendor_class()
-            
+            if vendor_name not in VENDOR_REGISTRY:
+                logger.warning("Skipping unsupported vendor: %s", vendor_name)
+                continue
+
             specific_products = get_specific_products_for_vendor(
                 category_config=category_config,
                 vendor_name=vendor_name,
             )
 
+            logger.info(
+                "Selected fetch target: category=%s vendor=%s search_terms=%s specific_products=%s",
+                category_name,
+                vendor_name,
+                len(search_terms),
+                len(specific_products),
+            )
+
+            if dry_run:
+                logger.info(
+                    "Dry run enabled. Skipping API call: category=%s vendor=%s",
+                    category_name,
+                    vendor_name,
+                )
+                continue
+
+            vendor_class = VENDOR_REGISTRY[vendor_name]
+            vendor = vendor_class()
+
             vendor_records = vendor.fetch_category_prices(
                 category=category_name,
                 search_terms=search_terms,
                 specific_products=specific_products,
+            )
+
+            logger.info(
+                "Fetched vendor records: category=%s vendor=%s records=%s",
+                category_name,
+                vendor_name,
+                len(vendor_records),
             )
 
             records.extend(vendor_records)
@@ -83,22 +122,29 @@ def fetch_all_prices(products_config: dict) -> list[PriceRecord]:
 
 
 def update_price_history(records: list[PriceRecord]) -> None:
-    # 1. Force ID to string on load
-    existing = pd.read_csv(PRICE_HISTORY_PATH, dtype={'product_id': str})
+    existing = pd.read_csv(PRICE_HISTORY_PATH, dtype={"product_id": str})
 
-    # 2. Convert records to DataFrame
-    new_rows = pd.DataFrame([record.to_price_history_row() for record in records])
-    
-    # 3. Force ID to string on new data to be safe
-    new_rows['product_id'] = new_rows['product_id'].astype(str)
+    new_rows = pd.DataFrame(
+        [record.to_price_history_row() for record in records],
+        columns=PRICE_HISTORY_COLUMNS,
+    )
+
+    if new_rows.empty:
+        logger.warning("No new rows supplied to update_price_history")
+        return
+
+    new_rows["product_id"] = new_rows["product_id"].astype(str)
 
     combined = pd.concat([existing, new_rows], ignore_index=True)
-    
-    # Now drop_duplicates will actually see the matches
+
+    before_dedup = len(combined)
+
     combined = combined.drop_duplicates(
         subset=["date", "product_id", "vendor", "category"],
         keep="last",
     )
+
+    duplicates_removed = before_dedup - len(combined)
 
     combined = combined.sort_values(
         by=["date", "vendor", "category", "product_id"],
@@ -106,22 +152,39 @@ def update_price_history(records: list[PriceRecord]) -> None:
 
     combined.to_csv(PRICE_HISTORY_PATH, index=False)
 
+    logger.info(
+        "Updated price history: new_rows=%s total_rows=%s duplicates_removed=%s output=%s",
+        len(new_rows),
+        len(combined),
+        duplicates_removed,
+        PRICE_HISTORY_PATH,
+    )
+
 
 def update_products_registry(records: list[PriceRecord]) -> None:
-    existing = pd.read_csv(PRODUCTS_PATH)
+    existing = pd.read_csv(PRODUCTS_PATH, dtype={"product_id": str})
 
     new_rows = pd.DataFrame(
         [record.to_product_row() for record in records],
         columns=PRODUCTS_COLUMNS,
     )
 
+    if new_rows.empty:
+        logger.warning("No new rows supplied to update_products_registry")
+        return
+
+    new_rows["product_id"] = new_rows["product_id"].astype(str)
+
     combined = pd.concat([existing, new_rows], ignore_index=True)
 
-    # Product registry should only have one latest row per vendor product.
+    before_dedup = len(combined)
+
     combined = combined.drop_duplicates(
         subset=["product_id", "vendor"],
         keep="last",
     )
+
+    duplicates_removed = before_dedup - len(combined)
 
     combined = combined.sort_values(
         by=["vendor", "category", "product_name"],
@@ -129,26 +192,63 @@ def update_products_registry(records: list[PriceRecord]) -> None:
 
     combined.to_csv(PRODUCTS_PATH, index=False)
 
+    logger.info(
+        "Updated products registry: new_rows=%s total_rows=%s duplicates_removed=%s output=%s",
+        len(new_rows),
+        len(combined),
+        duplicates_removed,
+        PRODUCTS_PATH,
+    )
 
-def run_fetch_prices() -> list[PriceRecord]:
+
+def run_fetch_prices(
+    products_config: dict | None = None,
+    only_vendors: set[str] | None = None,
+    only_categories: set[str] | None = None,
+    dry_run: bool = False,
+) -> list[PriceRecord]:
     ensure_data_files()
 
-    products_config = load_products_config()
-    records = fetch_all_prices(products_config)
+    if products_config is None:
+        products_config = load_products_config()
+
+    logger.info(
+        "Starting fetch prices: only_vendors=%s only_categories=%s dry_run=%s",
+        sorted(only_vendors) if only_vendors else None,
+        sorted(only_categories) if only_categories else None,
+        dry_run,
+    )
+
+    records = fetch_all_prices(
+        products_config=products_config,
+        only_vendors=only_vendors,
+        only_categories=only_categories,
+        dry_run=dry_run,
+    )
+
+    if dry_run:
+        logger.info("Dry run complete. No vendor API calls were made.")
+        return []
 
     if not records:
-        print("[fetch_prices] No price records fetched.")
+        logger.warning("No price records fetched.")
         return []
 
     update_price_history(records)
     update_products_registry(records)
 
-    print(f"[fetch_prices] Fetched {len(records)} price records.")
-    print(f"[fetch_prices] Updated {PRICE_HISTORY_PATH}")
-    print(f"[fetch_prices] Updated {PRODUCTS_PATH}")
+    logger.info("Fetch prices complete: records=%s", len(records))
 
     return records
 
 
 if __name__ == "__main__":
+    from env import load_environment
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+    )
+
+    load_environment()
     run_fetch_prices()

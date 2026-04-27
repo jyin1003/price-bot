@@ -3,7 +3,7 @@ import logging
 
 import pandas as pd
 
-from config import PRODUCT_METRICS_PATH
+from config import PRODUCT_METRICS_PATH, PRICE_HISTORY_PATH
 from data.model import PRICE_HISTORY_COLUMNS, METRIC_COLUMNS
 
 logger = logging.getLogger(__name__)
@@ -69,6 +69,96 @@ def _load_existing_metrics(product_metrics_path: Path) -> pd.DataFrame:
 
     return metrics
 
+def update_product_metrics_from_latest_history(
+    price_history_path: Path = PRICE_HISTORY_PATH,
+    product_metrics_path: Path = PRODUCT_METRICS_PATH,
+) -> None:
+    """
+    Update product_metrics.csv using only the latest-dated rows
+    currently stored in price_history.csv.
+
+    This is useful for --no-fetch runs where no fresh API records exist,
+    but you still want to refresh metrics from the latest available history.
+
+    Note:
+    This is not a full rebuild. If product_metrics.csv is empty, metrics
+    will be initialised from the latest history rows only.
+    """
+
+    logger.info("Starting metrics update from latest price history rows")
+
+    if not price_history_path.exists():
+        logger.warning(
+            "Price history file does not exist. Skipping metrics update: %s",
+            price_history_path,
+        )
+        return
+
+    try:
+        price_history = pd.read_csv(
+            price_history_path,
+            dtype={"product_id": str},
+        )
+    except pd.errors.EmptyDataError:
+        logger.warning(
+            "Price history file is completely empty. Skipping metrics update: %s",
+            price_history_path,
+        )
+        return
+
+    if price_history.empty:
+        logger.warning(
+            "Price history file has headers but no rows. Skipping metrics update: %s",
+            price_history_path,
+        )
+        return
+
+    missing_columns = set(PRICE_HISTORY_COLUMNS) - set(price_history.columns)
+
+    if missing_columns:
+        raise ValueError(
+            f"price_history.csv is missing required columns: {sorted(missing_columns)}"
+        )
+
+    price_history = price_history[PRICE_HISTORY_COLUMNS].copy()
+
+    price_history["date"] = pd.to_datetime(
+        price_history["date"],
+        errors="coerce",
+    )
+
+    invalid_date_rows = price_history["date"].isna().sum()
+
+    if invalid_date_rows:
+        logger.warning(
+            "Dropping price history rows with invalid dates: rows=%s",
+            invalid_date_rows,
+        )
+
+    price_history = price_history.dropna(subset=["date"])
+
+    if price_history.empty:
+        logger.warning("No valid dated rows found in price_history.csv")
+        return
+
+    latest_date = price_history["date"].max()
+
+    latest_rows = price_history[
+        price_history["date"] == latest_date
+    ].copy()
+
+    latest_rows["date"] = latest_rows["date"].dt.strftime("%Y-%m-%d")
+
+    logger.info(
+        "Loaded latest price history rows for metrics update: latest_date=%s rows=%s",
+        latest_date.strftime("%Y-%m-%d"),
+        len(latest_rows),
+    )
+
+    update_product_metrics(
+        latest_prices=latest_rows,
+        product_metrics_path=product_metrics_path,
+    )
 
 def update_product_metrics(
     latest_prices: list[dict] | pd.DataFrame,
