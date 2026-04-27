@@ -44,6 +44,90 @@ def get_specific_products_for_vendor(
     )
 
 
+def _normalise_text(value: str) -> str:
+    """
+    Normalise text for case-insensitive matching.
+
+    This means:
+    - "Toilet Paper"
+    - "toilet paper"
+    - "TOILET PAPER"
+
+    are all treated the same.
+    """
+    return value.casefold()
+
+
+def _normalise_terms(terms: list[str] | None) -> list[str]:
+    if not terms:
+        return []
+
+    return [_normalise_text(term.strip()) for term in terms if term and term.strip()]
+
+
+def is_record_allowed_by_category_filters(
+    record: PriceRecord,
+    category_config: dict,
+) -> bool:
+    # 1. Normalise the product name once for efficiency
+    product_name = _normalise_text(record.product_name)
+
+    # 2. Extract and Normalise config terms
+    must_include = _normalise_terms(category_config.get("must_include_terms"))
+    or_include = _normalise_terms(category_config.get("or_include_terms"))
+    must_exclude = _normalise_terms(category_config.get("must_exclude_terms"))
+
+    # Hurdle 1: Must NOT contain any 'must_exclude_terms'
+    if must_exclude:
+        if any(term in product_name for term in must_exclude):
+            logger.debug("Filtered (Excluded term found): %r", record.product_name)
+            return False
+
+    # Hurdle 2: Must contain ALL 'must_include_terms'
+    if must_include:
+        # Using all() ensures every term in the list is present in the name
+        if not all(term in product_name for term in must_include):
+            logger.debug("Filtered (Missing required terms): %r", record.product_name)
+            return False
+
+    # Hurdle 3: Must contain at least ONE 'or_include_terms' (if the list is provided)
+    if or_include:
+        # Using any() ensures at least one choice is present
+        if not any(term in product_name for term in or_include):
+            logger.debug("Filtered (Missing any OR terms): %r", record.product_name)
+            return False
+
+    # If it passed all hurdles above, it's a valid product
+    return True
+
+
+def filter_records_for_category(
+    records: list[PriceRecord],
+    category_config: dict,
+) -> list[PriceRecord]:
+    filtered_records = [
+        record
+        for record in records
+        if is_record_allowed_by_category_filters(
+            record=record,
+            category_config=category_config,
+        )
+    ]
+
+    removed_count = len(records) - len(filtered_records)
+
+    if removed_count:
+        logger.info(
+            "Filtered category records: category=%s original=%s kept=%s removed=%s",
+            records[0].category if records else None,
+            len(records),
+            len(filtered_records),
+            removed_count,
+        )
+
+    return filtered_records
+
+
 def fetch_all_prices(
     products_config: dict,
     only_vendors: set[str] | None = None,
@@ -116,7 +200,19 @@ def fetch_all_prices(
                 len(vendor_records),
             )
 
-            records.extend(vendor_records)
+            filtered_vendor_records = filter_records_for_category(
+                records=vendor_records,
+                category_config=category_config,
+            )
+
+            logger.info(
+                "Kept vendor records after filtering: category=%s vendor=%s records=%s",
+                category_name,
+                vendor_name,
+                len(filtered_vendor_records),
+            )
+
+            records.extend(filtered_vendor_records)
 
     return records
 
@@ -231,7 +327,7 @@ def run_fetch_prices(
         return []
 
     if not records:
-        logger.warning("No price records fetched.")
+        logger.warning("No price records fetched after filtering.")
         return []
 
     update_price_history(records)
