@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
+from typing import Literal
 
 # Vendor Data Classes
 class SourceType(str, Enum):
@@ -52,6 +53,24 @@ class PriceRecord:
             "source": self.source,
             "last_seen": self.date,
         }
+
+PriceStatus = Literal["cheapest", "full price", "discounted"]
+
+@dataclass
+class ProductPriceAnalysis:
+    product_name: str
+    current_price: float
+    vendor: str
+    category: str
+    discount: float
+    status: PriceStatus
+
+
+@dataclass
+class CategoryPriceAnalysis:
+    category: str
+    cheapest_products: list[ProductPriceAnalysis]
+    top_five_cheapest: list[ProductPriceAnalysis]
 
 # CSV Constants
 PRICE_HISTORY_COLUMNS = [

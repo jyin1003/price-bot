@@ -3,8 +3,15 @@ import logging
 
 import pandas as pd
 
-from price_bot.config import PRODUCT_METRICS_PATH, PRICE_HISTORY_PATH
-from data.model import PRICE_HISTORY_COLUMNS, METRIC_COLUMNS
+from price_bot.config import PRODUCT_METRICS_PATH, PRICE_HISTORY_PATH, PRODUCTS_PATH
+from data.model import (
+    PRICE_HISTORY_COLUMNS, 
+    METRIC_COLUMNS, 
+    PRODUCTS_COLUMNS, 
+    ProductPriceAnalysis, 
+    CategoryPriceAnalysis,
+    PriceStatus
+)
 
 logger = logging.getLogger(__name__)
 
@@ -68,6 +75,20 @@ def _load_existing_metrics(product_metrics_path: Path) -> pd.DataFrame:
     )
 
     return metrics
+
+def _calculate_status(
+    current_price: float,
+    min_price: float,
+    max_price: float,
+) -> PriceStatus:
+    if current_price == min_price:
+        return "cheapest"
+
+    if current_price == max_price:
+        return "full price"
+
+    return "discounted"
+
 
 def update_product_metrics_from_latest_history(
     price_history_path: Path = PRICE_HISTORY_PATH,
@@ -304,3 +325,182 @@ def update_product_metrics(
         len(updated_metrics),
         product_metrics_path,
     )
+    
+def analyse_latest_prices_by_category(
+    price_history_path: Path = PRICE_HISTORY_PATH,
+    product_metrics_path: Path = PRODUCT_METRICS_PATH,
+    products_path: Path = PRODUCTS_PATH,
+) -> dict[str, CategoryPriceAnalysis]:
+    """
+    Analyse latest prices after product_metrics.csv has been updated.
+
+    For each category, returns:
+    - all products currently at their cheapest historical price
+    - the top five cheapest products by current price
+
+    Discount is calculated as a percentage.
+
+    Status is:
+    - cheapest: current_price == min_price
+    - full price: current_price == max_price
+    - discounted: current_price is between min_price and max_price
+    """
+
+    for path in [price_history_path, product_metrics_path, products_path]:
+        if not path.exists():
+            raise FileNotFoundError(f"Required file does not exist: {path}")
+
+    price_history = pd.read_csv(
+        price_history_path,
+        dtype={"product_id": str},
+    )
+
+    product_metrics = pd.read_csv(
+        product_metrics_path,
+        dtype={"product_id": str},
+    )
+
+    products = pd.read_csv(
+        products_path,
+        dtype={"product_id": str},
+    )
+
+    missing_price_history_columns = set(PRICE_HISTORY_COLUMNS) - set(price_history.columns)
+    if missing_price_history_columns:
+        raise ValueError(
+            f"price_history.csv is missing required columns: "
+            f"{sorted(missing_price_history_columns)}"
+        )
+
+    missing_metric_columns = set(METRIC_COLUMNS) - set(product_metrics.columns)
+    if missing_metric_columns:
+        raise ValueError(
+            f"product_metrics.csv is missing required columns: "
+            f"{sorted(missing_metric_columns)}"
+        )
+
+    missing_product_columns = set(PRODUCTS_COLUMNS) - set(products.columns)
+    if missing_product_columns:
+        raise ValueError(
+            f"products.csv is missing required columns: "
+            f"{sorted(missing_product_columns)}"
+        )
+
+    if price_history.empty:
+        return {}
+
+    price_history = price_history[PRICE_HISTORY_COLUMNS].copy()
+    product_metrics = product_metrics[METRIC_COLUMNS].copy()
+    products = products[PRODUCTS_COLUMNS].copy()
+
+    price_history["date"] = pd.to_datetime(
+        price_history["date"],
+        errors="coerce",
+    )
+
+    price_history["price"] = pd.to_numeric(
+        price_history["price"],
+        errors="coerce",
+    )
+
+    product_metrics["min_price"] = pd.to_numeric(
+        product_metrics["min_price"],
+        errors="coerce",
+    )
+
+    product_metrics["max_price"] = pd.to_numeric(
+        product_metrics["max_price"],
+        errors="coerce",
+    )
+
+    price_history = price_history.dropna(
+        subset=["date", "product_id", "vendor", "category", "price"],
+    )
+
+    product_metrics = product_metrics.dropna(
+        subset=["product_id", "vendor", "min_price", "max_price"],
+    )
+
+    if price_history.empty:
+        return {}
+
+    latest_date = price_history["date"].max()
+
+    latest_prices = price_history[
+        price_history["date"] == latest_date
+    ].copy()
+
+    latest_prices = latest_prices.rename(
+        columns={"price": "current_price"}
+    )
+
+    latest_prices = latest_prices.merge(
+        product_metrics,
+        on=["product_id", "vendor"],
+        how="left",
+    )
+
+    latest_prices = latest_prices.merge(
+        products[["product_id", "vendor", "product_name"]],
+        on=["product_id", "vendor"],
+        how="left",
+    )
+
+    latest_prices["product_name"] = latest_prices["product_name"].fillna(
+        latest_prices["product_id"]
+    )
+
+    latest_prices = latest_prices.dropna(
+        subset=["current_price", "min_price", "max_price"],
+    )
+
+    latest_prices["discount"] = (
+        ((latest_prices["max_price"] - latest_prices["current_price"])
+        / latest_prices["max_price"])
+        * 100
+    ).clip(lower=0).round(1)
+
+    latest_prices["status"] = latest_prices.apply(
+        lambda row: _calculate_status(
+            current_price=row["current_price"],
+            min_price=row["min_price"],
+            max_price=row["max_price"],
+        ),
+        axis=1,
+    )
+
+    analysis_by_category: dict[str, CategoryPriceAnalysis] = {}
+
+    for category, category_df in latest_prices.groupby("category"):
+        category_df = category_df.sort_values(
+            ["current_price", "product_name", "vendor"],
+            ascending=[True, True, True],
+        )
+
+        category_products = [
+            ProductPriceAnalysis(
+                product_name=str(row.product_name),
+                current_price=float(row.current_price),
+                vendor=str(row.vendor),
+                category=str(row.category),
+                discount=float(row.discount),
+                status=row.status,
+            )
+            for row in category_df.itertuples(index=False)
+        ]
+
+        cheapest_products = [
+            product
+            for product in category_products
+            if product.status == "cheapest"
+        ]
+
+        top_five_cheapest = category_products[:5]
+
+        analysis_by_category[str(category)] = CategoryPriceAnalysis(
+            category=str(category),
+            cheapest_products=cheapest_products,
+            top_five_cheapest=top_five_cheapest,
+        )
+
+    return analysis_by_category
