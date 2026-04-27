@@ -32,6 +32,7 @@ price-bot/
 │   ├── coles.py
 │   └── woolworths.py
 ├── data/
+│   ├── model.py
 │   ├── price_history.csv
 │   ├── products.csv
 │   └── product_metrics.csv
@@ -45,7 +46,7 @@ price-bot/
 └── requirements.txt
 ```
 
-| File                | Purpose                                                             |
+| Key Files           | Purpose                                                             |
 | ------------------- | ------------------------------------------------------------------- |
 | `main.py`           | Runs the full price tracking workflow                               |
 | `config.py`         | Stores non-secret settings such as file paths and supported vendors |
