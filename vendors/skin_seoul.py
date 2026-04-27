@@ -93,7 +93,12 @@ class SkinSeoulVendor(BaseVendor):
     ) -> PriceRecord:
         soup = BeautifulSoup(raw_product["html"], "html.parser")
 
-        product_name = self._extract_product_name(soup)
+        product_name = self._extract_product_name_from_url(raw_product["final_url"])
+        pack_label = self._extract_pack_label(soup)
+
+        if pack_label and pack_label.lower() not in product_name.lower():
+            product_name = f"{product_name} ({pack_label})"
+
         price = self._extract_price(soup)
         sku = self._extract_sku(soup)
 
@@ -134,28 +139,6 @@ class SkinSeoulVendor(BaseVendor):
             "Skin Seoul specific product must be a full product URL, "
             "a /product/<slug>/ path, or a product slug."
         )
-
-    def _extract_product_name(self, soup: BeautifulSoup) -> str:
-        h1 = soup.find("h1")
-        if h1:
-            name = h1.get_text(" ", strip=True)
-            if name:
-                return name
-
-        og_title = soup.find("meta", property="og:title")
-        if og_title and og_title.get("content"):
-            return og_title["content"].strip()
-
-        title = soup.find("title")
-        if title:
-            return (
-                title.get_text(" ", strip=True)
-                .replace(" | Skin Seoul", "")
-                .replace(" - Skin Seoul", "")
-                .strip()
-            )
-
-        return ""
 
     def _extract_price(self, soup: BeautifulSoup) -> float | None:
         visible_text = self._get_visible_text(soup)
@@ -263,3 +246,66 @@ class SkinSeoulVendor(BaseVendor):
             return match.group(1)
 
         return str(value).strip().strip("/") or None
+        
+    def _extract_product_name_from_url(self, product_url: str) -> str:
+        slug = self._extract_slug(product_url)
+
+        if not slug:
+            return ""
+
+        return self._format_slug_as_product_name(slug)
+
+
+    def _format_slug_as_product_name(self, slug: str) -> str:
+        """
+        Converts a Skin Seoul product slug into a readable product name.
+
+        Example:
+            raspberry-hair-vinegar -> Raspberry Hair Vinegar
+        """
+        cleaned = slug.strip().strip("/")
+
+        cleaned = re.sub(r"[-_]+", " ", cleaned)
+        cleaned = re.sub(r"\s+", " ", cleaned).strip()
+
+        return cleaned.title()
+    
+    def _extract_pack_label(self, soup: BeautifulSoup) -> str | None:
+        """
+        Extracts the pack option to append to the product name.
+
+        Rule:
+        1. Only trust "1 Pack" when it appears like "), 1 Pack".
+        Example:
+            "Some Product (150ml), 1 Pack"
+
+        2. Otherwise, ignore singular "Pack" because it may appear in unrelated
+        product text or option labels.
+
+        3. If plural "Packs" exists, return the last plural pack option.
+        Example:
+            "2 Packs", "4 Packs" -> "4 Packs"
+        """
+        visible_text = self._get_visible_text(soup)
+
+        normalised_text = re.sub(r"\s+", " ", visible_text).strip()
+
+        one_pack_match = re.search(
+            r"\),\s*1\s+Pack\b",
+            normalised_text,
+            flags=re.IGNORECASE,
+        )
+
+        if one_pack_match:
+            return "1 Pack"
+
+        plural_pack_matches = re.findall(
+            r"\b(\d+)\s+Packs\b",
+            normalised_text,
+            flags=re.IGNORECASE,
+        )
+
+        if not plural_pack_matches:
+            return None
+
+        return f"{plural_pack_matches[-1]} Packs"

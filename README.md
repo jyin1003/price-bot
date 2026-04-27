@@ -69,6 +69,7 @@ python main.py --debug
 | Woolworths | Supermarket | Weekly (Thursday) |
 | Coles | Supermarket | Weekly (Thursday) |
 | Chemist Warehouse | Pharmacy / Health Retail | Fortnightly (Saturday) |
+| Skin Seoul | Pharmacy / Health Retail | Fortnightly (Saturday) |
 
 ## Project Structure
 
@@ -174,23 +175,12 @@ categories:
 | `specific_products` | Exact product identifiers (IDs/slugs) per vendor for precise tracking     |
 
 
-## Planned Flow
-```
-products.yaml
-      ↓
-main.py
-      ↓
-fetch current prices
-      ↓
-append to price_history.csv
-      ↓
-compare against historical highs/lows
-      ↓
-print terminal output
-```
-
 ## Future Improvements
 - Add scheduled weekly/fortnightly runs
 - Add dashboard UI
 - Add vendor-specific update frequencies
 - Add product matching logic across different vendor naming conventions
+- Add health metric to see if any product names for the same product id has changed or vice versa for a vendor
+- Add unit pricing logic to compare
+- Add favourites to categories
+- Add cheapest for category seen across vendors
