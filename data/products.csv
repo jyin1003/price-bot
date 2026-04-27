@@ -1,52 +1,139 @@
 product_id,vendor,product_name,category,source,last_seen
+4310848,coles,Blue Frog Probiotic Granola Manuka Honey & Almond,granola,search,2026-04-27
+3500327,coles,Carman's Almond Vanilla & Cinnamon Granola,granola,search,2026-04-27
+4308631,coles,Carman's Granola Low Sugar Raspberry & Coconut,granola,search,2026-04-27
+5297417,coles,Carman's Granola Protein Rich Almond & Hazelnut,granola,search,2026-04-27
+9013023,coles,Carman's Low Sugar Cereal Raspberry & Coconut Granola,granola,search,2026-04-27
+3500382,coles,Carman's Pink Lady Apple & Blueberry Granola,granola,search,2026-04-27
+8957501,coles,Coles Finest Granola Grain Free Honey Almond & Coconut,granola,specific,2026-04-27
+8953690,coles,Coles Finest Granola Honey Roasted Nut,granola,specific,2026-04-27
+9467745,coles,Coles Nature's Kitchen Granola Cookie,granola,search,2026-04-27
+3779428,coles,Dorset Granola Berry,granola,search,2026-04-27
+3779450,coles,Dorset Granola Simply Nut,granola,search,2026-04-27
+4308551,coles,Farmer Jo Gluten Free Keto Granola,granola,search,2026-04-27
+3758042,coles,Farmer Jo Gluten Free Paleo Granola,granola,search,2026-04-27
+8153082,coles,Farmer Jo Honey Granola,granola,search,2026-04-27
+8153050,coles,Farmer Jo Maple Granola,granola,search,2026-04-27
+8146451,coles,Farmer Jo Paleo Cacao Granola,granola,search,2026-04-27
+8153173,coles,Farmer Jo Paleo Cinnamon Granola,granola,search,2026-04-27
+8153038,coles,Farmer Jo Paleo Granola,granola,search,2026-04-27
+1135311,coles,Heritage Mill Light & Crispy Granola Vanilla Crumble,granola,specific,2026-04-27
+3281041,coles,Irrewarra All Natural Granola Original,granola,search,2026-04-27
+3281063,coles,Irrewarra Fruit Free Granola,granola,search,2026-04-27
+1750254,coles,Jordans Crunchy Oat Granola With Berries Cereal,granola,search,2026-04-27
+3215105,coles,Jordans Low Sugar Granola Almond And Hazelnut,granola,search,2026-04-27
+3779381,coles,Jordans Low Sugar Granola Blueberry & Coconut,granola,search,2026-04-27
+2499255,coles,Jordans Simply Crunchy Oat Granola,granola,search,2026-04-27
+1156606,coles,Kellogg's High Protein Granola Apple Crumble,granola,search,2026-04-27
+1156592,coles,Kellogg's High Protein Granola Forest Berries,granola,search,2026-04-27
+1156617,coles,Kellogg's High Protein Granola Honey Nut,granola,search,2026-04-27
+2372797,coles,Kleenex 3 Ply Large N Thick Aloe Vera Facial Tissues,granola,specific,2026-04-27
+9026740,coles,Red Tractor High Protein Honey Nut Granola,granola,specific,2026-04-27
+5288482,coles,Red Tractor Low Sugar Granola Vanilla Blueberry,granola,search,2026-04-27
+1133360,coles,Red Tractor Low Sugar Protein Clusters Raspberry Macadamia,granola,search,2026-04-27
+4312843,coles,Red Tractor Protein Low Sugar Granola Apple Caramel,granola,search,2026-04-27
+4312821,coles,Red Tractor Protein Low Sugar Granola Choc Almond,granola,search,2026-04-27
+4312832,coles,Red Tractor Protein Low Sugar Granola Peanut Butter,granola,search,2026-04-27
+7062560,coles,Sunsol High Protein Granola Honey Nut Crunch,granola,specific,2026-04-27
+7062550,coles,Sunsol Protein Granola Chocolate Almond Crunch,granola,specific,2026-04-27
+9161519,coles,Coles 2-ply Facial Tissues,tissue,search,2026-04-27
 9161519,coles,Coles 2-ply Facial Tissues,tissue,search,2026-04-27
 5031045,coles,Handee Ultra Double Length Paper Towel Crisp White,tissue,search,2026-04-27
+5031045,coles,Handee Ultra Double Length Paper Towel Crisp White,tissue,search,2026-04-27
+7316589,coles,Handee Ultra Paper Towel,tissue,search,2026-04-27
 7316589,coles,Handee Ultra Paper Towel,tissue,search,2026-04-27
 5294180,coles,Handee Ultra Paper Towels Crisp White,tissue,search,2026-04-27
+5294180,coles,Handee Ultra Paper Towels Crisp White,tissue,search,2026-04-27
+9546921,coles,Handee Ultra Paper Towels White,tissue,search,2026-04-27
 9546921,coles,Handee Ultra Paper Towels White,tissue,search,2026-04-27
 2372797,coles,Kleenex 3 Ply Large N Thick Aloe Vera Facial Tissues,tissue,search,2026-04-27
 9333818,coles,Kleenex 3 Ply Large N Thick Tissues Facial,tissue,search,2026-04-27
+9333818,coles,Kleenex 3 Ply Large N Thick Tissues Facial,tissue,search,2026-04-27
+5118857,coles,Kleenex 3 Ply Soft & Thick Facial Tissues,tissue,search,2026-04-27
 5118857,coles,Kleenex 3 Ply Soft & Thick Facial Tissues,tissue,search,2026-04-27
 5749166,coles,Kleenex 3 Ply Wellbeing Aloe Vera Facial Tissues,tissue,search,2026-04-27
+5749166,coles,Kleenex 3 Ply Wellbeing Aloe Vera Facial Tissues,tissue,search,2026-04-27
+5749086,coles,Kleenex 3 Ply Wellbeing Tissues Facial Aloe Vera,tissue,search,2026-04-27
 5749086,coles,Kleenex 3 Ply Wellbeing Tissues Facial Aloe Vera,tissue,search,2026-04-27
 7340120,coles,Kleenex 3 Ply Wellbeing Tissues Facial Aloevera,tissue,search,2026-04-27
+7340120,coles,Kleenex 3 Ply Wellbeing Tissues Facial Aloevera,tissue,search,2026-04-27
+9110234,coles,Kleenex 6-ply Ultimate Facial Tissues,tissue,search,2026-04-27
 9110234,coles,Kleenex 6-ply Ultimate Facial Tissues,tissue,search,2026-04-27
 3661268,coles,Kleenex Facial Tissue Everyday 2 Ply,tissue,search,2026-04-27
+3661268,coles,Kleenex Facial Tissue Everyday 2 Ply,tissue,search,2026-04-27
+3661246,coles,Kleenex Facial Tissue Everyday Kids,tissue,search,2026-04-27
 3661246,coles,Kleenex Facial Tissue Everyday Kids,tissue,search,2026-04-27
 1281572,coles,Kleenex Wellbeing Facial Tissues Eucalyptus,tissue,search,2026-04-27
+1281572,coles,Kleenex Wellbeing Facial Tissues Eucalyptus,tissue,search,2026-04-27
+3055290,coles,Quilton 3 Ply Aloe Vera Facial Tissues,tissue,search,2026-04-27
 3055290,coles,Quilton 3 Ply Aloe Vera Facial Tissues,tissue,search,2026-04-27
 3055268,coles,Quilton 3 Ply Extra Thick Facial Tissues,tissue,search,2026-04-27
+3055268,coles,Quilton 3 Ply Extra Thick Facial Tissues,tissue,search,2026-04-27
+5080936,coles,Quilton Gold 4ply Facial Tissues Aloe Vera,tissue,search,2026-04-27
 5080936,coles,Quilton Gold 4ply Facial Tissues Aloe Vera,tissue,search,2026-04-27
 8065804,coles,Sorbent 2 Ply Extra Thick & Large Facial Tissues,tissue,search,2026-04-27
+8065804,coles,Sorbent 2 Ply Extra Thick & Large Facial Tissues,tissue,search,2026-04-27
+5834527,coles,Sorbent 4 Ply Pocket Pack White Facial Tissues,tissue,search,2026-04-27
 5834527,coles,Sorbent 4 Ply Pocket Pack White Facial Tissues,tissue,search,2026-04-27
 5048219,coles,Viva Paper Towel White,tissue,search,2026-04-27
+5048219,coles,Viva Paper Towel White,tissue,search,2026-04-27
+1145440,coles,Bulk Sorbent 3-ply Double Length White Toilet Paper,toilet_paper,search,2026-04-27
 1145440,coles,Bulk Sorbent 3-ply Double Length White Toilet Paper,toilet_paper,search,2026-04-27
 9152391,coles,Coles 3-ply So Soft & Strong White Double Length Toilet Paper,toilet_paper,search,2026-04-27
+9152391,coles,Coles 3-ply So Soft & Strong White Double Length Toilet Paper,toilet_paper,search,2026-04-27
+9152370,coles,Coles 3-ply So Soft & Strong White Toilet Paper,toilet_paper,search,2026-04-27
 9152370,coles,Coles 3-ply So Soft & Strong White Toilet Paper,toilet_paper,search,2026-04-27
 9152405,coles,Coles Simply 2-ply White Toilet Paper,toilet_paper,search,2026-04-27
+9152405,coles,Coles Simply 2-ply White Toilet Paper,toilet_paper,search,2026-04-27
+107208,coles,Delsey 1000 Sheets Toilet Roll,toilet_paper,search,2026-04-27
 107208,coles,Delsey 1000 Sheets Toilet Roll,toilet_paper,search,2026-04-27
 8685092,coles,Icare 100% Recycled Toilet Tissue,toilet_paper,search,2026-04-27
+8685092,coles,Icare 100% Recycled Toilet Tissue,toilet_paper,search,2026-04-27
+3517115,coles,Kleenex Complete Clean Double Length Toilet Paper,toilet_paper,search,2026-04-27
 3517115,coles,Kleenex Complete Clean Double Length Toilet Paper,toilet_paper,search,2026-04-27
 3064076,coles,Kleenex Complete Clean Toilet Paper,toilet_paper,search,2026-04-27
+3064076,coles,Kleenex Complete Clean Toilet Paper,toilet_paper,search,2026-04-27
+4792421,coles,Kleenex Complete Clean Value Pack,toilet_paper,search,2026-04-27
 4792421,coles,Kleenex Complete Clean Value Pack,toilet_paper,search,2026-04-27
 1619475,coles,Kleenex Family Soft Big Roll Toilet Paper,toilet_paper,search,2026-04-27
+1619475,coles,Kleenex Family Soft Big Roll Toilet Paper,toilet_paper,search,2026-04-27
+1619500,coles,Kleenex Quilts 4 Ply Toilet Paper,toilet_paper,search,2026-04-27
 1619500,coles,Kleenex Quilts 4 Ply Toilet Paper,toilet_paper,search,2026-04-27
 7758634,coles,Quilton 3 Ply Classic White Toilet Paper,toilet_paper,search,2026-04-27
+7758634,coles,Quilton 3 Ply Classic White Toilet Paper,toilet_paper,search,2026-04-27
+9642980,coles,Quilton 3 Ply Double Length White Toilet Paper,toilet_paper,search,2026-04-27
 9642980,coles,Quilton 3 Ply Double Length White Toilet Paper,toilet_paper,search,2026-04-27
 5034000,coles,Quilton 3 Ply Floral Print Soft Double Length Toilet Paper,toilet_paper,search,2026-04-27
+5034000,coles,Quilton 3 Ply Floral Print Soft Double Length Toilet Paper,toilet_paper,search,2026-04-27
+5034134,coles,Quilton 3 Ply Unscented White Toilet Paper,toilet_paper,search,2026-04-27
 5034134,coles,Quilton 3 Ply Unscented White Toilet Paper,toilet_paper,search,2026-04-27
 2244549,coles,Quilton 3 Ply White Toilet Paper,toilet_paper,search,2026-04-27
+2244549,coles,Quilton 3 Ply White Toilet Paper,toilet_paper,search,2026-04-27
+9800265,coles,Quilton 4 Ply White Gold Toilet Paper,toilet_paper,search,2026-04-27
 9800265,coles,Quilton 4 Ply White Gold Toilet Paper,toilet_paper,search,2026-04-27
 7028030,coles,Quilton Gold 4ply Toilet Tissue,toilet_paper,search,2026-04-27
+7028030,coles,Quilton Gold 4ply Toilet Tissue,toilet_paper,search,2026-04-27
+3055202,coles,Quilton King Size Gold 4 Ply Toilet Tissue,toilet_paper,search,2026-04-27
 3055202,coles,Quilton King Size Gold 4 Ply Toilet Tissue,toilet_paper,search,2026-04-27
 3055257,coles,Quilton White Toilet Tissue,toilet_paper,search,2026-04-27
+3055257,coles,Quilton White Toilet Tissue,toilet_paper,search,2026-04-27
+1620044,coles,Smart Ass Recycled Toilet Paper Double Length,toilet_paper,search,2026-04-27
 1620044,coles,Smart Ass Recycled Toilet Paper Double Length,toilet_paper,search,2026-04-27
 5865350,coles,Sorbent 3 Ply Hypo Allergenic Toilet Paper,toilet_paper,search,2026-04-27
+5865350,coles,Sorbent 3 Ply Hypo Allergenic Toilet Paper,toilet_paper,search,2026-04-27
+1145428,coles,Sorbent 3 Ply Soft & Strong Silky White Toilet Paper,toilet_paper,search,2026-04-27
 1145428,coles,Sorbent 3 Ply Soft & Strong Silky White Toilet Paper,toilet_paper,search,2026-04-27
 3974092,coles,Sorbent 3 Ply Soft & Strong Toilet Paper,toilet_paper,search,2026-04-27
+3974092,coles,Sorbent 3 Ply Soft & Strong Toilet Paper,toilet_paper,search,2026-04-27
+9102054,coles,Sorbent 3-ply Ultra Air Toilet Paper,toilet_paper,search,2026-04-27
 9102054,coles,Sorbent 3-ply Ultra Air Toilet Paper,toilet_paper,search,2026-04-27
 1619533,coles,Sorbent 4-ply Super Size Toilet Paper,toilet_paper,search,2026-04-27
+1619533,coles,Sorbent 4-ply Super Size Toilet Paper,toilet_paper,search,2026-04-27
+5032605,coles,Sorbent Clean & Fresh Silky White Flushable Wipes Soft Pack,toilet_paper,search,2026-04-27
 5032605,coles,Sorbent Clean & Fresh Silky White Flushable Wipes Soft Pack,toilet_paper,search,2026-04-27
 3974730,coles,Sorbent Hypo Allergenic Flushable Wipes Toilet Tissue,toilet_paper,search,2026-04-27
+3974730,coles,Sorbent Hypo Allergenic Flushable Wipes Toilet Tissue,toilet_paper,search,2026-04-27
 7489689,coles,Viva Paper Towel,toilet_paper,search,2026-04-27
+7489689,coles,Viva Paper Towel,toilet_paper,search,2026-04-27
+3424251,coles,Viva Paper Towel White,toilet_paper,search,2026-04-27
 3424251,coles,Viva Paper Towel White,toilet_paper,search,2026-04-27

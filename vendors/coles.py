@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import json
-import os
+import json, os, re
 from datetime import date
 from urllib.parse import urlencode
 
@@ -48,6 +47,31 @@ class ColesVendor(BaseVendor):
 
         finally:
             conn.close()
+            
+    def _extract_coles_item_id(self, product_identifier: str) -> str:
+        """
+        Accepts either:
+        - Coles item ID: '2372797'
+        - Coles slug: 'kleenex-3-ply-large-n-thick-aloe-vera-facial-tissues-70-pack-2372797'
+
+        Returns:
+        - '2372797'
+        """
+
+        product_identifier = str(product_identifier).strip()
+
+        if product_identifier.isdigit():
+            return product_identifier
+
+        match = re.search(r"-(\d+)$", product_identifier)
+
+        if match:
+            return match.group(1)
+
+        raise ValueError(
+            f"Could not extract Coles item_id from product identifier: {product_identifier}"
+        )
+
 
     def search_products(self, search_term: str) -> list[dict]:
         """
@@ -69,22 +93,26 @@ class ColesVendor(BaseVendor):
 
     def fetch_specific_product(self, product_id: str) -> dict:
         """
-        Fetch one Coles product.
-
-        The API example only gives a search endpoint, so this method supports
-        exact lookup by searching the product ID or slug and returning the exact match.
+        Fetch one Coles product directly by item ID or slug.
         """
 
-        raw_products = self.search_products(product_id)
+        item_id = self._extract_coles_item_id(product_id)
 
-        for product in raw_products:
-            product_id_match = str(product.get("id")) == str(product_id)
-            slug_match = product.get("slug") == product_id
+        query_params = urlencode(
+            {
+                "item_id": item_id,
+                "context_mode": "delivery",
+            }
+        )
 
-            if product_id_match or slug_match:
-                return product
+        data = self._get(f"/coles/item?{query_params}")
 
-        raise ValueError(f"Coles product not found: {product_id}")
+        result = data.get("result")
+
+        if not result:
+            raise ValueError(f"Coles product not found: {product_id}")
+
+        return result
 
     def normalise_raw_product(
         self,
