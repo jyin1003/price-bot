@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 
 # Vendor Data Classes
@@ -15,6 +16,23 @@ class PriceRecord:
     category: str
     price: float
     source: SourceType
+    
+    def __post_init__(self):
+        self.product_id = str(self.product_id).strip()
+        
+        # 1. Handle if date is already a datetime object
+        if isinstance(self.date, datetime):
+            self.date = self.date.strftime("%Y-%m-%d")
+        else:
+            try:
+                # 2. Attempt to parse common formats
+                # This handles '2024-05-20 14:30:00', '2024-05-20T14:30:00', etc.
+                dt = datetime.fromisoformat(str(self.date).replace("Z", "+00:00"))
+                self.date = dt.strftime("%Y-%m-%d")
+            except ValueError:
+                # 3. Fallback for custom formats if fromisoformat fails
+                # Add specific formats here if your vendors use weird ones
+                print(f"Warning: Could not parse date format: {self.date}")
 
     def to_price_history_row(self) -> dict:
         return {
