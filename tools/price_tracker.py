@@ -5,15 +5,16 @@ import pandas as pd
 
 from price_bot.config import PRODUCT_METRICS_PATH, PRICE_HISTORY_PATH, PRODUCTS_PATH
 from data.model import (
-    PRICE_HISTORY_COLUMNS, 
-    METRIC_COLUMNS, 
-    PRODUCTS_COLUMNS, 
-    ProductPriceAnalysis, 
+    PRICE_HISTORY_COLUMNS,
+    METRIC_COLUMNS,
+    PRODUCTS_COLUMNS,
+    ProductPriceAnalysis,
     CategoryPriceAnalysis,
-    PriceStatus
+    PriceStatus,
 )
 
 logger = logging.getLogger(__name__)
+
 
 def _empty_metrics_df() -> pd.DataFrame:
     return pd.DataFrame(columns=METRIC_COLUMNS)
@@ -81,6 +82,7 @@ def _calculate_status(
     min_price: float,
     max_price: float,
 ) -> PriceStatus:
+
     if current_price == min_price:
         return "cheapest"
 
@@ -88,6 +90,19 @@ def _calculate_status(
         return "full price"
 
     return "discounted"
+
+def _rows_to_product_analysis(df: pd.DataFrame) -> list[ProductPriceAnalysis]:
+    return [
+        ProductPriceAnalysis(
+            product_name=str(row.product_name),
+            current_price=float(row.current_price),
+            vendor=str(row.vendor),
+            category=str(row.category),
+            discount=float(row.discount),
+            status=row.status,
+        )
+        for row in df.itertuples(index=False)
+    ]
 
 
 def update_product_metrics_from_latest_history(
@@ -180,6 +195,7 @@ def update_product_metrics_from_latest_history(
         latest_prices=latest_rows,
         product_metrics_path=product_metrics_path,
     )
+
 
 def update_product_metrics(
     latest_prices: list[dict] | pd.DataFrame,
@@ -325,7 +341,8 @@ def update_product_metrics(
         len(updated_metrics),
         product_metrics_path,
     )
-    
+
+
 def analyse_latest_prices_by_category(
     price_history_path: Path = PRICE_HISTORY_PATH,
     product_metrics_path: Path = PRODUCT_METRICS_PATH,
@@ -337,8 +354,10 @@ def analyse_latest_prices_by_category(
     For each category, returns:
     - all products currently at their cheapest historical price
     - the top five cheapest products by current price
+    - the top five most discounted products by discount percentage
 
-    Discount is calculated as a percentage.
+    Discount is calculated as a percentage using:
+        (max_price - current_price) / max_price * 100
 
     Status is:
     - cheapest: current_price == min_price
@@ -454,9 +473,13 @@ def analyse_latest_prices_by_category(
         subset=["current_price", "min_price", "max_price"],
     )
 
+    latest_prices = latest_prices[latest_prices["max_price"] > 0].copy()
+
     latest_prices["discount"] = (
-        ((latest_prices["max_price"] - latest_prices["current_price"])
-        / latest_prices["max_price"])
+        (
+            (latest_prices["max_price"] - latest_prices["current_price"])
+            / latest_prices["max_price"]
+        )
         * 100
     ).clip(lower=0).round(1)
 
@@ -472,22 +495,17 @@ def analyse_latest_prices_by_category(
     analysis_by_category: dict[str, CategoryPriceAnalysis] = {}
 
     for category, category_df in latest_prices.groupby("category"):
-        category_df = category_df.sort_values(
+        cheapest_sorted_df = category_df.sort_values(
             ["current_price", "product_name", "vendor"],
             ascending=[True, True, True],
         )
 
-        category_products = [
-            ProductPriceAnalysis(
-                product_name=str(row.product_name),
-                current_price=float(row.current_price),
-                vendor=str(row.vendor),
-                category=str(row.category),
-                discount=float(row.discount),
-                status=row.status,
-            )
-            for row in category_df.itertuples(index=False)
-        ]
+        discounted_sorted_df = category_df.sort_values(
+            ["discount", "current_price", "product_name", "vendor"],
+            ascending=[False, True, True, True],
+        )
+
+        category_products = _rows_to_product_analysis(cheapest_sorted_df)
 
         cheapest_products = [
             product
@@ -497,10 +515,15 @@ def analyse_latest_prices_by_category(
 
         top_five_cheapest = category_products[:5]
 
+        top_five_most_discounted = _rows_to_product_analysis(
+            discounted_sorted_df.head(5)
+        )
+
         analysis_by_category[str(category)] = CategoryPriceAnalysis(
             category=str(category),
             cheapest_products=cheapest_products,
             top_five_cheapest=top_five_cheapest,
+            top_five_most_discounted=top_five_most_discounted,
         )
 
     return analysis_by_category

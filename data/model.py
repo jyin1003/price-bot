@@ -71,6 +71,7 @@ class CategoryPriceAnalysis:
     category: str
     cheapest_products: list[ProductPriceAnalysis]
     top_five_cheapest: list[ProductPriceAnalysis]
+    top_five_most_discounted: list[ProductPriceAnalysis]
 
 # CSV Constants
 PRICE_HISTORY_COLUMNS = [

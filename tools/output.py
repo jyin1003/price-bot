@@ -11,13 +11,16 @@ def print_to_terminal(analysis: dict[str, CategoryPriceAnalysis]) -> None:
 
         cheapest_width = _calculate_table_width(result.cheapest_products)
         top_five_width = _calculate_table_width(result.top_five_cheapest)
+        most_discounted_width = _calculate_table_width(result.top_five_most_discounted)
 
         section_width = max(
             len(category_title),
             len("CHEAPEST PRODUCTS"),
             len("TOP 5 CHEAPEST PRODUCTS"),
+            len("TOP 5 MOST DISCOUNTED PRODUCTS"),
             cheapest_width,
             top_five_width,
+            most_discounted_width,
         )
 
         print("\n" + "=" * section_width)
@@ -39,6 +42,14 @@ def print_to_terminal(analysis: dict[str, CategoryPriceAnalysis]) -> None:
             _print_product_table(result.top_five_cheapest)
         else:
             print("No products available.")
+
+        print("\nTOP 5 MOST DISCOUNTED PRODUCTS")
+        print("-" * section_width)
+
+        if result.top_five_most_discounted:
+            _print_product_table(result.top_five_most_discounted)
+        else:
+            print("No discounted products available.")
 
         print()
 
@@ -88,6 +99,9 @@ def _build_product_rows(products: list[ProductPriceAnalysis]) -> list[dict[str, 
 
 def _calculate_column_widths(rows: list[dict[str, str]]) -> dict[str, int]:
     headers = ["Product", "Vendor", "Price", "% Off", "Status"]
+
+    if not rows:
+        return {header: len(header) for header in headers}
 
     return {
         header: max(
