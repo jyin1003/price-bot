@@ -144,3 +144,53 @@ categories:
       chemist_warehouse:
         - "/buy/85219/libra-girl-pads-regular-wing-12-pack"
         - "/buy/165328/u-by-kotex-ultra-thin-teen-regular-wing-pad-14-pack"
+
+  lip_balm:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+      chemist_warehouse:
+        - "/buy/86416/dermal-therapy-lip-balm-10g"
+        - "/buy/116565/dermal-therapy-lip-balm-manuka-honey-10g"
+        - "/buy/130577/dermal-therapy-overnight-lip-repair-10ml"
+        - "/buy/103528/dermal-therapy-lip-balm-berry-10g"
+        - "/buy/122727/dermal-therapy-lip-balm-sensitive-10g"
+
+  dental_floss:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+      chemist_warehouse:
+        - "/buy/84551/oral-b-essential-floss-2x50m"
+        - "/buy/44322/colgate-total-tartar-control-durable-oral-care-dental-floss-25m"
+        - "/buy/122602/colgate-dental-floss-total-mint-waxed-100m"
+        - "/buy/53999/oral-b-floss-waxed-mint-50m"
+        - "/buy/84550/oral-b-pro-health-clinical-floss-40m"
+        - "/buy/65037/colgate-total-waxed-dental-floss-50m"
+
+  toothpaste:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+      chemist_warehouse:
+        - "/buy/112555/colgate-toothpaste-triple-action-cavity-protection-fluoride-original-mint-value-pack-210g"
+        - "/buy/116028/colgate-toothpaste-advanced-whitening-tartar-115g"
+        - "/buy/137393/colgate-toothpaste-optic-white-purple-100g"
+        - "/buy/90691/colgate-toothpaste-total-mint-stripe-antibacterial-fluoride-gel-115g"
+        - "/buy/112554/colgate-toothpaste-cavity-protection-great-regular-value-pack-240g"
+        - "/buy/107630/oral-b-toothpaste-gum-care-intensive-clean-110g"
+        - "/buy/116030/colgate-toothpaste-advanced-whitening-charcoal-180g"
+        - "/buy/102274/sensodyne-toothpaste-daily-care-whitening-160g-exclusive-size"
+        - "/buy/65794/colgate-toothpaste-sensitive-prorelief-enamel-repair-110g"
+
+  toothbrush:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+      chemist_warehouse:
+        - "/buy/66129/colgate-zig-zag-deep-interdental-clean-toothbrush-medium-value-6-pack"
+        - "/buy/151216/oral-b-toothbrush-cross-action-7-benefits-5-pack"
