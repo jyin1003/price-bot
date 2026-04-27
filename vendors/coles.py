@@ -39,7 +39,7 @@ class ColesVendor(BaseVendor):
 
         logger.info("Initialised ColesVendor with host=%s", self.api_host)
 
-    def _get(self, path: str) -> dict:
+    def _get(self, path: str) -> dict | None:
         logger.debug("Coles API GET request: %s", path)
 
         conn = http.client.HTTPSConnection(self.api_host)
@@ -55,6 +55,14 @@ class ColesVendor(BaseVendor):
                 response.reason,
                 path,
             )
+
+            if response.status == 404:
+                logger.warning(
+                    "Coles API resource not found. Skipping: path=%s response=%s",
+                    path,
+                    raw_data,
+                )
+                return None
 
             if response.status < 200 or response.status >= 300:
                 logger.error(
@@ -232,7 +240,7 @@ class ColesVendor(BaseVendor):
 
         return all_results
 
-    def fetch_specific_product(self, product_id: str) -> dict:
+    def fetch_specific_product(self, product_id: str) -> dict | None:
         """
         Fetch one Coles product directly by item ID or slug.
         """
@@ -249,6 +257,13 @@ class ColesVendor(BaseVendor):
         )
 
         data = self._get(f"/coles/item?{query_params}")
+        if not data:
+            logger.warning(
+                "Coles product not found: product_id=%s item_id=%s",
+                product_id,
+                item_id,
+            )
+            return None
 
         result = data.get("result")
 

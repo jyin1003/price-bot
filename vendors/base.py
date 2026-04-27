@@ -17,7 +17,7 @@ class BaseVendor(ABC):
         pass
 
     @abstractmethod
-    def fetch_specific_product(self, product_id: str) -> dict:
+    def fetch_specific_product(self, product_id: str) -> dict | None:
         """Vendor-specific API lookup for one product."""
         pass
 
@@ -70,6 +70,9 @@ class BaseVendor(ABC):
                 continue
 
             raw_product = self.fetch_specific_product(product_id)
+            if not raw_product:
+                print(f"[fetch_prices] Skipping missing product: {product_id}")
+                continue
             
             # Only process if the API actually returned a result
             if raw_product:

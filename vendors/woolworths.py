@@ -48,7 +48,7 @@ class WoolworthsVendor(BaseVendor):
             "Content-Type": "application/json",
         }
 
-    def _get(self, host: str, path: str) -> dict:
+    def _get(self, host: str, path: str) -> dict | None:
         logger.debug("Woolworths API GET request: host=%s path=%s", host, path)
 
         conn = http.client.HTTPSConnection(host)
@@ -65,6 +65,15 @@ class WoolworthsVendor(BaseVendor):
                 host,
                 path,
             )
+
+            if response.status == 404:
+                logger.warning(
+                    "Woolworths API resource not found. Skipping: host=%s path=%s response=%s",
+                    host,
+                    path,
+                    raw_data,
+                )
+                return None
 
             if response.status < 200 or response.status >= 300:
                 logger.error(
@@ -303,7 +312,7 @@ class WoolworthsVendor(BaseVendor):
 
         return all_results
 
-    def fetch_specific_product(self, product_id: str) -> dict:
+    def fetch_specific_product(self, product_id: str) -> dict | None:
         """
         Example Response
         {
@@ -360,6 +369,13 @@ class WoolworthsVendor(BaseVendor):
             self.product_detail_search_host,
             f"/woolworths/item?{query_params}",
         )
+        if not data:
+            logger.warning(
+                "Woolworths product not found: product_id=%s woolworths_product_id=%s",
+                product_id,
+                woolworths_product_id,
+            )
+            return None
 
         result = data.get("result")
 
