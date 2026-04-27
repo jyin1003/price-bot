@@ -4,6 +4,7 @@ categories:
       - tissue
     vendors:
       - woolworths
+      - coles
     specific_products:
       coles:
         - "9092540"
@@ -18,6 +19,7 @@ categories:
       - toilet paper
     vendors:
       - woolworths
+      - coles
     specific_products:
       coles:
         - "9152370"
@@ -33,6 +35,7 @@ categories:
       - granola
     vendors:
       - woolworths
+      - coles
     specific_products:
       coles:
         - "2372797"
