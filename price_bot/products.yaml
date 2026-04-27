@@ -14,6 +14,12 @@ categories:
         - "759496"
         - "237935"
         - "644239"
+      must_include_terms:
+        - "tissue"
+      exclude_terms:
+        - "toilet"
+      min_price: 1
+      max_price: 10
   toilet_paper:
     search_terms:
       - toilet paper
@@ -30,6 +36,13 @@ categories:
         - 785129
         - 6005360
         - 580263
+      must_include_terms:
+        - "toilet"
+      or_include_terms:
+        - "paper"
+        - "tissue"
+      min_price: 3
+      max_price: 20
   granola:
     search_terms:
       - granola
@@ -55,3 +68,8 @@ categories:
         - "148981"
         - "6054590"
         - "208900"
+      must_exclude_terms:
+        - "yoghurt"
+        - "bar"
+      min_price: 2
+      max_price: 15
