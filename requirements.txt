@@ -1,3 +1,5 @@
 python-dotenv
 pandas
 PyYAML
+requests
+beautifulsoup4

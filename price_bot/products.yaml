@@ -68,3 +68,28 @@ categories:
     must_exclude_terms:
       - "yoghurt"
       - "bar"
+    
+  shampoo:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+      - "/buy/86965/alpecin-caffeine-shampoo-c1-375ml"
+      - "/buy/77857/alpecin-caffeine-shampoo-c1-250ml"
+      - "/buy/79687/avene-cicalfate-restorative-protective-cream-100ml-multi-purpose-repair-cream"
+      - "/buy/122042/la-roche-posay-cicaplast-baume-b5-100ml"
+      - "/buy/122041/la-roche-posay-cicaplast-baume-b5-40ml"
+      - "/buy/64484/palmolive-naturals-body-wash-milk-cherry-blossom-shower-gel-1l"
+      - "/buy/63255/palmolive-naturals-body-wash-milk-honey-shower-gel-1l"
+      - "/buy/72200/palmolive-naturals-body-wash-milk-orchid-shower-gel-1l"
+      - "/buy/64487/palmolive-naturals-body-wash-pomegranate-with-mango-shower-gel-1l"
+      - "/buy/63253/palmolive-shower-gel-anti-stress-1-litre"
+      - "/buy/65521/enya-body-wash-vanilla-bean-almond-1-litre"
+      - "/buy/91155/dettol-shower-cream-peach-raspberry-950ml-profresh-body-wash"
+      - "/buy/66511/palmolive-naturals-softening-liquid-hand-wash-aloe-vera-chamomile-refill-save-1l"
+      - "/buy/66510/palmolive-naturals-nourishing-liquid-hand-wash-milk-honey-refill-save-1l"
+      - "/buy/91511/dettol-hand-wash-aloe-vera-refill-950ml-vitamin-e-antibacterial-liquid"
+      - "/buy/115455/bosistos-desert-lime-eucalyptus-hand-wash-refill-1l"
+      - "/buy/115454/bosistos-banksia-flower-lavender-hand-wash-refill-1l"
+      - "/buy/152925/palmolive-luminous-oils-hand-wash-mandarin-rosemary-refill-1l"
+      - "/buy/66509/palmolive-antibacterial-gentle-clean-liquid-hand-wash-refill-save-1l"
