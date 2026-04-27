@@ -118,6 +118,53 @@ class ColesVendor(BaseVendor):
         max_pages: int = COLES_MAX_PAGES,
         limit: int = COLES_LIMIT,
     ) -> list[dict]:
+        """
+        Example Response:
+        {
+            status:"success"
+            store_context:
+                context_mode:"delivery"
+            result:
+                id:"2372797"
+            slug:"kleenex-3-ply-large-n-thick-aloe-vera-facial-tissues-70-pack-2372797"
+            name:"3 Ply Large N Thick Aloe Vera Facial Tissues"
+            brand:"Kleenex"
+            gtin:"9310088009712"
+            barcode:"9310088009712"
+            source_url:"https://www.coles.com.au/product/kleenex-3-ply-large-n-thick-aloe-vera-facial-tissues-70-pack-2372797"
+            category:"Cleaning & Laundry"
+            breadcrumbs:
+                0:"Cleaning & Laundry"
+                1:"Toilet Paper, Tissues & Paper Towels"
+                2:"Facial Tissues"
+            price:2.6
+            currency:"AUD"
+            size:"70 pack"
+            unit:"each"
+            unit_quantity:100
+            unit_price:3.71
+            price_per_unit_unit:"each"
+            price_per_unit_quantity:100
+            price_per_unit_price:3.71
+            is_available:true
+            in_stock:true
+            images:
+                image:"https://productimages.coles.com.au/productimages/2/2372797.jpg"
+            price_info:
+                0:
+                    price:2.6
+                    price_per_unit_unit:"each"
+                    price_per_unit_quantity:100
+                    price_per_unit_price:3.71
+            description:"Kleenex Aloe Vera & Vitamin E Large & Thick tissues are nearly 40% larger for when you want even more Kleenex softness. Kleenex Aloe Vera & Vitamin E Large & Thick tissues feature Softcoat Lotion Technology, carefully coated with natural Aloe Vera and Vitamin E to help soothe your skin Perfect for times when sniffles and sneezes make your nose feel extra sensitive 3-ply thickness, 70 sheets per box, 28.5cm x 19.5cm Our Kleenex Facial Tissues are Aussie made and we're proud of it; they've been made at our Millicent mill in South Australia since 1966. This means support for local communities, including hundreds of local employees and their families, each year. FSC Certified, ensuring responsible forest management, meeting the most rigorous environmental and social standard for responsible forest management. Nearly 40% larger Nearly 40% larger for when you want even more Kleenex softness Softcoat Lotion Technology Softcoat Lotion Technology to help soothe your skin Aloe Vera and Vitamin E Carefully coated with natural Aloe Vera and Vitamin E 0 Perfect for times when sniffles and sneezes make your nose feel extra sensitive Made in Australia Kleenex Facial Tissues have been made at our Millicent Mill in South Australia since 1966. FSC Certified Made from ethically sourced fibre that promotes the sustainable management of forests, Kleenex Facial Tissue has earned Forest Stewardship Council (FSC) certification - the highest possible independent standard for responsible forest management.. 3-Ply Thickness 3-Ply Thickness. 70 tissues per box, 28.5cm x 19.5cm."
+            dimensions:"115.00 x 210.00 x 75.00 mm"
+            location_description:"Aisle information is not available for this product. Please ask a Team Member at $STORE to help you find this product."
+            facing:0
+            location_order:9999
+            country_of_origin:"Australia"
+            country_of_origin_percentage:0
+        }
+        """
         logger.info(
             "Searching Coles products: search_term=%r max_pages=%s limit=%s",
             search_term,
