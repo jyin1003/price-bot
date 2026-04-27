@@ -4,13 +4,15 @@ from pathlib import Path
 from vendors.coles import ColesVendor
 from vendors.woolworths import WoolworthsVendor
 from vendors.chemist_warehouse import ChemistWarehouseVendor
+from vendors.skin_seoul import SkinSeoulVendor
 
 from price_bot.config import PRODUCTS_YAML_PATH
 
 VENDOR_REGISTRY = {
     "coles": ColesVendor,
     "woolworths": WoolworthsVendor,
-    "chemist_warehouse": ChemistWarehouseVendor
+    "chemist_warehouse": ChemistWarehouseVendor,
+    "skin_seoul": SkinSeoulVendor,
 }
 
 def load_products_config(path: Path = PRODUCTS_YAML_PATH) -> dict:

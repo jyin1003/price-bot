@@ -194,3 +194,32 @@ categories:
       chemist_warehouse:
         - "/buy/66129/colgate-zig-zag-deep-interdental-clean-toothbrush-medium-value-6-pack"
         - "/buy/151216/oral-b-toothbrush-cross-action-7-benefits-5-pack"
+
+  hair_vinegar:
+    search_terms: []
+    vendors:
+      - skin_seoul
+    specific_products:
+      skin_seoul:
+        - "https://skin-seoul.com/product/raspberry-hair-vinegar/"
+  
+  sunscreen:
+    search_terms: []
+    vendors:
+      - skin_seoul
+    specific_products:
+      skin_seoul:
+        - "https://skin-seoul.com/product/madagascar-centella-hyalu-cica-water-fit-sun-serum-100ml/"
+        - "https://skin-seoul.com/product/madagascar-centella-hyalu-cica-waterfit-sun-serum/" # 50mL
+        - "https://skin-seoul.com/product/beauty-of-joseon-relief-sun-aqua-fresh-rice-b5/" # 50mL
+        - "https://skin-seoul.com/product/beauty-of-joseon-relief-sun-rice-probiotics/" # 50mL
+        - "https://skin-seoul.com/product/skin1004-centella-airfit-suncream-light/" # 50mL
+
+  korean_moisturiser:
+    search_terms: []
+    vendors:
+      - skin_seoul
+    specific_products:
+      skin_seoul:
+        - "https://skin-seoul.com/product/345-relief-cream/" # 50mL
+        - "https://skin-seoul.com/product/purito-mighty-bamboo-panthenol-cream/" # 100mL
