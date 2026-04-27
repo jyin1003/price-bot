@@ -5,6 +5,8 @@ Price Bot tracks price changes for specified products across multiple vendors. I
 
 ## Usage
 ```
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 python main.py
 ```
