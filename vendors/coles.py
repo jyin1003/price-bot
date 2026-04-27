@@ -8,6 +8,7 @@ import http.client
 
 from vendors.base import BaseVendor
 from data.model import PriceRecord, SourceType
+from config import COLES_MAX_PAGES, COLES_LIMIT
 
 class ColesVendor(BaseVendor):
     vendor_name = "coles"
@@ -73,23 +74,38 @@ class ColesVendor(BaseVendor):
         )
 
 
-    def search_products(self, search_term: str) -> list[dict]:
-        """
-        Search Coles products by keyword.
-        """
+    def search_products(
+        self,
+        search_term: str,
+        max_pages: int = COLES_MAX_PAGES,
+        limit: int = COLES_LIMIT,
+    ) -> list[dict]:
+        all_results: list[dict] = []
 
-        query_params = urlencode(
-            {
-                "query": search_term,
-                "context_mode": "delivery",
-                "page": 1,
-                "limit": 30,
-            }
-        )
+        for page in range(1, max_pages + 1):
+            query_params = urlencode(
+                {
+                    "query": search_term,
+                    "context_mode": "delivery",
+                    "page": page,
+                    "limit": limit,
+                }
+            )
 
-        data = self._get(f"/coles/search?{query_params}")
+            data = self._get(f"/coles/search?{query_params}")
 
-        return data.get("results", [])
+            results = data.get("results", [])
+            total = data.get("total", 0)
+
+            all_results.extend(results)
+
+            if len(all_results) >= total:
+                break
+
+            if not results:
+                break
+
+        return all_results
 
     def fetch_specific_product(self, product_id: str) -> dict:
         """
