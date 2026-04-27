@@ -5,7 +5,7 @@ from tools.fetch_prices import run_fetch_prices
 
 def configure_logging() -> None:
     logging.basicConfig(
-        level=logging.DEBUG,
+        level=logging.INFO,
         format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
     )
 

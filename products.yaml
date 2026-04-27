@@ -3,37 +3,52 @@ categories:
     search_terms:
       - tissue
     vendors:
-      - coles
+      - woolworths
     specific_products:
       coles:
         - "9092540"
         - "9161519"
         - "6325314"
       woolworths:
-        - "9092540"
+        - "759496"
+        - "237935"
+        - "644239"
   toilet_paper:
     search_terms:
       - toilet paper
     vendors:
-      - coles
+      - woolworths
     specific_products:
       coles:
         - "9152370"
         - "1145428"
         - "1619475"
+      woolworths:
+        - 390686
+        - 785129
+        - 6005360
+        - 580263
   granola:
     search_terms:
       - granola
     vendors:
-      - coles
+      - woolworths
     specific_products:
       coles:
         - "2372797"
         - "5297417"
         - "3779450"
-        # - "8953690"
-        # - "8957501"
-        # - "1135311"
-        # - "9026740"
-        # - "7062550"
-        # - "7062560"
+        - "8953690"
+        - "8957501"
+        - "1135311"
+        - "9026740"
+        - "7062550"
+        - "7062560"
+      woolworths:
+        - "147307"
+        - "6054840"
+        - "686551"
+        - "6054597"
+        - "148981"
+        - "6054590"
+        - "208900"

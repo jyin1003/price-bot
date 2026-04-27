@@ -3,11 +3,13 @@ import pandas as pd
 import yaml
 
 from vendors.coles import ColesVendor
+from vendors.woolworths import WoolworthsVendor
 from data.model import PriceRecord, PRICE_HISTORY_COLUMNS, PRODUCTS_COLUMNS
 from config import DATA_DIR, PRODUCTS_YAML_PATH, PRICE_HISTORY_PATH, PRODUCTS_PATH
 
 VENDOR_REGISTRY = {
     "coles": ColesVendor,
+    "woolworths": WoolworthsVendor,
 }
 
 def load_products_config(path: Path = PRODUCTS_YAML_PATH) -> dict:
