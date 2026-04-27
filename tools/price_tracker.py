@@ -3,7 +3,7 @@ import logging
 
 import pandas as pd
 
-from config import PRODUCT_METRICS_PATH, PRICE_HISTORY_PATH
+from price_bot.config import PRODUCT_METRICS_PATH, PRICE_HISTORY_PATH
 from data.model import PRICE_HISTORY_COLUMNS, METRIC_COLUMNS
 
 logger = logging.getLogger(__name__)

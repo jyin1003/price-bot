@@ -3,8 +3,8 @@ import logging
 import pandas as pd
 
 from data.model import PriceRecord, PRICE_HISTORY_COLUMNS, PRODUCTS_COLUMNS
-from config import DATA_DIR, PRICE_HISTORY_PATH, PRODUCTS_PATH
-from setup import VENDOR_REGISTRY, load_products_config
+from price_bot.config import DATA_DIR, PRICE_HISTORY_PATH, PRODUCTS_PATH
+from price_bot.setup import VENDOR_REGISTRY, load_products_config
 
 logger = logging.getLogger(__name__)
 
@@ -243,7 +243,7 @@ def run_fetch_prices(
 
 
 if __name__ == "__main__":
-    from env import load_environment
+    from price_bot.env import load_environment
 
     logging.basicConfig(
         level=logging.INFO,

@@ -1,8 +1,8 @@
 import argparse
 import logging
 
-from env import load_environment
-from setup import VENDOR_REGISTRY, load_products_config
+from price_bot.env import load_environment
+from price_bot.setup import VENDOR_REGISTRY, load_products_config
 from tools.fetch_prices import run_fetch_prices
 from tools.price_tracker import update_product_metrics, update_product_metrics_from_latest_history
 

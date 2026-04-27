@@ -4,7 +4,7 @@ from pathlib import Path
 from vendors.coles import ColesVendor
 from vendors.woolworths import WoolworthsVendor
 
-from config import PRODUCTS_YAML_PATH
+from price_bot.config import PRODUCTS_YAML_PATH
 
 VENDOR_REGISTRY = {
     "coles": ColesVendor,

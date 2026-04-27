@@ -8,7 +8,7 @@ import http.client
 
 from vendors.base import BaseVendor
 from data.model import PriceRecord, SourceType
-from config import COLES_MAX_PAGES, COLES_LIMIT
+from price_bot.config import COLES_MAX_PAGES, COLES_LIMIT
 
 
 logger = logging.getLogger(__name__)
