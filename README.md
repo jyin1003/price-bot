@@ -110,7 +110,7 @@ price-bot/
 | `.env`              | Stores API keys and secrets                                         |
 | `tools/fetch_prices.py`    | Coordinates API calls across vendors              |
 | `tools/price_tracker.py`   | Compares current prices against historical prices |
-| `tools/terminal_output.py` | Prints the final results in the terminal          |
+| `tools/output.py` | Displays results in the terminal          |
 
 ## Data Architecture
 
