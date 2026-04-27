@@ -29,12 +29,15 @@ price-bot/
 │   ├── chemist_warehouse.py
 │   ├── coles.py
 │   └── woolworths.py
+├── data/
+│   ├── price_history.csv
+│   ├── products.csv
+│   └── product_metrics.csv
 ├── .env
 ├── .gitignore
 ├── config.py
 ├── env.py
 ├── main.py
-├── price_history.csv
 ├── products.yaml
 ├── README.md
 └── requirements.txt
@@ -53,11 +56,49 @@ price-bot/
 | `tools/price_tracker.py`   | Compares current prices against historical prices |
 | `tools/terminal_output.py` | Prints the final results in the terminal          |
 
+## Data Architecture
+
+The project uses a **three-layer data model**.
+
+### `price_history.csv` (Source of Truth)
+- Stores all observed prices over time.
+- Append-only (never overwrite)
+- Schema: `date,product_id,vendor,category,price`
+
+Example
+```
+2026-04-27,5118857,woolworths,tissue,3.50
+2026-04-27,893221,coles,tissue,3.20
+```
+
+### `products.csv` (Product Registry)
+
+- Tracks all discovered products across vendors.
+- Updated when new products are found via search or specified directly
+- Schema: `product_id,vendor,product_name,category,source,last_seen`
+
+Example:
+```
+5118857,woolworths,Kleenex 120 Pack,tissue,specific,2026-04-27
+893221,coles,Coles Soft Tissue,tissue,search,2026-04-27
+```
+
+### `product_metrics.csv` (Derived Metrics)
+
+- Stores computed statistics for each product.
+- Updated after each run
+- Used for fast lookups and output formatting
+- Schema: `product_id,vendor,max_price,min_price,last_updated`
+
+Example
+```
+5118857,woolworths,5.00,3.20,2026-04-27
+893221,coles,4.50,3.00,2026-04-27
+```
+
 ## Product Tracking Format
 
 Products are defined in `products.yaml` using a **category-based structure**. This allows you to track both broad product groups and specific items within those groups.
-
-### General Structure
 
 ```yaml
 categories:
