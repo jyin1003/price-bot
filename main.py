@@ -3,12 +3,14 @@ import logging
 
 from price_bot.env import load_environment
 from price_bot.setup import VENDOR_REGISTRY, load_products_config
+
 from tools.fetch_prices import run_fetch_prices
 from tools.price_tracker import (
     update_product_metrics, 
     update_product_metrics_from_latest_history,
     analyse_latest_prices_by_category,
 )
+from tools.product_matcher import find_cross_vendor_match_candidates, print_match_candidates
 from tools.output import print_to_terminal
 
 
@@ -52,6 +54,12 @@ def parse_args() -> argparse.Namespace:
         "--debug",
         action="store_true",
         help="Enable debug logging.",
+    )
+    
+    parser.add_argument(
+        "--match-products",
+        action="store_true",
+        help="Run fuzzy cross-vendor product name matching from products.csv, then exit.",
     )
 
     return parser.parse_args()
@@ -99,6 +107,11 @@ def main() -> None:
     configure_logging(debug=args.debug)
 
     logger = logging.getLogger(__name__)
+    
+    if args.match_products:
+        candidates = find_cross_vendor_match_candidates()
+        print_match_candidates(candidates)
+        return
 
     load_environment()
 

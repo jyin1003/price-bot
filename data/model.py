@@ -73,6 +73,26 @@ class CategoryPriceAnalysis:
     top_five_cheapest: list[ProductPriceAnalysis]
     top_five_most_discounted: list[ProductPriceAnalysis]
 
+
+@dataclass
+class ProductMatchCandidate:
+    category: str
+
+    left_product_id: str
+    left_vendor: str
+    left_product_name: str
+    left_max_price: float | None
+
+    right_product_id: str
+    right_vendor: str
+    right_product_name: str
+    right_max_price: float | None
+
+    name_score: float
+    price_score: float | None
+    final_score: float
+    match_reason: str
+
 # CSV Constants
 PRICE_HISTORY_COLUMNS = [
     "date",
@@ -96,5 +116,18 @@ METRIC_COLUMNS = [
     "vendor",
     "max_price",
     "min_price",
+    "last_updated",
+]
+
+PRODUCT_MATCH_COLUMNS = [
+    "match_group_id",
+    "category",
+    "product_id",
+    "vendor",
+    "product_name",
+    "normalised_name",
+    "match_confidence",
+    "match_method",
+    "review_status",
     "last_updated",
 ]

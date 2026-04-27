@@ -15,6 +15,8 @@ PRODUCT_METRICS_PATH = DATA_DIR / "product_metrics.csv"
 
 PRODUCTS_YAML_PATH = PACKAGE_DIR / "products.yaml"
 
+PRODUCT_MATCHES_PATH = DATA_DIR / "product_matches.csv"
+
 # Query Constants
 COLES_MAX_PAGES = 5
 COLES_LIMIT = 100
