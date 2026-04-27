@@ -511,6 +511,12 @@ def analyse_latest_prices_by_category(
             product
             for product in category_products
             if product.status == "cheapest"
+            and product.current_price != next(
+                row.max_price
+                for row in cheapest_sorted_df.itertuples(index=False)
+                if row.product_name == product.product_name
+                and row.vendor == product.vendor
+            )
         ]
 
         top_five_cheapest = category_products[:5]
