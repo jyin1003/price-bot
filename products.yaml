@@ -5,5 +5,9 @@ categories:
     specific_products: []
     vendors:
       - coles
-      - woolworths
-      - chemist_warehouse
+  toilet_paper:
+    search_terms:
+      - toilet paper
+    specific_products: []
+    vendors:
+      - coles
