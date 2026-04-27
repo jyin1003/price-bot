@@ -1,4 +1,11 @@
-DATA_DIR = "data"
-PRICE_HISTORY_PATH = "data/price_history.csv"
-PRODUCTS_PATH = "data/products.csv"
-PRODUCT_METRICS_PATH = "data/product_metrics.csv"
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+
+DATA_DIR = BASE_DIR / "data"
+
+PRICE_HISTORY_PATH = DATA_DIR / "price_history.csv"
+PRODUCTS_PATH = DATA_DIR / "products.csv"
+PRODUCT_METRICS_PATH = DATA_DIR / "product_metrics.csv"
+
+PRODUCTS_YAML_PATH = BASE_DIR / "products.yaml"
