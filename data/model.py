@@ -70,3 +70,11 @@ PRODUCTS_COLUMNS = [
     "source",
     "last_seen",
 ]
+
+METRIC_COLUMNS = [
+    "product_id",
+    "vendor",
+    "max_price",
+    "min_price",
+    "last_updated",
+]
