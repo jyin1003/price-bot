@@ -49,17 +49,7 @@ class BaseVendor(ABC):
 
         records_map: dict[str, PriceRecord] = {}
 
-        for product_id in specific_products:
-            raw_product = self.fetch_specific_product(product_id)
-
-            record = self.normalise_raw_product(
-                raw_product=raw_product,
-                category=category,
-                source="specific",
-            )
-
-            records_map[record.product_id] = record
-
+        # 1. Broad Search First
         for search_term in search_terms:
             raw_products = self.search_products(search_term)
 
@@ -69,9 +59,25 @@ class BaseVendor(ABC):
                     category=category,
                     source="search",
                 )
+                # Standard search logic: keep the first one found or overwrite
+                records_map[record.product_id] = record
 
-                # only add if not already seen
-                if record.product_id not in records_map:
-                    records_map[record.product_id] = record
+        # 2. Specific Products Second
+        for product_id in specific_products:
+            # REDUNDANCY CHECK: Skip API call if search already found it
+            if product_id in records_map:
+                print(f"[fetch_prices] Skipping redundant fetch for: {product_id}")
+                continue
+
+            raw_product = self.fetch_specific_product(product_id)
+            
+            # Only process if the API actually returned a result
+            if raw_product:
+                record = self.normalise_raw_product(
+                    raw_product=raw_product,
+                    category=category,
+                    source="specific",
+                )
+                records_map[record.product_id] = record
 
         return list(records_map.values())
