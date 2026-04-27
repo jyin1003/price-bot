@@ -107,16 +107,19 @@ Products are defined in `products.yaml` using a **category-based structure**. Th
 categories:
   <category_name>:
     search_terms: [list of keywords]
-    specific_products: [list of product IDs or slugs]
     vendors: [list of vendors]
+    specific_products:
+        [vendor]:
+            [list of product IDs or slugs for that vendor]
+
 ```
 | Field               | Description                                                    |
 | ------------------- | -------------------------------------------------------------- |
 | `categories`        | Top-level grouping of all tracked items                        |
 | `<category_name>`   | A logical grouping (e.g. `tissue`, `milk`, `pain_relief`)      |
 | `search_terms`      | Keywords used to query vendor APIs for broad matching products |
-| `specific_products` | Exact product identifiers (IDs/slugs) for precise tracking     |
 | `vendors`           | Vendors where this category should be tracked                  |
+| `specific_products` | Exact product identifiers (IDs/slugs) per vendor for precise tracking     |
 
 
 ## Planned Flow

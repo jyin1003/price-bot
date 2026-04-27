@@ -30,6 +30,22 @@ def ensure_data_files() -> None:
             index=False,
         )
 
+def get_specific_products_for_vendor(
+    category_config: dict,
+    vendor_name: str,
+) -> list[str]:
+    specific_products = category_config.get("specific_products", {})
+
+    if isinstance(specific_products, list):
+        return specific_products
+
+    if isinstance(specific_products, dict):
+        return specific_products.get(vendor_name, [])
+
+    raise TypeError(
+        f"specific_products must be a list or dict, got {type(specific_products)}"
+    )
+
 
 def fetch_all_prices(products_config: dict) -> list[PriceRecord]:
     records: list[PriceRecord] = []
@@ -38,7 +54,6 @@ def fetch_all_prices(products_config: dict) -> list[PriceRecord]:
 
     for category_name, category_config in categories.items():
         search_terms = category_config.get("search_terms", [])
-        specific_products = category_config.get("specific_products", [])
         vendors = category_config.get("vendors", [])
 
         for vendor_name in vendors:
@@ -48,6 +63,11 @@ def fetch_all_prices(products_config: dict) -> list[PriceRecord]:
 
             vendor_class = VENDOR_REGISTRY[vendor_name]
             vendor = vendor_class()
+            
+            specific_products = get_specific_products_for_vendor(
+                category_config=category_config,
+                vendor_name=vendor_name,
+            )
 
             vendor_records = vendor.fetch_category_prices(
                 category=category_name,
@@ -61,17 +81,18 @@ def fetch_all_prices(products_config: dict) -> list[PriceRecord]:
 
 
 def update_price_history(records: list[PriceRecord]) -> None:
-    existing = pd.read_csv(PRICE_HISTORY_PATH)
+    # 1. Force ID to string on load
+    existing = pd.read_csv(PRICE_HISTORY_PATH, dtype={'product_id': str})
 
-    new_rows = pd.DataFrame(
-        [record.to_price_history_row() for record in records],
-        columns=PRICE_HISTORY_COLUMNS,
-    )
+    # 2. Convert records to DataFrame
+    new_rows = pd.DataFrame([record.to_price_history_row() for record in records])
+    
+    # 3. Force ID to string on new data to be safe
+    new_rows['product_id'] = new_rows['product_id'].astype(str)
 
     combined = pd.concat([existing, new_rows], ignore_index=True)
-
-    # If the same product/vendor/category is collected again on the same date,
-    # keep the latest collected row.
+    
+    # Now drop_duplicates will actually see the matches
     combined = combined.drop_duplicates(
         subset=["date", "product_id", "vendor", "category"],
         keep="last",
