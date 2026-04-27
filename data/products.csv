@@ -1,19 +1,24 @@
 product_id,vendor,product_name,category,source,last_seen
+7062811,coles,Blue Frog Granola Pic's Crunchy Peanut Butter,granola,search,2026-04-27
 4310848,coles,Blue Frog Probiotic Granola Manuka Honey & Almond,granola,search,2026-04-27
+5293507,coles,Blue Frog Probiotic Granola Triple Nut Crunch,granola,search,2026-04-27
 3500327,coles,Carman's Almond Vanilla & Cinnamon Granola,granola,search,2026-04-27
+8015588,coles,Carman's Crunchy Granola Bar Raspberry & Coconut 5 Pack,granola,search,2026-04-27
 4308631,coles,Carman's Granola Low Sugar Raspberry & Coconut,granola,search,2026-04-27
 5297417,coles,Carman's Granola Protein Rich Almond & Hazelnut,granola,search,2026-04-27
 1132685,coles,Carman's Light & Crispy Granola Honey Nut,granola,search,2026-04-27
+1132812,coles,Carman's Light & Crispy Granola Raspberry & Vanilla,granola,search,2026-04-27
 7043624,coles,Carman's Low Carb Granola Peanut Butter,granola,search,2026-04-27
 9013023,coles,Carman's Low Sugar Cereal Raspberry & Coconut Granola,granola,search,2026-04-27
 3500382,coles,Carman's Pink Lady Apple & Blueberry Granola,granola,search,2026-04-27
-8957501,coles,Coles Finest Granola Grain Free Honey Almond & Coconut,granola,specific,2026-04-27
+8957501,coles,Coles Finest Granola Grain Free Honey Almond & Coconut,granola,search,2026-04-27
 8953690,coles,Coles Finest Granola Honey Roasted Nut,granola,search,2026-04-27
 8956429,coles,Coles Finest Granola Pink Lady Apple & Caramel,granola,search,2026-04-27
 9467745,coles,Coles Nature's Kitchen Granola Cookie,granola,search,2026-04-27
 3779428,coles,Dorset Granola Berry,granola,search,2026-04-27
 3779450,coles,Dorset Granola Simply Nut,granola,search,2026-04-27
 8848889,coles,Farmer Jo Gluten Free Granola Caramel Almond Crunch,granola,search,2026-04-27
+8848867,coles,Farmer Jo Gluten Free Granola Nutty Chai & Coconut,granola,search,2026-04-27
 8849338,coles,Farmer Jo Gluten Free Granola Salted Maple Cashew,granola,search,2026-04-27
 4308551,coles,Farmer Jo Gluten Free Keto Granola,granola,search,2026-04-27
 3758042,coles,Farmer Jo Gluten Free Paleo Granola,granola,search,2026-04-27
@@ -22,6 +27,10 @@ product_id,vendor,product_name,category,source,last_seen
 8146451,coles,Farmer Jo Paleo Cacao Granola,granola,search,2026-04-27
 8153173,coles,Farmer Jo Paleo Cinnamon Granola,granola,search,2026-04-27
 8153038,coles,Farmer Jo Paleo Granola,granola,search,2026-04-27
+8962115,coles,Food For Health Gluten Free Granola Caramelised Apple Crumble,granola,search,2026-04-27
+8962126,coles,Food For Health Gluten Free Granola Creamy Vanilla & Berries,granola,search,2026-04-27
+8962090,coles,Food For Health Gluten Free Granola Honey Roasted Nut,granola,search,2026-04-27
+8962137,coles,Food For Health Gluten Free Granola Maple Almond & Vanilla,granola,search,2026-04-27
 7083221,coles,Freedom Crafted Blends Blueberry Granola,granola,search,2026-04-27
 7083243,coles,Freedom Crafted Blends Maple & Almond Granola,granola,search,2026-04-27
 1135311,coles,Heritage Mill Light & Crispy Granola Vanilla Crumble,granola,search,2026-04-27
@@ -37,11 +46,15 @@ product_id,vendor,product_name,category,source,last_seen
 1156617,coles,Kellogg's High Protein Granola Honey Nut,granola,search,2026-04-27
 2372797,coles,Kleenex 3 Ply Large N Thick Aloe Vera Facial Tissues,granola,specific,2026-04-27
 1700890,coles,Mayver's High Protein + Granola Apple & Cinnamon,granola,search,2026-04-27
+1784937,coles,Mayver's High Protein + Granola Caramelised Honey Oat,granola,search,2026-04-27
 1700868,coles,Mayver's High Protein+ Granola Mixed Berries,granola,search,2026-04-27
+1546098,coles,Nature Valley Crunchy Granola Bars Roasted Almond,granola,search,2026-04-27
 8386273,coles,Paleo Pure Grain Free Granola Berries And Cinnamon,granola,search,2026-04-27
 8386295,coles,Paleo Pure Grain Free Granola Fruit Free,granola,search,2026-04-27
 8386284,coles,Paleo Pure Grain Free Granola Low Fructose,granola,search,2026-04-27
+8386309,coles,Paleo Pure Grain Free Granola Raw Fruit Free,granola,search,2026-04-27
 8386310,coles,Paleo Pure Grain Free Granola Sugar Free,granola,search,2026-04-27
+9026160,coles,Red Tractor Farmers Market Golden Harvest Crunch Granola,granola,search,2026-04-27
 9026400,coles,Red Tractor Farmers Market Honey & Cinnamon Granola,granola,search,2026-04-27
 9026783,coles,Red Tractor High Protein Granola Fruit & Berry,granola,search,2026-04-27
 9026740,coles,Red Tractor High Protein Honey Nut Granola,granola,search,2026-04-27
@@ -50,34 +63,52 @@ product_id,vendor,product_name,category,source,last_seen
 4312843,coles,Red Tractor Protein Low Sugar Granola Apple Caramel,granola,search,2026-04-27
 4312821,coles,Red Tractor Protein Low Sugar Granola Choc Almond,granola,search,2026-04-27
 4312832,coles,Red Tractor Protein Low Sugar Granola Peanut Butter,granola,search,2026-04-27
-7062560,coles,Sunsol High Protein Granola Honey Nut Crunch,granola,specific,2026-04-27
-7062550,coles,Sunsol Protein Granola Chocolate Almond Crunch,granola,specific,2026-04-27
+7062560,coles,Sunsol High Protein Granola Honey Nut Crunch,granola,search,2026-04-27
+7062550,coles,Sunsol Protein Granola Chocolate Almond Crunch,granola,search,2026-04-27
+9031433,coles,Vogel's Cluster Crunch Prebiotic Granola Peanut Butter,granola,search,2026-04-27
+8593100,coles,Yava Granola Bites Chocolate Vanilla,granola,search,2026-04-27
 8593052,coles,Yava Granola Bites Coconut Banana,granola,search,2026-04-27
 8593143,coles,Yava Granola With Cashews Chocolate Vanilla,granola,search,2026-04-27
 9161519,coles,Coles 2-ply Facial Tissues,tissue,search,2026-04-27
-5031045,coles,Handee Ultra Double Length Paper Towel Crisp White,tissue,search,2026-04-27
-7316589,coles,Handee Ultra Paper Towel,tissue,search,2026-04-27
-9546921,coles,Handee Ultra Paper Towels White,tissue,search,2026-04-27
+9161530,coles,Coles Facial Tissues 2-ply White Facial Tissues,tissue,search,2026-04-27
+9092540,coles,Cottonsoft 2-ply Facial Tissue,tissue,search,2026-04-27
+9493100,coles,Kleenex 2 Ply Jumbo Facial Tissues White,tissue,search,2026-04-27
 9333818,coles,Kleenex 3 Ply Large N Thick Tissues Facial,tissue,search,2026-04-27
 5118857,coles,Kleenex 3 Ply Soft & Thick Facial Tissues,tissue,search,2026-04-27
 5749166,coles,Kleenex 3 Ply Wellbeing Aloe Vera Facial Tissues,tissue,search,2026-04-27
 5749086,coles,Kleenex 3 Ply Wellbeing Tissues Facial Aloe Vera,tissue,search,2026-04-27
 7340120,coles,Kleenex 3 Ply Wellbeing Tissues Facial Aloevera,tissue,search,2026-04-27
+3157745,coles,Kleenex 3ply Wellbeing Facial Tissues Eucalyptus,tissue,search,2026-04-27
 9110234,coles,Kleenex 6-ply Ultimate Facial Tissues,tissue,search,2026-04-27
+1813365,coles,Kleenex Aloe Vera & Vitamin E 3 Ply Facial Tissue,tissue,search,2026-04-27
 3661268,coles,Kleenex Facial Tissue Everyday 2 Ply,tissue,search,2026-04-27
+8134780,coles,Kleenex Facial Tissue Everyday 6x10 Pack,tissue,search,2026-04-27
 3661246,coles,Kleenex Facial Tissue Everyday Kids,tissue,search,2026-04-27
+6891231,coles,Kleenex Facial Tissue Soft,tissue,search,2026-04-27
+8134758,coles,Kleenex Facial Tissue Soft Lotion 6x10 Pack,tissue,search,2026-04-27
 1281572,coles,Kleenex Wellbeing Facial Tissues Eucalyptus,tissue,search,2026-04-27
+6325314,coles,Quilton 2-ply Hypo Allergenic Facial Tissues,tissue,search,2026-04-27
 3055290,coles,Quilton 3 Ply Aloe Vera Facial Tissues,tissue,search,2026-04-27
 3055268,coles,Quilton 3 Ply Extra Thick Facial Tissues,tissue,search,2026-04-27
 5080936,coles,Quilton Gold 4ply Facial Tissues Aloe Vera,tissue,search,2026-04-27
+8053598,coles,Quilton Large N Thick Hypo Allergenic Facial Tissues 96 Pack,tissue,search,2026-04-27
 8065804,coles,Sorbent 2 Ply Extra Thick & Large Facial Tissues,tissue,search,2026-04-27
 5834527,coles,Sorbent 4 Ply Pocket Pack White Facial Tissues,tissue,search,2026-04-27
-5048219,coles,Viva Paper Towel White,tissue,search,2026-04-27
+8640141,coles,Wet Ones Be Gentle Anti-bacterial Hand & Face Wipes,tissue,search,2026-04-27
+8764450,coles,Bulk Handee Ultra Double Length Paper Towel,toilet_paper,search,2026-04-27
 1145440,coles,Bulk Sorbent 3-ply Double Length White Toilet Paper,toilet_paper,search,2026-04-27
 9152391,coles,Coles 3-ply So Soft & Strong White Double Length Toilet Paper,toilet_paper,search,2026-04-27
 9152370,coles,Coles 3-ply So Soft & Strong White Toilet Paper,toilet_paper,search,2026-04-27
+9161472,coles,Coles Simply 2-ply Paper Towel,toilet_paper,search,2026-04-27
 9152405,coles,Coles Simply 2-ply White Toilet Paper,toilet_paper,search,2026-04-27
 107208,coles,Delsey 1000 Sheets Toilet Roll,toilet_paper,search,2026-04-27
+1619566,coles,Handee Thick & Large Paper Towel,toilet_paper,search,2026-04-27
+5031045,coles,Handee Ultra Double Length Paper Towel Crisp White,toilet_paper,search,2026-04-27
+7316589,coles,Handee Ultra Paper Towel,toilet_paper,search,2026-04-27
+5294180,coles,Handee Ultra Paper Towels Crisp White,toilet_paper,search,2026-04-27
+9546921,coles,Handee Ultra Paper Towels White,toilet_paper,search,2026-04-27
+9102145,coles,Handee Ultra Triple Length Paper Towel,toilet_paper,search,2026-04-27
+3798342,coles,Icare 100% Recycled Paper Towel,toilet_paper,search,2026-04-27
 8685092,coles,Icare 100% Recycled Toilet Tissue,toilet_paper,search,2026-04-27
 3517115,coles,Kleenex Complete Clean Double Length Toilet Paper,toilet_paper,search,2026-04-27
 3064076,coles,Kleenex Complete Clean Toilet Paper,toilet_paper,search,2026-04-27
@@ -101,5 +132,10 @@ product_id,vendor,product_name,category,source,last_seen
 1619533,coles,Sorbent 4-ply Super Size Toilet Paper,toilet_paper,search,2026-04-27
 5032605,coles,Sorbent Clean & Fresh Silky White Flushable Wipes Soft Pack,toilet_paper,search,2026-04-27
 3974730,coles,Sorbent Hypo Allergenic Flushable Wipes Toilet Tissue,toilet_paper,search,2026-04-27
+9102065,coles,Sorbent Intimate Flushable Toilet Wipes,toilet_paper,search,2026-04-27
+2918256,coles,Viva Double Length Paper Towel,toilet_paper,search,2026-04-27
 7489689,coles,Viva Paper Towel,toilet_paper,search,2026-04-27
+2915338,coles,Viva Paper Towel Double Length White,toilet_paper,search,2026-04-27
 3424251,coles,Viva Paper Towel White,toilet_paper,search,2026-04-27
+9333523,coles,Viva Paper Towel White,toilet_paper,search,2026-04-27
+5048219,coles,Viva Paper Towel White,toilet_paper,search,2026-04-27
