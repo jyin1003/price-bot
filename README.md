@@ -87,12 +87,13 @@ price-bot/
 │   ├── price_history.csv
 │   ├── products.csv
 │   └── product_metrics.csv
+├── price_bot/
+│   ├── config.py
+│   ├── env.py
+│   └── products.yaml
 ├── .env
 ├── .gitignore
-├── config.py
-├── env.py
 ├── main.py
-├── products.yaml
 ├── README.md
 └── requirements.txt
 ```

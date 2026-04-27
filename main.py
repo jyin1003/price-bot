@@ -4,7 +4,12 @@ import logging
 from price_bot.env import load_environment
 from price_bot.setup import VENDOR_REGISTRY, load_products_config
 from tools.fetch_prices import run_fetch_prices
-from tools.price_tracker import update_product_metrics, update_product_metrics_from_latest_history
+from tools.price_tracker import (
+    update_product_metrics, 
+    update_product_metrics_from_latest_history,
+    analyse_latest_prices_by_category,
+)
+from tools.output import print_to_terminal
 
 
 def configure_logging(debug: bool = False) -> None:
@@ -129,6 +134,9 @@ def main() -> None:
             "No fresh records available. Updating metrics from latest price history rows."
         )
         update_product_metrics_from_latest_history()
+    
+    analysis = analyse_latest_prices_by_category()
+    print_to_terminal(analysis)
 
     logger.info("Price Bot complete")
 
