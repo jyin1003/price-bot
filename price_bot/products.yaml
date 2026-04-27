@@ -93,3 +93,54 @@ categories:
       - "/buy/115454/bosistos-banksia-flower-lavender-hand-wash-refill-1l"
       - "/buy/152925/palmolive-luminous-oils-hand-wash-mandarin-rosemary-refill-1l"
       - "/buy/66509/palmolive-antibacterial-gentle-clean-liquid-hand-wash-refill-save-1l"
+
+  goodnight_pads:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+      chemist_warehouse:
+        - "/buy/89413/libra-pad-extra-goodnight-20-pack"
+        - "/buy/44797/libra-pads-goodnights-10"
+        - "/buy/74835/libra-goodnights-pads-ultra-thin-20"
+        - "/buy/157225/libra-pad-ultrathin-goodnight-10-pack"
+        - "/buy/88803/u-by-kotex-maxi-pad-overnight-long-wing-8-pack"
+        - "/buy/88177/u-by-kotex-ultra-thin-overnight-long-wing-8-pack"
+        - "/buy/61260/u-by-kotex-extra-overnight-pads-wing-10-pack"
+        - "/buy/58869/u-by-kotex-ultrathin-overnight-regular-with-wings-pads-10"
+        - "/buy/37871/stayfree-super-pads-with-wings-12-pack"
+        - "/buy/66115/stayfree-all-night-sanitary-pads-with-wings-10-pack"
+
+  regular_pads:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+      chemist_warehouse:
+        - "/buy/31497/libra-pads-ultra-thins-with-wings-regular-14"
+        - "/buy/44564/kotex-u-ultra-thin-wings-regular-14"
+        - "/buy/61258/u-by-kotex-extra-pads-wing-regular-16-pack"
+        - "/buy/141193/u-by-kotex-ultrathin-regular-wing-bulk-pack-20"
+        - "/buy/35507/libra-pads-wings-regular-14"
+        - "/buy/83568/libra-ultra-thins-pads-wings-regular-20"
+
+  liners:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+      chemist_warehouse:
+        - "/buy/88320/carefree-breathable-unscented-panty-liners-48-pack"
+        - "/buy/119223/libra-liner-extra-protect-50-pack"
+        - "/buy/119222/libra-liner-dry-long-30-pack"
+        - "/buy/68891/u-by-kotex-designer-series-liners-protect-30-pack"
+        - "/buy/122563/libra-liner-flexi-double-liner-thin-2-in-1-25-pack"
+
+  small_pads:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+      chemist_warehouse:
+        - "/buy/85219/libra-girl-pads-regular-wing-12-pack"
+        - "/buy/165328/u-by-kotex-ultra-thin-teen-regular-wing-pad-14-pack"

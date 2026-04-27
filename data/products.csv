@@ -1,4 +1,25 @@
 product_id,vendor,product_name,category,source,last_seen
+74835,chemist_warehouse,Libra Goodnights Pads Ultra Thin 20,goodnight_pads,specific,2026-04-27
+89413,chemist_warehouse,Libra Pad Extra Goodnight 20 Pack,goodnight_pads,specific,2026-04-27
+157225,chemist_warehouse,Libra Pad Ultrathin Goodnight 10 Pack,goodnight_pads,specific,2026-04-27
+44797,chemist_warehouse,Libra Pads Goodnights 10,goodnight_pads,specific,2026-04-27
+66115,chemist_warehouse,Stayfree All Night Sanitary Pads With Wings 10 Pack,goodnight_pads,specific,2026-04-27
+37871,chemist_warehouse,Stayfree Super Pads With Wings 12 Pack,goodnight_pads,specific,2026-04-27
+61260,chemist_warehouse,U by Kotex Extra Overnight Pads Wing 10 Pack,goodnight_pads,specific,2026-04-27
+88803,chemist_warehouse,U by Kotex Maxi Pad Overnight Long Wing 8 Pack,goodnight_pads,specific,2026-04-27
+88177,chemist_warehouse,U by Kotex Ultra Thin Overnight Long Wing 8 Pack,goodnight_pads,specific,2026-04-27
+58869,chemist_warehouse,U by Kotex Ultrathin Overnight Regular with Wings Pads 10,goodnight_pads,specific,2026-04-27
+88320,chemist_warehouse,Carefree Breathable Unscented Panty Liners 48 Pack,liners,specific,2026-04-27
+119222,chemist_warehouse,Libra Liner Dry Long 30 Pack,liners,specific,2026-04-27
+119223,chemist_warehouse,Libra Liner Extra Protect 50 Pack,liners,specific,2026-04-27
+122563,chemist_warehouse,Libra Liner Flexi Double Liner Thin 2 in 1 25 Pack,liners,specific,2026-04-27
+68891,chemist_warehouse,U by Kotex Designer Series Liners Protect 30 Pack,liners,specific,2026-04-27
+44564,chemist_warehouse,Kotex U Ultra Thin Wings Regular 14,regular_pads,specific,2026-04-27
+31497,chemist_warehouse,Libra Pads Ultra Thins with Wings Regular 14,regular_pads,specific,2026-04-27
+35507,chemist_warehouse,Libra Pads Wings Regular 14,regular_pads,specific,2026-04-27
+83568,chemist_warehouse,Libra Ultra Thins Pads Wings Regular 20,regular_pads,specific,2026-04-27
+141193,chemist_warehouse,U By Kotex Ultrathin Regular Wing Bulk Pack 20,regular_pads,specific,2026-04-27
+61258,chemist_warehouse,U by Kotex Extra Pads Wing Regular 16 Pack,regular_pads,specific,2026-04-27
 77857,chemist_warehouse,Alpecin Caffeine Shampoo C1 250ml,shampoo,specific,2026-04-27
 86965,chemist_warehouse,Alpecin Caffeine Shampoo C1 375ml,shampoo,specific,2026-04-27
 79687,chemist_warehouse,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream,shampoo,specific,2026-04-27
@@ -18,6 +39,8 @@ product_id,vendor,product_name,category,source,last_seen
 64487,chemist_warehouse,Palmolive Naturals Body Wash Pomegranate & Mango 1L,shampoo,specific,2026-04-27
 66511,chemist_warehouse,Palmolive Naturals Softwash Hand Wash Refill Aloe & Chamomile 1L,shampoo,specific,2026-04-27
 66510,chemist_warehouse,Palmolive Naturals Softwash Hand Wash Refill Milk & Honey 1L,shampoo,specific,2026-04-27
+85219,chemist_warehouse,Libra Girl Pads Regular Wing 12 Pack,small_pads,specific,2026-04-27
+165328,chemist_warehouse,U by Kotex Ultra Thin Teen Regular Wing Pad 14 Pack,small_pads,specific,2026-04-27
 7062811,coles,Blue Frog Granola Pic's Crunchy Peanut Butter,granola,search,2026-04-27
 4310848,coles,Blue Frog Probiotic Granola Manuka Honey & Almond,granola,search,2026-04-27
 5293507,coles,Blue Frog Probiotic Granola Triple Nut Crunch,granola,search,2026-04-27
