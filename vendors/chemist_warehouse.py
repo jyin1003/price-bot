@@ -108,6 +108,13 @@ class ChemistWarehouseVendor(BaseVendor):
         if not product_id:
             raise ValueError(f"Could not extract Chemist Warehouse product ID for {product_name}.")
 
+        logger.debug(
+            "Chemist Warehouse normalised product: product_id=%s product_name=%r price=%s source=%s",
+            product_id,
+            product_name,
+            price,
+            source,
+        )
         return PriceRecord(
             date=date.today().isoformat(),
             product_id=str(product_id),
@@ -159,6 +166,7 @@ class ChemistWarehouseVendor(BaseVendor):
             return None
 
         prices = [float(price) for price in price_matches]
+        logger.debug("Chemist Warehouse extracted prices: %s", prices)
 
         # Avoid accidentally taking cart totals or unrelated zero values.
         non_zero_prices = [price for price in prices if price > 0]
@@ -166,7 +174,7 @@ class ChemistWarehouseVendor(BaseVendor):
         if not non_zero_prices:
             return None
 
-        return non_zero_prices[0]
+        return non_zero_prices[1] # prices are [30, 0, discounted_price, full_price]
 
     def _extract_page_product_id(self, soup: BeautifulSoup) -> str | None:
         text = soup.get_text("\n", strip=True)

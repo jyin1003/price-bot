@@ -207,4 +207,8 @@ categories:
 - Add health metric to see if any product names for the same product id has changed or vice versa for a vendor
 - Add unit pricing logic to compare
 - Add favourites to categories
-- Add cheapest for category seen across vendors
+- Add cheapest for category seen across vendors (plumb fuzzy name matching)
+- product metrics show full price if at max price and then cheapest if at min
+- add cotton buds, saline
+- w cosmetics
+- paula's choice
