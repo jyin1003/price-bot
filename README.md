@@ -54,6 +54,8 @@ python main.py --debug
 
 
 2. **Match** — If any `(product_id, vendor)` in `products.csv` is not yet in `product_match.csv`, trigger an interactive CLI session to bucket new products into match groups (or singleton groups). Skipped silently if nothing is new.
+Run fuzzy cross-vendor product name matching that edits `product_match.csv`:
+   - Only run this step with: `python main.py --match-products`
 
 3. **Metrics** — Update `product_metrics.csv` (all-time `max_price` / `min_price` per product) from the freshly fetched records, then rebuild `grouped_product_metrics.csv` by aggregating per match group.
 
