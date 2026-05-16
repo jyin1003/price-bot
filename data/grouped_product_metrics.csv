@@ -25,15 +25,15 @@ group_id,group_name,category,max_price,min_price,last_updated
 24,U by Kotex Extra Pads Wing Regular 16 Pack,regular_pads,4.46,3.82,2026-05-16
 25,Alpecin Caffeine Shampoo C1 250ml,shampoo,11.99,11.99,2026-05-16
 26,Alpecin Caffeine Shampoo C1 375ml,shampoo,13.99,13.99,2026-05-16
-27,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream,shampoo,25.69,25.69,2026-05-07
-28,Bosistos Hand Wash Refill 1L,shampoo,13.99,8.49,2026-05-16
-29,Dettol Hand Wash Aloe Vera Refill 950mL Vitamin E Antibacterial Liquid,shampoo,9.49,5.49,2026-05-16
-30,Dettol Shower Cream Peach & Raspberry 950mL Profresh Body Wash,shampoo,6.99,6.99,2026-05-07
-31,Enya Body Wash Vanilla Bean & Almond 1 Litre,shampoo,3.99,3.99,2026-05-07
-32,La Roche Posay Cicaplast Baume B5+ 100ml,shampoo,36.99,36.99,2026-05-07
-33,La Roche Posay Cicaplast Baume B5+ 40ml,shampoo,22.99,22.99,2026-05-07
-34,Palmolive Hand Wash Refill,shampoo,5.99,3.84,2026-05-16
-36,Palmolive Naturals Body Wash,shampoo,6.49,6.49,2026-05-07
+27,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream,barrier_cream,25.69,25.69,2026-05-07
+28,Bosistos Hand Wash Refill 1L,hand_wash,13.99,8.49,2026-05-16
+29,Dettol Hand Wash Aloe Vera Refill 950mL Vitamin E Antibacterial Liquid,hand_wash,9.49,5.49,2026-05-16
+30,Dettol Shower Cream Peach & Raspberry 950mL Profresh Body Wash,body_wash,6.99,6.99,2026-05-07
+31,Enya Body Wash Vanilla Bean & Almond 1 Litre,body_wash,3.99,3.99,2026-05-07
+32,La Roche Posay Cicaplast Baume B5+ 100ml,barrier_cream,36.99,36.99,2026-05-07
+33,La Roche Posay Cicaplast Baume B5+ 40ml,barrier_cream,22.99,22.99,2026-05-07
+34,Palmolive Hand Wash Refill,hand_wash,5.99,3.84,2026-05-16
+36,Palmolive Naturals Body Wash,body_wash,6.49,6.49,2026-05-07
 37,Libra Girl Pads Regular Wing 12 Pack,small_pads,4.62,3.08,2026-05-16
 38,U by Kotex Ultra Thin Teen Regular Wing Pad 14 Pack,small_pads,4.39,3.79,2026-05-16
 39,Colgate Zig Zag Deep Interdental Clean Toothbrush Medium Value 6 Pack,toothbrush,6.75,6.75,2026-05-16

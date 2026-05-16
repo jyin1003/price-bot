@@ -78,26 +78,26 @@ categories:
     specific_products:
       - "/buy/86965/alpecin-caffeine-shampoo-c1-375ml"
       - "/buy/77857/alpecin-caffeine-shampoo-c1-250ml"
-    barrier_cream:
-      search_terms: []
-      vendors:
-        - "chemist_warehouse"
-      specific_products:
-      - "/buy/79687/avene-cicalfate-restorative-protective-cream-100ml-multi-purpose-repair-cream"
-      - "/buy/122042/la-roche-posay-cicaplast-baume-b5-100ml"
-      - "/buy/122041/la-roche-posay-cicaplast-baume-b5-40ml"
-    body_wash:
-      search_terms: []
-      vendors:
-        - "chemist_warehouse"
-      specific_products:
-      - "/buy/64484/palmolive-naturals-body-wash-milk-cherry-blossom-shower-gel-1l"
-      - "/buy/63255/palmolive-naturals-body-wash-milk-honey-shower-gel-1l"
-      - "/buy/72200/palmolive-naturals-body-wash-milk-orchid-shower-gel-1l"
-      - "/buy/64487/palmolive-naturals-body-wash-pomegranate-with-mango-shower-gel-1l"
-      - "/buy/63253/palmolive-shower-gel-anti-stress-1-litre"
-      - "/buy/65521/enya-body-wash-vanilla-bean-almond-1-litre"
-      - "/buy/91155/dettol-shower-cream-peach-raspberry-950ml-profresh-body-wash"
+  barrier_cream:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+    - "/buy/79687/avene-cicalfate-restorative-protective-cream-100ml-multi-purpose-repair-cream"
+    - "/buy/122042/la-roche-posay-cicaplast-baume-b5-100ml"
+    - "/buy/122041/la-roche-posay-cicaplast-baume-b5-40ml"
+  body_wash:
+    search_terms: []
+    vendors:
+      - "chemist_warehouse"
+    specific_products:
+    - "/buy/64484/palmolive-naturals-body-wash-milk-cherry-blossom-shower-gel-1l"
+    - "/buy/63255/palmolive-naturals-body-wash-milk-honey-shower-gel-1l"
+    - "/buy/72200/palmolive-naturals-body-wash-milk-orchid-shower-gel-1l"
+    - "/buy/64487/palmolive-naturals-body-wash-pomegranate-with-mango-shower-gel-1l"
+    - "/buy/63253/palmolive-shower-gel-anti-stress-1-litre"
+    - "/buy/65521/enya-body-wash-vanilla-bean-almond-1-litre"
+    - "/buy/91155/dettol-shower-cream-peach-raspberry-950ml-profresh-body-wash"
   hand_wash:
     search_terms: []
     vendors:

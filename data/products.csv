@@ -40,16 +40,16 @@ product_id,vendor,product_name,category,source,last_seen
 61258,chemist_warehouse,U by Kotex Extra Pads Wing Regular 16 Pack,regular_pads,specific,2026-05-16
 77857,chemist_warehouse,Alpecin Caffeine Shampoo C1 250ml,shampoo,specific,2026-05-16
 86965,chemist_warehouse,Alpecin Caffeine Shampoo C1 375ml,shampoo,specific,2026-05-16
-79687,chemist_warehouse,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream,shampoo,specific,2026-05-07
-91155,chemist_warehouse,Dettol Shower Cream Peach & Raspberry 950mL Profresh Body Wash,shampoo,specific,2026-05-07
-65521,chemist_warehouse,Enya Body Wash Vanilla Bean & Almond 1 Litre,shampoo,specific,2026-05-07
-122042,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 100ml,shampoo,specific,2026-05-07
-122041,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 40ml,shampoo,specific,2026-05-07
-63253,chemist_warehouse,Palmolive Naturals Body Wash Anti-Stress 1L,shampoo,specific,2026-05-07
-64484,chemist_warehouse,Palmolive Naturals Body Wash Cherry Blossom 1L,shampoo,specific,2026-05-07
-63255,chemist_warehouse,Palmolive Naturals Body Wash Milk & Honey 1L,shampoo,specific,2026-05-07
-72200,chemist_warehouse,Palmolive Naturals Body Wash Orchid 1L,shampoo,specific,2026-05-07
-64487,chemist_warehouse,Palmolive Naturals Body Wash Pomegranate & Mango 1L,shampoo,specific,2026-05-07
+79687,chemist_warehouse,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream,barrier_cream,specific,2026-05-07
+91155,chemist_warehouse,Dettol Shower Cream Peach & Raspberry 950mL Profresh Body Wash,body_wash,specific,2026-05-07
+65521,chemist_warehouse,Enya Body Wash Vanilla Bean & Almond 1 Litre,body_wash,specific,2026-05-07
+122042,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 100ml,barrier_cream,specific,2026-05-07
+122041,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 40ml,barrier_cream,specific,2026-05-07
+63253,chemist_warehouse,Palmolive Naturals Body Wash Anti-Stress 1L,body_wash,specific,2026-05-07
+64484,chemist_warehouse,Palmolive Naturals Body Wash Cherry Blossom 1L,body_wash,specific,2026-05-07
+63255,chemist_warehouse,Palmolive Naturals Body Wash Milk & Honey 1L,body_wash,specific,2026-05-07
+72200,chemist_warehouse,Palmolive Naturals Body Wash Orchid 1L,body_wash,specific,2026-05-07
+64487,chemist_warehouse,Palmolive Naturals Body Wash Pomegranate & Mango 1L,body_wash,specific,2026-05-07
 85219,chemist_warehouse,Libra Girl Pads Regular Wing 12 Pack,small_pads,specific,2026-05-16
 165328,chemist_warehouse,U by Kotex Ultra Thin Teen Regular Wing Pad 14 Pack,small_pads,specific,2026-05-16
 66129,chemist_warehouse,Colgate Zig Zag Deep Interdental Clean Toothbrush Medium Value 6 Pack,toothbrush,specific,2026-05-16

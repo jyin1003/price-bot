@@ -150,23 +150,23 @@ group_id,group_name,category,product_id,vendor,product_name
 24,U by Kotex Extra Pads Wing Regular 16 Pack,regular_pads,61258,chemist_warehouse,U by Kotex Extra Pads Wing Regular 16 Pack
 25,Alpecin Caffeine Shampoo C1 250ml,shampoo,77857,chemist_warehouse,Alpecin Caffeine Shampoo C1 250ml
 26,Alpecin Caffeine Shampoo C1 375ml,shampoo,86965,chemist_warehouse,Alpecin Caffeine Shampoo C1 375ml
-27,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream,shampoo,79687,chemist_warehouse,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream
-28,Bosistos Hand Wash Refill 1L,shampoo,115454,chemist_warehouse,Bosistos Banksia Flower & Lavender Hand Wash Refill 1L
-28,Bosistos Hand Wash Refill 1L,shampoo,115455,chemist_warehouse,Bosistos Desert Lime & Eucalyptus Hand Wash Refill 1L
-29,Dettol Hand Wash Aloe Vera Refill 950mL Vitamin E Antibacterial Liquid,shampoo,91511,chemist_warehouse,Dettol Hand Wash Aloe Vera Refill 950mL Vitamin E Antibacterial Liquid
-30,Dettol Shower Cream Peach & Raspberry 950mL Profresh Body Wash,shampoo,91155,chemist_warehouse,Dettol Shower Cream Peach & Raspberry 950mL Profresh Body Wash
-31,Enya Body Wash Vanilla Bean & Almond 1 Litre,shampoo,65521,chemist_warehouse,Enya Body Wash Vanilla Bean & Almond 1 Litre
-32,La Roche Posay Cicaplast Baume B5+ 100ml,shampoo,122042,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 100ml
-33,La Roche Posay Cicaplast Baume B5+ 40ml,shampoo,122041,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 40ml
-34,Palmolive Hand Wash Refill,shampoo,152925,chemist_warehouse,Palmolive Luminous Oils Hand Wash Refill Mandarin & Rosemary Oil 1L
-34,Palmolive Hand Wash Refill,shampoo,66509,chemist_warehouse,Palmolive Antibacterial Gentle Clean Liquid Hand Wash Refill & Save 1L
-34,Palmolive Hand Wash Refill,shampoo,66510,chemist_warehouse,Palmolive Naturals Softwash Hand Wash Refill Milk & Honey 1L
-34,Palmolive Hand Wash Refill,shampoo,66511,chemist_warehouse,Palmolive Naturals Softwash Hand Wash Refill Aloe & Chamomile 1L
-36,Palmolive Naturals Body Wash,shampoo,63253,chemist_warehouse,Palmolive Naturals Body Wash Anti-Stress 1L
-36,Palmolive Naturals Body Wash,shampoo,63255,chemist_warehouse,Palmolive Naturals Body Wash Milk & Honey 1L
-36,Palmolive Naturals Body Wash,shampoo,64484,chemist_warehouse,Palmolive Naturals Body Wash Cherry Blossom 1L
-36,Palmolive Naturals Body Wash,shampoo,64487,chemist_warehouse,Palmolive Naturals Body Wash Pomegranate & Mango 1L
-36,Palmolive Naturals Body Wash,shampoo,72200,chemist_warehouse,Palmolive Naturals Body Wash Orchid 1L
+27,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream,barrier_cream,79687,chemist_warehouse,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream
+28,Bosistos Hand Wash Refill 1L,hand_wash,115454,chemist_warehouse,Bosistos Banksia Flower & Lavender Hand Wash Refill 1L
+28,Bosistos Hand Wash Refill 1L,hand_wash,115455,chemist_warehouse,Bosistos Desert Lime & Eucalyptus Hand Wash Refill 1L
+29,Dettol Hand Wash Aloe Vera Refill 950mL Vitamin E Antibacterial Liquid,hand_wash,91511,chemist_warehouse,Dettol Hand Wash Aloe Vera Refill 950mL Vitamin E Antibacterial Liquid
+30,Dettol Shower Cream Peach & Raspberry 950mL Profresh Body Wash,body_wash,91155,chemist_warehouse,Dettol Shower Cream Peach & Raspberry 950mL Profresh Body Wash
+31,Enya Body Wash Vanilla Bean & Almond 1 Litre,body_wash,65521,chemist_warehouse,Enya Body Wash Vanilla Bean & Almond 1 Litre
+32,La Roche Posay Cicaplast Baume B5+ 100ml,barrier_cream,122042,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 100ml
+33,La Roche Posay Cicaplast Baume B5+ 40ml,barrier_cream,122041,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 40ml
+34,Palmolive Hand Wash Refill,hand_wash,152925,chemist_warehouse,Palmolive Luminous Oils Hand Wash Refill Mandarin & Rosemary Oil 1L
+34,Palmolive Hand Wash Refill,hand_wash,66509,chemist_warehouse,Palmolive Antibacterial Gentle Clean Liquid Hand Wash Refill & Save 1L
+34,Palmolive Hand Wash Refill,hand_wash,66510,chemist_warehouse,Palmolive Naturals Softwash Hand Wash Refill Milk & Honey 1L
+34,Palmolive Hand Wash Refill,hand_wash,66511,chemist_warehouse,Palmolive Naturals Softwash Hand Wash Refill Aloe & Chamomile 1L
+36,Palmolive Naturals Body Wash,body_wash,63253,chemist_warehouse,Palmolive Naturals Body Wash Anti-Stress 1L
+36,Palmolive Naturals Body Wash,body_wash,63255,chemist_warehouse,Palmolive Naturals Body Wash Milk & Honey 1L
+36,Palmolive Naturals Body Wash,body_wash,64484,chemist_warehouse,Palmolive Naturals Body Wash Cherry Blossom 1L
+36,Palmolive Naturals Body Wash,body_wash,64487,chemist_warehouse,Palmolive Naturals Body Wash Pomegranate & Mango 1L
+36,Palmolive Naturals Body Wash,body_wash,72200,chemist_warehouse,Palmolive Naturals Body Wash Orchid 1L
 37,Libra Girl Pads Regular Wing 12 Pack,small_pads,85219,chemist_warehouse,Libra Girl Pads Regular Wing 12 Pack
 38,U by Kotex Ultra Thin Teen Regular Wing Pad 14 Pack,small_pads,165328,chemist_warehouse,U by Kotex Ultra Thin Teen Regular Wing Pad 14 Pack
 128,Beauty Of Joseon Relief Sun Aqua Fresh Rice B5 (1 Pack),sunscreen,100009126,skin_seoul,Beauty Of Joseon Relief Sun Aqua Fresh Rice B5 (1 Pack)
