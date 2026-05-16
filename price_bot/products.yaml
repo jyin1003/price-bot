@@ -35,6 +35,8 @@ categories:
         - "785129"
         - "6005360"
         - "580263"
+      chemist_warehouse:
+        - /buy/80010/kleenex-facial-tissues-250-jumbo-white
     must_include_terms:
       - "toilet"
     or_include_terms:

@@ -3,7 +3,13 @@ import logging
 
 import pandas as pd
 
-from price_bot.config import PRODUCT_METRICS_PATH, PRICE_HISTORY_PATH, PRODUCTS_PATH
+from price_bot.config import (
+    PRODUCT_METRICS_PATH,
+    PRICE_HISTORY_PATH,
+    PRODUCTS_PATH,
+    GROUPED_PRODUCT_METRICS_PATH,
+    PRODUCT_MATCH_PATH,
+)
 from data.model import (
     PRICE_HISTORY_COLUMNS,
     METRIC_COLUMNS,
@@ -23,11 +29,6 @@ def _empty_metrics_df() -> pd.DataFrame:
 def _load_existing_metrics(product_metrics_path: Path) -> pd.DataFrame:
     """
     Load product_metrics.csv if it exists and has content.
-
-    Handles:
-    - missing file
-    - empty file
-    - header-only file
     """
 
     if not product_metrics_path.exists():
@@ -41,7 +42,7 @@ def _load_existing_metrics(product_metrics_path: Path) -> pd.DataFrame:
         metrics = pd.read_csv(product_metrics_path)
     except pd.errors.EmptyDataError:
         logger.warning(
-            "Product metrics file exists but is completely empty. Rebuilding from latest records: %s",
+            "Product metrics file exists but is completely empty. Rebuilding: %s",
             product_metrics_path,
         )
         return _empty_metrics_df()
@@ -54,26 +55,16 @@ def _load_existing_metrics(product_metrics_path: Path) -> pd.DataFrame:
         return _empty_metrics_df()
 
     missing_columns = set(METRIC_COLUMNS) - set(metrics.columns)
-
     if missing_columns:
         raise ValueError(
             f"product_metrics.csv is missing required columns: {sorted(missing_columns)}"
         )
 
     metrics = metrics[METRIC_COLUMNS].copy()
-
     metrics["product_id"] = metrics["product_id"].astype(str)
     metrics["vendor"] = metrics["vendor"].astype(str)
-
-    metrics["max_price"] = pd.to_numeric(
-        metrics["max_price"],
-        errors="coerce",
-    )
-
-    metrics["min_price"] = pd.to_numeric(
-        metrics["min_price"],
-        errors="coerce",
-    )
+    metrics["max_price"] = pd.to_numeric(metrics["max_price"], errors="coerce")
+    metrics["min_price"] = pd.to_numeric(metrics["min_price"], errors="coerce")
 
     return metrics
 
@@ -85,10 +76,8 @@ def _calculate_status(
 
     if current_price == min_price:
         return "cheapest"
-
     if current_price == max_price:
         return "full price"
-
     return "discounted"
 
 def _rows_to_product_analysis(df: pd.DataFrame) -> list[ProductPriceAnalysis]:
@@ -112,13 +101,6 @@ def update_product_metrics_from_latest_history(
     """
     Update product_metrics.csv using only the latest-dated rows
     currently stored in price_history.csv.
-
-    This is useful for --no-fetch runs where no fresh API records exist,
-    but you still want to refresh metrics from the latest available history.
-
-    Note:
-    This is not a full rebuild. If product_metrics.csv is empty, metrics
-    will be initialised from the latest history rows only.
     """
 
     logger.info("Starting metrics update from latest price history rows")
@@ -131,10 +113,7 @@ def update_product_metrics_from_latest_history(
         return
 
     try:
-        price_history = pd.read_csv(
-            price_history_path,
-            dtype={"product_id": str},
-        )
+        price_history = pd.read_csv(price_history_path, dtype={"product_id": str})
     except pd.errors.EmptyDataError:
         logger.warning(
             "Price history file is completely empty. Skipping metrics update: %s",
@@ -150,25 +129,18 @@ def update_product_metrics_from_latest_history(
         return
 
     missing_columns = set(PRICE_HISTORY_COLUMNS) - set(price_history.columns)
-
     if missing_columns:
         raise ValueError(
             f"price_history.csv is missing required columns: {sorted(missing_columns)}"
         )
 
     price_history = price_history[PRICE_HISTORY_COLUMNS].copy()
-
-    price_history["date"] = pd.to_datetime(
-        price_history["date"],
-        errors="coerce",
-    )
+    price_history["date"] = pd.to_datetime(price_history["date"], errors="coerce")
 
     invalid_date_rows = price_history["date"].isna().sum()
-
     if invalid_date_rows:
         logger.warning(
-            "Dropping price history rows with invalid dates: rows=%s",
-            invalid_date_rows,
+            "Dropping price history rows with invalid dates: rows=%s", invalid_date_rows
         )
 
     price_history = price_history.dropna(subset=["date"])
@@ -178,11 +150,7 @@ def update_product_metrics_from_latest_history(
         return
 
     latest_date = price_history["date"].max()
-
-    latest_rows = price_history[
-        price_history["date"] == latest_date
-    ].copy()
-
+    latest_rows = price_history[price_history["date"] == latest_date].copy()
     latest_rows["date"] = latest_rows["date"].dt.strftime("%Y-%m-%d")
 
     logger.info(
@@ -216,26 +184,16 @@ def update_product_metrics(
         return
 
     missing_latest_columns = set(PRICE_HISTORY_COLUMNS) - set(latest_df.columns)
-
     if missing_latest_columns:
         raise ValueError(
             f"latest price records are missing required columns: {sorted(missing_latest_columns)}"
         )
 
     latest_df = latest_df[PRICE_HISTORY_COLUMNS].copy()
-
     latest_df["product_id"] = latest_df["product_id"].astype(str)
     latest_df["vendor"] = latest_df["vendor"].astype(str)
-
-    latest_df["date"] = pd.to_datetime(
-        latest_df["date"],
-        errors="coerce",
-    )
-
-    latest_df["price"] = pd.to_numeric(
-        latest_df["price"],
-        errors="coerce",
-    )
+    latest_df["date"] = pd.to_datetime(latest_df["date"], errors="coerce")
+    latest_df["price"] = pd.to_numeric(latest_df["price"], errors="coerce")
 
     invalid_latest_rows = latest_df[
         latest_df["date"].isna()
@@ -243,16 +201,13 @@ def update_product_metrics(
         | latest_df["product_id"].isna()
         | latest_df["vendor"].isna()
     ]
-
     if not invalid_latest_rows.empty:
         logger.warning(
             "Dropping invalid latest price rows before metrics update: rows=%s",
             len(invalid_latest_rows),
         )
 
-    latest_df = latest_df.dropna(
-        subset=["date", "price", "product_id", "vendor"],
-    )
+    latest_df = latest_df.dropna(subset=["date", "price", "product_id", "vendor"])
 
     if latest_df.empty:
         logger.warning("No valid latest price rows remain. Skipping metrics update.")
@@ -279,68 +234,69 @@ def update_product_metrics(
 
     if existing_metrics.empty:
         logger.info("No existing metrics found. Initialising metrics from latest records.")
-
-        new_metrics = latest_metrics.rename(
-            columns={
-                "latest_max_price": "max_price",
-                "latest_min_price": "min_price",
-                "latest_seen": "last_updated",
-            }
-        )
-
+        new_metrics = latest_metrics.rename(columns={
+            "latest_max_price": "max_price",
+            "latest_min_price": "min_price",
+            "latest_seen": "last_updated",
+        })
         new_metrics["last_updated"] = new_metrics["last_updated"].dt.strftime("%Y-%m-%d")
         new_metrics = new_metrics[METRIC_COLUMNS]
-
         new_metrics.to_csv(product_metrics_path, index=False)
-
         logger.info(
             "Product metrics initialised: rows=%s output=%s",
             len(new_metrics),
             product_metrics_path,
         )
-        return
+    else:
+        merged = existing_metrics.merge(
+            latest_metrics, on=["product_id", "vendor"], how="outer"
+        )
+        merged["max_price"] = merged[["max_price", "latest_max_price"]].max(axis=1)
+        merged["min_price"] = merged[["min_price", "latest_min_price"]].min(axis=1)
+        merged["last_updated"] = pd.to_datetime(merged["last_updated"], errors="coerce")
+        merged["last_updated"] = merged[["last_updated", "latest_seen"]].max(axis=1)
 
-    merged = existing_metrics.merge(
-        latest_metrics,
-        on=["product_id", "vendor"],
-        how="outer",
-    )
+        updated_metrics = merged[
+            ["product_id", "vendor", "max_price", "min_price", "last_updated"]
+        ].copy()
+        updated_metrics["last_updated"] = updated_metrics["last_updated"].dt.strftime("%Y-%m-%d")
+        updated_metrics = updated_metrics.sort_values(["vendor", "product_id"])
+        updated_metrics.to_csv(product_metrics_path, index=False)
 
-    merged["max_price"] = merged[["max_price", "latest_max_price"]].max(axis=1)
-    merged["min_price"] = merged[["min_price", "latest_min_price"]].min(axis=1)
+        logger.info(
+            "Product metrics updated: existing_rows=%s latest_product_rows=%s final_rows=%s output=%s",
+            len(existing_metrics),
+            len(latest_metrics),
+            len(updated_metrics),
+            product_metrics_path,
+        )
 
-    merged["last_updated"] = pd.to_datetime(
-        merged["last_updated"],
-        errors="coerce",
-    )
+    # Always refresh grouped metrics after any product_metrics update
+    _refresh_grouped_metrics()
 
-    merged["last_updated"] = merged[["last_updated", "latest_seen"]].max(axis=1)
 
-    updated_metrics = merged[
-        [
-            "product_id",
-            "vendor",
-            "max_price",
-            "min_price",
-            "last_updated",
-        ]
-    ].copy()
-
-    updated_metrics["last_updated"] = updated_metrics["last_updated"].dt.strftime("%Y-%m-%d")
-
-    updated_metrics = updated_metrics.sort_values(
-        ["vendor", "product_id"],
-    )
-
-    updated_metrics.to_csv(product_metrics_path, index=False)
-
-    logger.info(
-        "Product metrics updated: existing_rows=%s latest_product_rows=%s final_rows=%s output=%s",
-        len(existing_metrics),
-        len(latest_metrics),
-        len(updated_metrics),
-        product_metrics_path,
-    )
+def _refresh_grouped_metrics(
+    product_match_path: Path = PRODUCT_MATCH_PATH,
+    product_metrics_path: Path = PRODUCT_METRICS_PATH,
+    output_path: Path = GROUPED_PRODUCT_METRICS_PATH,
+) -> None:
+    """
+    Thin wrapper so price_tracker doesn't import from product_matcher
+    at module level (avoids circular imports). Deferred import is intentional.
+    """
+    try:
+        from tools.product_matcher import update_grouped_product_metrics
+        update_grouped_product_metrics(
+            product_match_path=product_match_path,
+            product_metrics_path=product_metrics_path,
+            output_path=output_path,
+        )
+        logger.info("Grouped product metrics refreshed: output=%s", output_path)
+    except Exception:
+        logger.warning(
+            "Could not refresh grouped product metrics (product_match.csv may not exist yet).",
+            exc_info=True,
+        )
 
 
 def analyse_latest_prices_by_category(
@@ -350,60 +306,23 @@ def analyse_latest_prices_by_category(
 ) -> dict[str, CategoryPriceAnalysis]:
     """
     Analyse latest prices after product_metrics.csv has been updated.
-
-    For each category, returns:
-    - all products currently at their cheapest historical price
-    - the top five cheapest products by current price
-    - the top five most discounted products by discount percentage
-
-    Discount is calculated as a percentage using:
-        (max_price - current_price) / max_price * 100
-
-    Status is:
-    - cheapest: current_price == min_price
-    - full price: current_price == max_price
-    - discounted: current_price is between min_price and max_price
     """
-
     for path in [price_history_path, product_metrics_path, products_path]:
         if not path.exists():
             raise FileNotFoundError(f"Required file does not exist: {path}")
 
-    price_history = pd.read_csv(
-        price_history_path,
-        dtype={"product_id": str},
-    )
+    price_history = pd.read_csv(price_history_path, dtype={"product_id": str})
+    product_metrics = pd.read_csv(product_metrics_path, dtype={"product_id": str})
+    products = pd.read_csv(products_path, dtype={"product_id": str})
 
-    product_metrics = pd.read_csv(
-        product_metrics_path,
-        dtype={"product_id": str},
-    )
-
-    products = pd.read_csv(
-        products_path,
-        dtype={"product_id": str},
-    )
-
-    missing_price_history_columns = set(PRICE_HISTORY_COLUMNS) - set(price_history.columns)
-    if missing_price_history_columns:
-        raise ValueError(
-            f"price_history.csv is missing required columns: "
-            f"{sorted(missing_price_history_columns)}"
-        )
-
-    missing_metric_columns = set(METRIC_COLUMNS) - set(product_metrics.columns)
-    if missing_metric_columns:
-        raise ValueError(
-            f"product_metrics.csv is missing required columns: "
-            f"{sorted(missing_metric_columns)}"
-        )
-
-    missing_product_columns = set(PRODUCTS_COLUMNS) - set(products.columns)
-    if missing_product_columns:
-        raise ValueError(
-            f"products.csv is missing required columns: "
-            f"{sorted(missing_product_columns)}"
-        )
+    for cols, name, df in [
+        (PRICE_HISTORY_COLUMNS, "price_history.csv", price_history),
+        (METRIC_COLUMNS, "product_metrics.csv", product_metrics),
+        (PRODUCTS_COLUMNS, "products.csv", products),
+    ]:
+        missing = set(cols) - set(df.columns)
+        if missing:
+            raise ValueError(f"{name} is missing required columns: {sorted(missing)}")
 
     if price_history.empty:
         return {}
@@ -412,53 +331,26 @@ def analyse_latest_prices_by_category(
     product_metrics = product_metrics[METRIC_COLUMNS].copy()
     products = products[PRODUCTS_COLUMNS].copy()
 
-    price_history["date"] = pd.to_datetime(
-        price_history["date"],
-        errors="coerce",
-    )
-
-    price_history["price"] = pd.to_numeric(
-        price_history["price"],
-        errors="coerce",
-    )
-
-    product_metrics["min_price"] = pd.to_numeric(
-        product_metrics["min_price"],
-        errors="coerce",
-    )
-
-    product_metrics["max_price"] = pd.to_numeric(
-        product_metrics["max_price"],
-        errors="coerce",
-    )
+    price_history["date"] = pd.to_datetime(price_history["date"], errors="coerce")
+    price_history["price"] = pd.to_numeric(price_history["price"], errors="coerce")
+    product_metrics["min_price"] = pd.to_numeric(product_metrics["min_price"], errors="coerce")
+    product_metrics["max_price"] = pd.to_numeric(product_metrics["max_price"], errors="coerce")
 
     price_history = price_history.dropna(
-        subset=["date", "product_id", "vendor", "category", "price"],
+        subset=["date", "product_id", "vendor", "category", "price"]
     )
-
     product_metrics = product_metrics.dropna(
-        subset=["product_id", "vendor", "min_price", "max_price"],
+        subset=["product_id", "vendor", "min_price", "max_price"]
     )
 
     if price_history.empty:
         return {}
 
     latest_date = price_history["date"].max()
+    latest_prices = price_history[price_history["date"] == latest_date].copy()
+    latest_prices = latest_prices.rename(columns={"price": "current_price"})
 
-    latest_prices = price_history[
-        price_history["date"] == latest_date
-    ].copy()
-
-    latest_prices = latest_prices.rename(
-        columns={"price": "current_price"}
-    )
-
-    latest_prices = latest_prices.merge(
-        product_metrics,
-        on=["product_id", "vendor"],
-        how="left",
-    )
-
+    latest_prices = latest_prices.merge(product_metrics, on=["product_id", "vendor"], how="left")
     latest_prices = latest_prices.merge(
         products[["product_id", "vendor", "product_name"]],
         on=["product_id", "vendor"],
@@ -468,11 +360,7 @@ def analyse_latest_prices_by_category(
     latest_prices["product_name"] = latest_prices["product_name"].fillna(
         latest_prices["product_id"]
     )
-
-    latest_prices = latest_prices.dropna(
-        subset=["current_price", "min_price", "max_price"],
-    )
-
+    latest_prices = latest_prices.dropna(subset=["current_price", "min_price", "max_price"])
     latest_prices = latest_prices[latest_prices["max_price"] > 0].copy()
 
     latest_prices["discount"] = (
@@ -499,7 +387,6 @@ def analyse_latest_prices_by_category(
             ["current_price", "product_name", "vendor"],
             ascending=[True, True, True],
         )
-
         discounted_sorted_df = category_df.sort_values(
             ["discount", "current_price", "product_name", "vendor"],
             ascending=[False, True, True, True],
@@ -508,8 +395,7 @@ def analyse_latest_prices_by_category(
         category_products = _rows_to_product_analysis(cheapest_sorted_df)
 
         cheapest_products = [
-            product
-            for product in category_products
+            product for product in category_products
             if product.status == "cheapest"
             and product.current_price != next(
                 row.max_price
@@ -520,10 +406,7 @@ def analyse_latest_prices_by_category(
         ]
 
         top_five_cheapest = category_products[:5]
-
-        top_five_most_discounted = _rows_to_product_analysis(
-            discounted_sorted_df.head(5)
-        )
+        top_five_most_discounted = _rows_to_product_analysis(discounted_sorted_df.head(5))
 
         analysis_by_category[str(category)] = CategoryPriceAnalysis(
             category=str(category),

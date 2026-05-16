@@ -93,7 +93,11 @@ class ProductMatchCandidate:
     final_score: float
     match_reason: str
 
-# CSV Constants
+
+# ---------------------------------------------------------------------------
+# CSV column definitions
+# ---------------------------------------------------------------------------
+
 PRICE_HISTORY_COLUMNS = [
     "date",
     "product_id",
@@ -119,7 +123,27 @@ METRIC_COLUMNS = [
     "last_updated",
 ]
 
+# product_match.csv — one row per (group_id, product_id, vendor)
 PRODUCT_MATCH_COLUMNS = [
+    "group_id",       # monotonically increasing int, e.g. 1, 2, 3
+    "group_name",     # token-intersection of all product names in the group
+    "category",
+    "product_id",
+    "vendor",
+    "product_name",
+]
+
+# grouped_product_metrics.csv — one row per group_id, aggregated across all members
+GROUPED_PRODUCT_METRICS_COLUMNS = [
+    "group_id",
+    "group_name",
+    "category",
+    "max_price",      # max of max_price across all members
+    "min_price",      # min of min_price across all members
+    "last_updated",   # most recent last_updated across all members
+]
+
+PRODUCT_MATCH_COLUMNS_LEGACY = [
     "match_group_id",
     "category",
     "product_id",

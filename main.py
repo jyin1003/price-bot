@@ -6,11 +6,11 @@ from price_bot.setup import VENDOR_REGISTRY, load_products_config
 
 from tools.fetch_prices import run_fetch_prices
 from tools.price_tracker import (
-    update_product_metrics, 
+    update_product_metrics,
     update_product_metrics_from_latest_history,
     analyse_latest_prices_by_category,
 )
-from tools.product_matcher import find_cross_vendor_match_candidates, print_match_candidates
+from tools.product_matcher import run_interactive_matching
 from tools.output import print_to_terminal
 
 
@@ -55,11 +55,15 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Enable debug logging.",
     )
-    
+
     parser.add_argument(
         "--match-products",
         action="store_true",
-        help="Run fuzzy cross-vendor product name matching from products.csv, then exit.",
+        help=(
+            "Interactively assign every product in products.csv to a match group, "
+            "then save to data/product_match.csv. "
+            "Only new (product_id, vendor) combos are presented for review."
+        ),
     )
 
     return parser.parse_args()
@@ -107,10 +111,10 @@ def main() -> None:
     configure_logging(debug=args.debug)
 
     logger = logging.getLogger(__name__)
-    
+
     if args.match_products:
-        candidates = find_cross_vendor_match_candidates()
-        print_match_candidates(candidates)
+        # Interactive matching does not need vendor API keys
+        run_interactive_matching()
         return
 
     load_environment()
@@ -138,7 +142,7 @@ def main() -> None:
         only_categories=only_categories,
         dry_run=args.no_fetch,
     )
-    
+
     if records:
         logger.info("Updating metrics from freshly fetched records")
         update_product_metrics(records)
@@ -147,7 +151,7 @@ def main() -> None:
             "No fresh records available. Updating metrics from latest price history rows."
         )
         update_product_metrics_from_latest_history()
-    
+
     analysis = analyse_latest_prices_by_category()
     print_to_terminal(analysis)
 

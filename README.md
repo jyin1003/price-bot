@@ -53,7 +53,7 @@ Enable detailed debug logging:
 python main.py --debug
 ```
 
-Run fuzzy cross-vendor product name matching from `products.csv`:
+Run fuzzy cross-vendor product name matching that edits `product_match.csv`:
 
 ```powershell
 python main.py --match-products
@@ -95,7 +95,7 @@ price-bot/
 │   ├── model.py
 │   ├── price_history.csv
 │   ├── products.csv
-│   ├── product_matches.csv
+│   ├── product_match.csv
 │   └── product_metrics.csv
 ├── price_bot/
 │   ├── config.py
@@ -161,20 +161,13 @@ Example
 893221,coles,4.50,3.00,2026-04-27
 ```
 
-### `product_matches.csv` (Cross-Vendor Product Matching)
+### `product_match.csv` (Cross-Vendor Product Matching)
 
 - Stores product groupings across vendors.
 - Used to compare equivalent or near-equivalent products sold by different vendors.
 - Generated from fuzzy matching on `products.csv`.
 - Should be manually reviewed before being treated as final.
-- Schema: `match_group_id,category,product_id,vendor,product_name,normalised_name,match_confidence,match_method,review_status,last_updated`
-
-Example:
-
-```csv
-tissue_0001,tissue,5118857,woolworths,Kleenex Complete Clean 3 Ply Facial Tissues 95 Pack,kleenex complete clean 3 ply facial tissues 95 pack,94.0,fuzzy,review,2026-04-27
-tissue_0001,tissue,893221,coles,Kleenex Complete Clean Facial Tissues 3 Ply 95 Pack,kleenex complete clean facial tissues 3 ply 95 pack,94.0,fuzzy,review,2026-04-27
-```
+- Schema: `group_id,group_name,category,product_id,vendor,product_name`
 
 ## Product Tracking Format
 
