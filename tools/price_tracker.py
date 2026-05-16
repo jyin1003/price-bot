@@ -13,8 +13,8 @@ from price_bot.config import (
 from data.model import (
     PRICE_HISTORY_COLUMNS,
     METRIC_COLUMNS,
-    PRODUCTS_COLUMNS,
-    ProductPriceAnalysis,
+    GROUPED_PRODUCT_METRICS_COLUMNS,
+    GroupPriceAnalysis,
     CategoryPriceAnalysis,
     PriceStatus,
 )
@@ -68,6 +68,7 @@ def _load_existing_metrics(product_metrics_path: Path) -> pd.DataFrame:
 
     return metrics
 
+
 def _calculate_status(
     current_price: float,
     min_price: float,
@@ -80,12 +81,14 @@ def _calculate_status(
         return "full price"
     return "discounted"
 
-def _rows_to_product_analysis(df: pd.DataFrame) -> list[ProductPriceAnalysis]:
+
+def _rows_to_group_analysis(df: pd.DataFrame) -> list[GroupPriceAnalysis]:
     return [
-        ProductPriceAnalysis(
-            product_name=str(row.product_name),
+        GroupPriceAnalysis(
+            group_id=int(row.group_id),
+            group_name=str(row.group_name),
             current_price=float(row.current_price),
-            vendor=str(row.vendor),
+            best_vendor=str(row.best_vendor),
             category=str(row.category),
             discount=float(row.discount),
             status=row.status,
@@ -170,7 +173,8 @@ def update_product_metrics(
     product_metrics_path: Path = PRODUCT_METRICS_PATH,
 ) -> None:
     """
-    Update product_metrics.csv using only the latest fetched price records.
+    Update product_metrics.csv using only the latest fetched price records,
+    then rebuild grouped_product_metrics.csv.
     """
 
     logger.info("Starting product metrics update")
@@ -271,7 +275,7 @@ def update_product_metrics(
             product_metrics_path,
         )
 
-    # Always refresh grouped metrics after any product_metrics update
+    # Always rebuild grouped metrics after any product_metrics update
     _refresh_grouped_metrics()
 
 
@@ -281,97 +285,181 @@ def _refresh_grouped_metrics(
     output_path: Path = GROUPED_PRODUCT_METRICS_PATH,
 ) -> None:
     """
-    Thin wrapper so price_tracker doesn't import from product_matcher
-    at module level (avoids circular imports). Deferred import is intentional.
+    Rebuild grouped_product_metrics.csv by joining product_match.csv against
+    the freshly updated product_metrics.csv and aggregating per group.
+
+    Per group:
+      max_price    -> max of all member max_prices
+      min_price    -> min of all member min_prices
+      last_updated -> most recent last_updated across members
     """
-    try:
-        from tools.product_matcher import update_grouped_product_metrics
-        update_grouped_product_metrics(
-            product_match_path=product_match_path,
-            product_metrics_path=product_metrics_path,
-            output_path=output_path,
-        )
-        logger.info("Grouped product metrics refreshed: output=%s", output_path)
-    except Exception:
+    if not product_match_path.exists():
         logger.warning(
-            "Could not refresh grouped product metrics (product_match.csv may not exist yet).",
-            exc_info=True,
+            "product_match.csv does not exist yet. Skipping grouped metrics rebuild. "
+            "Run --match-products or allow the pipeline to trigger matching first."
         )
+        return
 
+    if not product_metrics_path.exists():
+        logger.warning(
+            "product_metrics.csv does not exist yet. Skipping grouped metrics rebuild."
+        )
+        return
 
-def analyse_latest_prices_by_category(
-    price_history_path: Path = PRICE_HISTORY_PATH,
-    product_metrics_path: Path = PRODUCT_METRICS_PATH,
-    products_path: Path = PRODUCTS_PATH,
-) -> dict[str, CategoryPriceAnalysis]:
-    """
-    Analyse latest prices after product_metrics.csv has been updated.
-    """
-    for path in [price_history_path, product_metrics_path, products_path]:
-        if not path.exists():
-            raise FileNotFoundError(f"Required file does not exist: {path}")
+    try:
+        from tools.product_matcher import _load_product_match
+        match_df = _load_product_match(product_match_path)
+    except Exception:
+        logger.warning("Could not load product_match.csv. Skipping grouped metrics rebuild.", exc_info=True)
+        return
 
-    price_history = pd.read_csv(price_history_path, dtype={"product_id": str})
-    product_metrics = pd.read_csv(product_metrics_path, dtype={"product_id": str})
-    products = pd.read_csv(products_path, dtype={"product_id": str})
+    if match_df.empty:
+        logger.warning("product_match.csv is empty. Skipping grouped metrics rebuild.")
+        return
 
-    for cols, name, df in [
-        (PRICE_HISTORY_COLUMNS, "price_history.csv", price_history),
-        (METRIC_COLUMNS, "product_metrics.csv", product_metrics),
-        (PRODUCTS_COLUMNS, "products.csv", products),
-    ]:
-        missing = set(cols) - set(df.columns)
-        if missing:
-            raise ValueError(f"{name} is missing required columns: {sorted(missing)}")
+    metrics = pd.read_csv(product_metrics_path, dtype={"product_id": str})
+    missing = set(METRIC_COLUMNS) - set(metrics.columns)
+    if missing:
+        raise ValueError(f"product_metrics.csv is missing columns: {sorted(missing)}")
 
-    if price_history.empty:
-        return {}
+    metrics["product_id"] = metrics["product_id"].astype(str)
+    metrics["vendor"] = metrics["vendor"].astype(str)
+    metrics["max_price"] = pd.to_numeric(metrics["max_price"], errors="coerce")
+    metrics["min_price"] = pd.to_numeric(metrics["min_price"], errors="coerce")
+    metrics["last_updated"] = pd.to_datetime(metrics["last_updated"], errors="coerce")
 
-    price_history = price_history[PRICE_HISTORY_COLUMNS].copy()
-    product_metrics = product_metrics[METRIC_COLUMNS].copy()
-    products = products[PRODUCTS_COLUMNS].copy()
-
-    price_history["date"] = pd.to_datetime(price_history["date"], errors="coerce")
-    price_history["price"] = pd.to_numeric(price_history["price"], errors="coerce")
-    product_metrics["min_price"] = pd.to_numeric(product_metrics["min_price"], errors="coerce")
-    product_metrics["max_price"] = pd.to_numeric(product_metrics["max_price"], errors="coerce")
-
-    price_history = price_history.dropna(
-        subset=["date", "product_id", "vendor", "category", "price"]
-    )
-    product_metrics = product_metrics.dropna(
-        subset=["product_id", "vendor", "min_price", "max_price"]
-    )
-
-    if price_history.empty:
-        return {}
-
-    latest_date = price_history["date"].max()
-    latest_prices = price_history[price_history["date"] == latest_date].copy()
-    latest_prices = latest_prices.rename(columns={"price": "current_price"})
-
-    latest_prices = latest_prices.merge(product_metrics, on=["product_id", "vendor"], how="left")
-    latest_prices = latest_prices.merge(
-        products[["product_id", "vendor", "product_name"]],
+    merged = match_df.merge(
+        metrics[["product_id", "vendor", "max_price", "min_price", "last_updated"]],
         on=["product_id", "vendor"],
         how="left",
     )
 
-    latest_prices["product_name"] = latest_prices["product_name"].fillna(
-        latest_prices["product_id"]
+    grouped = (
+        merged.groupby(["group_id", "group_name", "category"], as_index=False)
+        .agg(
+            max_price=("max_price", "max"),
+            min_price=("min_price", "min"),
+            last_updated=("last_updated", "max"),
+        )
     )
-    latest_prices = latest_prices.dropna(subset=["current_price", "min_price", "max_price"])
-    latest_prices = latest_prices[latest_prices["max_price"] > 0].copy()
 
-    latest_prices["discount"] = (
+    grouped["last_updated"] = grouped["last_updated"].dt.strftime("%Y-%m-%d")
+    grouped = grouped.sort_values("group_id")[GROUPED_PRODUCT_METRICS_COLUMNS]
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    grouped.to_csv(output_path, index=False)
+
+    logger.info(
+        "Grouped product metrics rebuilt: groups=%s output=%s",
+        len(grouped),
+        output_path,
+    )
+
+
+def analyse_latest_prices_by_category(
+    price_history_path: Path = PRICE_HISTORY_PATH,
+    grouped_metrics_path: Path = GROUPED_PRODUCT_METRICS_PATH,
+    product_match_path: Path = PRODUCT_MATCH_PATH,
+) -> dict[str, CategoryPriceAnalysis]:
+    """
+    Analyse prices at the group level.
+
+    For each group in grouped_product_metrics.csv:
+      - Find the most recent price for each member in price_history.csv
+      - The group's current price = cheapest of those most-recent member prices
+      - The group's best_vendor = vendor of that cheapest member
+      - discount = (group max_price - current_price) / group max_price * 100
+      - status = cheapest / discounted / full price vs group max/min
+
+    Groups are then compared against other groups within the same category.
+    """
+    for path in [price_history_path, grouped_metrics_path, product_match_path]:
+        if not path.exists():
+            raise FileNotFoundError(f"Required file does not exist: {path}")
+
+    price_history = pd.read_csv(price_history_path, dtype={"product_id": str})
+    grouped_metrics = pd.read_csv(grouped_metrics_path)
+    match_df = pd.read_csv(product_match_path, dtype={"product_id": str, "group_id": int})
+
+    # Validate columns
+    missing_ph = set(PRICE_HISTORY_COLUMNS) - set(price_history.columns)
+    if missing_ph:
+        raise ValueError(f"price_history.csv is missing columns: {sorted(missing_ph)}")
+
+    missing_gm = set(GROUPED_PRODUCT_METRICS_COLUMNS) - set(grouped_metrics.columns)
+    if missing_gm:
+        raise ValueError(f"grouped_product_metrics.csv is missing columns: {sorted(missing_gm)}")
+
+    if price_history.empty:
+        return {}
+
+    # --- Step A: most recent price per (product_id, vendor) ---
+    price_history["date"] = pd.to_datetime(price_history["date"], errors="coerce")
+    price_history["price"] = pd.to_numeric(price_history["price"], errors="coerce")
+    price_history = price_history.dropna(subset=["date", "price", "product_id", "vendor"])
+
+    if price_history.empty:
+        return {}
+
+    # For each (product_id, vendor), keep only the row with the most recent date
+    latest_per_product = (
+        price_history
+        .sort_values("date")
+        .groupby(["product_id", "vendor"], as_index=False)
+        .last()
+        .rename(columns={"price": "current_price", "date": "last_seen_date"})
+    )
+
+    # --- Step B: join match groups to get (group_id, product_id, vendor, current_price) ---
+    match_df["product_id"] = match_df["product_id"].astype(str)
+    match_df["vendor"] = match_df["vendor"].astype(str)
+
+    members_with_prices = match_df.merge(
+        latest_per_product[["product_id", "vendor", "current_price", "last_seen_date"]],
+        on=["product_id", "vendor"],
+        how="left",
+    )
+
+    # --- Step C: per group, find the cheapest member (best current price) ---
+    # Drop members with no price history at all
+    members_with_prices = members_with_prices.dropna(subset=["current_price"])
+
+    if members_with_prices.empty:
+        return {}
+
+    # For each group, pick the row with the lowest current_price.
+    # Tie-break: most recent last_seen_date, then vendor name alphabetically.
+    best_per_group = (
+        members_with_prices
+        .sort_values(
+            ["group_id", "current_price", "last_seen_date", "vendor"],
+            ascending=[True, True, False, True],
+        )
+        .groupby("group_id", as_index=False)
+        .first()
+        [["group_id", "vendor", "current_price"]]
+        .rename(columns={"vendor": "best_vendor"})
+    )
+
+    # --- Step D: join grouped_metrics for max/min price reference ---
+    grouped_metrics["group_id"] = grouped_metrics["group_id"].astype(int)
+    grouped_metrics["max_price"] = pd.to_numeric(grouped_metrics["max_price"], errors="coerce")
+    grouped_metrics["min_price"] = pd.to_numeric(grouped_metrics["min_price"], errors="coerce")
+
+    analysis_df = grouped_metrics.merge(best_per_group, on="group_id", how="left")
+    analysis_df = analysis_df.dropna(subset=["current_price", "max_price", "min_price"])
+    analysis_df = analysis_df[analysis_df["max_price"] > 0].copy()
+
+    # --- Step E: compute discount and status ---
+    analysis_df["discount"] = (
         (
-            (latest_prices["max_price"] - latest_prices["current_price"])
-            / latest_prices["max_price"]
+            (analysis_df["max_price"] - analysis_df["current_price"])
+            / analysis_df["max_price"]
         )
         * 100
     ).clip(lower=0).round(1)
 
-    latest_prices["status"] = latest_prices.apply(
+    analysis_df["status"] = analysis_df.apply(
         lambda row: _calculate_status(
             current_price=row["current_price"],
             min_price=row["min_price"],
@@ -380,33 +468,25 @@ def analyse_latest_prices_by_category(
         axis=1,
     )
 
+    # --- Step F: build CategoryPriceAnalysis per category ---
     analysis_by_category: dict[str, CategoryPriceAnalysis] = {}
 
-    for category, category_df in latest_prices.groupby("category"):
-        cheapest_sorted_df = category_df.sort_values(
-            ["current_price", "product_name", "vendor"],
+    for category, category_df in analysis_df.groupby("category"):
+        cheapest_sorted = category_df.sort_values(
+            ["current_price", "group_name", "best_vendor"],
             ascending=[True, True, True],
         )
-        discounted_sorted_df = category_df.sort_values(
-            ["discount", "current_price", "product_name", "vendor"],
+        discounted_sorted = category_df.sort_values(
+            ["discount", "current_price", "group_name", "best_vendor"],
             ascending=[False, True, True, True],
         )
 
-        category_products = _rows_to_product_analysis(cheapest_sorted_df)
+        all_groups = _rows_to_group_analysis(cheapest_sorted)
 
-        cheapest_products = [
-            product for product in category_products
-            if product.status == "cheapest"
-            and product.current_price != next(
-                row.max_price
-                for row in cheapest_sorted_df.itertuples(index=False)
-                if row.product_name == product.product_name
-                and row.vendor == product.vendor
-            )
-        ]
+        cheapest_products = [g for g in all_groups if g.status == "cheapest"]
 
-        top_five_cheapest = category_products[:5]
-        top_five_most_discounted = _rows_to_product_analysis(discounted_sorted_df.head(5))
+        top_five_cheapest = all_groups[:5]
+        top_five_most_discounted = _rows_to_group_analysis(discounted_sorted.head(5))
 
         analysis_by_category[str(category)] = CategoryPriceAnalysis(
             category=str(category),

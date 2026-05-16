@@ -174,7 +174,7 @@ class ChemistWarehouseVendor(BaseVendor):
         if not non_zero_prices:
             return None
 
-        return non_zero_prices[1] # prices are [30, 0, discounted_price, full_price]
+        return non_zero_prices[0] # prices are [discounted_price, discount_amount, full_price]
 
     def _extract_page_product_id(self, soup: BeautifulSoup) -> str | None:
         text = soup.get_text("\n", strip=True)

@@ -19,10 +19,11 @@ group_id,group_name,category,product_id,vendor,product_name
 51,Blue Frog Probiotic Granola,granola,4310848,coles,Blue Frog Probiotic Granola Manuka Honey & Almond
 51,Blue Frog Probiotic Granola,granola,5293507,coles,Blue Frog Probiotic Granola Triple Nut Crunch
 52,Carman's Granola 450g,granola,3500327,coles,Carman's Almond Vanilla & Cinnamon Granola
-52,Carman's Granola 450g,granola,5297417,coles,Carman's Granola Protein Rich Almond & Hazelnut
-52,Carman's Granola 450g,granola,208900,woolworths,Carman's Granola Protein Rich Almond & Hazelnut 450g
 52,Carman's Granola 450g,granola,3500382,coles,Carman's Pink Lady Apple & Blueberry Granola
 52,Carman's Granola 450g,granola,4308631,coles,Carman's Granola Low Sugar Raspberry & Coconut
+52,Carman's Granola 450g,granola,5297417,coles,Carman's Granola Protein Rich Almond & Hazelnut
+52,Carman's Granola 450g,granola,143191,woolworths,Carman's Granola Raspberry & Coconut Low Sugar 450g
+52,Carman's Granola 450g,granola,208900,woolworths,Carman's Granola Protein Rich Almond & Hazelnut 450g
 53,Carman's Light and Crispy Granola 400g,granola,1132685,coles,Carman's Light & Crispy Granola Honey Nut
 53,Carman's Light and Crispy Granola 400g,granola,1132812,coles,Carman's Light & Crispy Granola Raspberry & Vanilla
 53,Carman's Light and Crispy Granola 400g,granola,6032680,woolworths,Carman's Light & Crispy Granola Raspberry & Vanilla 400g
@@ -69,6 +70,7 @@ group_id,group_name,category,product_id,vendor,product_name
 65,Jordans Low Sugar Granola,granola,6055344,woolworths,Jordans Low Sugar Granola Cashew & Raspberry 500g
 65,Jordans Low Sugar Granola,granola,686551,woolworths,Jordans Granola Low Sugar Almond Hazelnut 500g
 65,Jordans Low Sugar Granola,granola,810344,woolworths,Jordans Granola Low Sugar Cherry Almond 500G
+65,Jordans Low Sugar Granola,granola,85598,woolworths,Jordans Low Sugar Granola Blueberry & Coconut 500g
 66,Kellogg'S High Protein Granola,granola,1156592,coles,Kellogg's High Protein Granola Forest Berries
 66,Kellogg'S High Protein Granola,granola,1156606,coles,Kellogg's High Protein Granola Apple Crumble
 66,Kellogg'S High Protein Granola,granola,1156617,coles,Kellogg's High Protein Granola Honey Nut
@@ -106,10 +108,10 @@ group_id,group_name,category,product_id,vendor,product_name
 134,Carman's Granola Antioxidant Blueberry & Vanilla 425g,granola,272603,woolworths,Carman's Granola Antioxidant Blueberry & Vanilla 425g
 135,"Carman's Granola Grain Free Raspberry, Blueberry & Cranberry 400g",granola,208879,woolworths,"Carman's Granola Grain Free Raspberry, Blueberry & Cranberry 400g"
 136,Carman's Sustained Energy Granola Crisp Apple & Honey 425g,granola,6054581,woolworths,Carman's Sustained Energy Granola Crisp Apple & Honey 425g
-137,Farmer Jo Granola 400g,granola,6031257,woolworths,Farmer Jo Matcha Granola Maple & Coconut 400g
-137,Farmer Jo Granola 400g,granola,935641,woolworths,Farmer Jo Granola Twice Baked Pistachio & Quinoa 400g
 137,Farmer Jo Granola 400g,granola,8153050,coles,Farmer Jo Maple Granola
 137,Farmer Jo Granola 400g,granola,8153082,coles,Farmer Jo Honey Granola
+137,Farmer Jo Granola 400g,granola,6031257,woolworths,Farmer Jo Matcha Granola Maple & Coconut 400g
+137,Farmer Jo Granola 400g,granola,935641,woolworths,Farmer Jo Granola Twice Baked Pistachio & Quinoa 400g
 138,Freedom Crafted Blends Protein Granola,granola,6067043,woolworths,Freedom Crafted Blends Protein Granola Honey Cashew 360g
 138,Freedom Crafted Blends Protein Granola,granola,6067336,woolworths,Freedom Crafted Blends Protein Granola Apple Raspberry 360g
 139,Jordans Simply Granola Crunchy Oat & Honey 1.5kg,granola,147307,woolworths,Jordans Simply Granola Crunchy Oat & Honey 1.5kg
@@ -123,6 +125,10 @@ group_id,group_name,category,product_id,vendor,product_name
 144,"Vogels Low Carb Granola Raspberry, Blueberry & Almond 360g",granola,225360,woolworths,"Vogels Low Carb Granola Raspberry, Blueberry & Almond 360g"
 145,"We the many Prebiotic Granola With Green Banana, Fig & Almond 350g",granola,208083,woolworths,"We the many Prebiotic Granola With Green Banana, Fig & Almond 350g"
 146,Woolworths Plantitude Granola Cookies 5 pack,granola,70720,woolworths,Woolworths Plantitude Granola Cookies 5 pack
+204,Carman's Protein Rich Granola Almond & Hazelnut 800g,granola,6054590,woolworths,Carman's Protein Rich Granola Almond & Hazelnut 800g
+205,Carman's Low Carb Granola Peanut Butter,granola,7043624,coles,Carman's Low Carb Granola Peanut Butter
+206,Heritage Mill Clusters Almond & Cinnamon Limited Edition,granola,5284765,coles,Heritage Mill Clusters Almond & Cinnamon Limited Edition
+207,Heritage Mill Protein Clusters Honey Roasted Nut,granola,1135297,coles,Heritage Mill Protein Clusters Honey Roasted Nut
 125,Raspberry Hair Vinegar (4 Packs),hair_vinegar,100054443,skin_seoul,Raspberry Hair Vinegar (4 Packs)
 126,345 Relief Cream (2 Packs),korean_moisturiser,100042771,skin_seoul,345 Relief Cream (2 Packs)
 127,Purito Mighty Bamboo Panthenol Cream (1 Pack),korean_moisturiser,100003689,skin_seoul,Purito Mighty Bamboo Panthenol Cream (1 Pack)
@@ -152,10 +158,10 @@ group_id,group_name,category,product_id,vendor,product_name
 31,Enya Body Wash Vanilla Bean & Almond 1 Litre,shampoo,65521,chemist_warehouse,Enya Body Wash Vanilla Bean & Almond 1 Litre
 32,La Roche Posay Cicaplast Baume B5+ 100ml,shampoo,122042,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 100ml
 33,La Roche Posay Cicaplast Baume B5+ 40ml,shampoo,122041,chemist_warehouse,La Roche Posay Cicaplast Baume B5+ 40ml
+34,Palmolive Hand Wash Refill,shampoo,152925,chemist_warehouse,Palmolive Luminous Oils Hand Wash Refill Mandarin & Rosemary Oil 1L
 34,Palmolive Hand Wash Refill,shampoo,66509,chemist_warehouse,Palmolive Antibacterial Gentle Clean Liquid Hand Wash Refill & Save 1L
 34,Palmolive Hand Wash Refill,shampoo,66510,chemist_warehouse,Palmolive Naturals Softwash Hand Wash Refill Milk & Honey 1L
 34,Palmolive Hand Wash Refill,shampoo,66511,chemist_warehouse,Palmolive Naturals Softwash Hand Wash Refill Aloe & Chamomile 1L
-34,Palmolive Hand Wash Refill,shampoo,152925,chemist_warehouse,Palmolive Luminous Oils Hand Wash Refill Mandarin & Rosemary Oil 1L
 36,Palmolive Naturals Body Wash,shampoo,63253,chemist_warehouse,Palmolive Naturals Body Wash Anti-Stress 1L
 36,Palmolive Naturals Body Wash,shampoo,63255,chemist_warehouse,Palmolive Naturals Body Wash Milk & Honey 1L
 36,Palmolive Naturals Body Wash,shampoo,64484,chemist_warehouse,Palmolive Naturals Body Wash Cherry Blossom 1L
@@ -175,6 +181,7 @@ group_id,group_name,category,product_id,vendor,product_name
 80,2 Ply,tissue,193613,woolworths,Kleenex Everyday 2 Ply Facial Tissues 250 pack
 81,Kleenex 3 Ply Large N Thick Aloe Vera Facial Tissues,tissue,2372797,coles,Kleenex 3 Ply Large N Thick Aloe Vera Facial Tissues
 82,Kleenex 3 Ply Large N Thick Tissues Facial,tissue,9333818,coles,Kleenex 3 Ply Large N Thick Tissues Facial
+82,Kleenex 3 Ply Large N Thick Tissues Facial,tissue,172610,woolworths,Kleenex Large & Thick 3 Ply Facial Tissues 95 pack
 83,Kleenex 3 Ply Soft & Thick Facial Tissues,tissue,5118857,coles,Kleenex 3 Ply Soft & Thick Facial Tissues
 84,Kleenex 3 Ply Wellbeing Aloe Vera Facial Tissues,tissue,5749166,coles,Kleenex 3 Ply Wellbeing Aloe Vera Facial Tissues
 85,Kleenex Wellbeing Facial Tissues 95 pack,tissue,1281572,coles,Kleenex Wellbeing Facial Tissues Eucalyptus
@@ -185,6 +192,7 @@ group_id,group_name,category,product_id,vendor,product_name
 87,Kleenex Ultimate  6ply Facial Tissues 70 pack,tissue,6006664,woolworths,Kleenex Ultimate 6ply Tissues 70 pack
 88,Kleenex Aloe Vera & Vitamin E 3 Ply Facial Tissue,tissue,1813365,coles,Kleenex Aloe Vera & Vitamin E 3 Ply Facial Tissue
 89,Kleenex Facial Tissue Everyday 2 Ply,tissue,3661268,coles,Kleenex Facial Tissue Everyday 2 Ply
+89,Kleenex Facial Tissue Everyday 2 Ply,tissue,63899,woolworths,Kleenex Everyday 2 Ply Facial Tissues 200 pack
 90,Kleenex Facial Tissue 6x10 Pack,tissue,8134758,coles,Kleenex Facial Tissue Soft Lotion 6x10 Pack
 90,Kleenex Facial Tissue 6x10 Pack,tissue,8134780,coles,Kleenex Facial Tissue Everyday 6x10 Pack
 91,Kleenex Kids 2 Ply Facial Tissues,tissue,3661246,coles,Kleenex Facial Tissue Everyday Kids
@@ -220,6 +228,7 @@ group_id,group_name,category,product_id,vendor,product_name
 160,Vevelle Facial Tissue 2ply 90 pack,tissue,972443,woolworths,Vevelle Facial Tissue 2ply 90 pack
 161,Who Gives A Crap 3Ply Tissues Assorted 140 pack,tissue,6056229,woolworths,Who Gives A Crap 3Ply Tissues Assorted 140 pack
 162,icare Everyday Facial Tissue 200 pack,tissue,237935,woolworths,icare Everyday Facial Tissue 200 pack
+209,Kleenex Eucalyptus 3 Ply Facial Tissues 95 pack,tissue,79492,woolworths,Kleenex Eucalyptus 3 Ply Facial Tissues 95 pack
 100,Bulk Sorbent 3-ply Double Length White Toilet Paper,toilet_paper,1145440,coles,Bulk Sorbent 3-ply Double Length White Toilet Paper
 101,Coles 3-ply So Soft & Strong White Double Length Toilet Paper,toilet_paper,9152391,coles,Coles 3-ply So Soft & Strong White Double Length Toilet Paper
 102,Coles 3-ply So Soft & Strong White Toilet Paper,toilet_paper,9152370,coles,Coles 3-ply So Soft & Strong White Toilet Paper
@@ -295,6 +304,9 @@ group_id,group_name,category,product_id,vendor,product_name
 201,Who Gives A Crap Classic Soft Double Length Recycled 3 Ply Toilet Paper 16 pack,toilet_paper,6011614,woolworths,Who Gives A Crap Classic Soft Double Length Recycled 3 Ply Toilet Paper 16 pack
 202,Who Gives A Crap Double Length Recycled 3 Ply Toilet Paper 8 pack,toilet_paper,267357,woolworths,Who Gives A Crap Double Length Recycled 3 Ply Toilet Paper 8 pack
 203,icare 100% Recycled Double Length 3 Ply Toilet Tissue 6 pack,toilet_paper,847649,woolworths,icare 100% Recycled Double Length 3 Ply Toilet Tissue 6 pack
+208,Coles Simply 3-ply Toilet Paper,toilet_paper,1710748,coles,Coles Simply 3-ply Toilet Paper
+210,Quilton Triple Length 3 Ply Toilet Paper 6 pack,toilet_paper,471733,woolworths,Quilton Triple Length 3 Ply Toilet Paper 6 pack
+211,Who Gives A Crap Double Length Bamboo 3 Ply Toilet Paper 8 pack,toilet_paper,268645,woolworths,Who Gives A Crap Double Length Bamboo 3 Ply Toilet Paper 8 pack
 39,Colgate Zig Zag Deep Interdental Clean Toothbrush Medium Value 6 Pack,toothbrush,66129,chemist_warehouse,Colgate Zig Zag Deep Interdental Clean Toothbrush Medium Value 6 Pack
 40,Oral B Toothbrush Cross Action 7 Benefits 5 Pack,toothbrush,151216,chemist_warehouse,Oral B Toothbrush Cross Action 7 Benefits 5 Pack
 41,Colgate Toothpaste Advanced Whitening Charcoal 180g,toothpaste,116030,chemist_warehouse,Colgate Toothpaste Advanced Whitening Charcoal 180g
@@ -306,5 +318,3 @@ group_id,group_name,category,product_id,vendor,product_name
 47,Colgate Toothpaste Triple Action 210g,toothpaste,112555,chemist_warehouse,Colgate Toothpaste Triple Action 210g
 48,Oral B Toothpaste Gum Care & Intensive Clean 110g,toothpaste,107630,chemist_warehouse,Oral B Toothpaste Gum Care & Intensive Clean 110g
 49,Sensodyne Toothpaste Daily Care + Whitening 160g Exclusive Size,toothpaste,102274,chemist_warehouse,Sensodyne Toothpaste Daily Care + Whitening 160g Exclusive Size
-204,Carman's Protein Rich Granola Almond & Hazelnut 800g,granola,6054590,woolworths,Carman's Protein Rich Granola Almond & Hazelnut 800g
-205,Carman's Low Carb Granola Peanut Butter,granola,7043624,coles,Carman's Low Carb Granola Peanut Butter

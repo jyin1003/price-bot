@@ -10,7 +10,7 @@ from tools.price_tracker import (
     update_product_metrics_from_latest_history,
     analyse_latest_prices_by_category,
 )
-from tools.product_matcher import run_interactive_matching
+from tools.product_matcher import run_interactive_matching, has_unmatched_products
 from tools.output import print_to_terminal
 
 
@@ -135,6 +135,7 @@ def main() -> None:
 
     logger.info("Starting Price Bot")
 
+    # Step 1-4: Fetch prices and write price_history.csv + products.csv
     logger.info("Fetching current prices")
     records = run_fetch_prices(
         products_config=products_config,
@@ -143,6 +144,14 @@ def main() -> None:
         dry_run=args.no_fetch,
     )
 
+    # Step 4.5: Interactive product matching (only if new products exist)
+    if has_unmatched_products():
+        logger.info("New products detected — starting interactive matching session")
+        run_interactive_matching()
+    else:
+        logger.info("No new products to match — skipping interactive matching")
+
+    # Step 5: Update per-product metrics then rebuild grouped metrics
     if records:
         logger.info("Updating metrics from freshly fetched records")
         update_product_metrics(records)
@@ -152,6 +161,7 @@ def main() -> None:
         )
         update_product_metrics_from_latest_history()
 
+    # Step 6: Analyse at group level and print
     analysis = analyse_latest_prices_by_category()
     print_to_terminal(analysis)
 

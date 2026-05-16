@@ -244,6 +244,51 @@ def _next_group_id(df: pd.DataFrame) -> int:
 
 
 # ---------------------------------------------------------------------------
+# Unmatched product check (used by main.py pipeline)
+# ---------------------------------------------------------------------------
+
+def has_unmatched_products(
+    products_path: Path = PRODUCTS_PATH,
+    product_match_path: Path = PRODUCT_MATCH_PATH,
+) -> bool:
+    """
+    Return True if there are any (product_id, vendor) pairs in products.csv
+    that are not yet present in product_match.csv.
+
+    Used by main.py to decide whether to trigger the interactive matching
+    session mid-pipeline.
+    """
+    if not products_path.exists():
+        return False
+
+    try:
+        products = pd.read_csv(products_path, dtype={"product_id": str})
+    except pd.errors.EmptyDataError:
+        return False
+
+    if products.empty:
+        return False
+
+    match_df = _load_product_match(product_match_path)
+
+    if match_df.empty:
+        return True
+
+    assigned_keys = set(
+        zip(
+            match_df["product_id"].astype(str),
+            match_df["vendor"].astype(str),
+        )
+    )
+
+    for row in products.itertuples(index=False):
+        if (str(row.product_id), str(row.vendor)) not in assigned_keys:
+            return True
+
+    return False
+
+
+# ---------------------------------------------------------------------------
 # Candidate generation (used for preview mode)
 # ---------------------------------------------------------------------------
 
@@ -482,12 +527,12 @@ def run_interactive_matching(
                 print(f"    {m['vendor']:<22} {m_price_label:>7}  {m['product_name']}")
 
             accepted, skip_all = _prompt_yn(
-                f"  Add '{new_vendor:<22} {new_name}' to this group?"
+                f"  Add '{new_vendor:<22} {new_price_label:>7} {new_name}' to this group?"
             )
             if accepted:
                 groups[gid].append({
                     "group_id": gid,
-                    "group_name": group_name,   # recomputed below if new group
+                    "group_name": group_name,
                     "category": new_category,
                     "product_id": new_pid,
                     "vendor": new_vendor,

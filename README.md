@@ -23,24 +23,6 @@ Run without making vendor API calls. Useful for checking config selection before
 python main.py --no-fetch
 ```
 
-Fetch only from specific vendors:
-
-```powershell
-python main.py --vendors coles
-```
-
-Fetch only specific categories from `products.yaml`:
-
-```powershell
-python main.py --categories tissue toilet_paper
-```
-
-Fetch only specific vendors and categories:
-
-```powershell
-python main.py --vendors coles --categories tissue
-```
-
 List available categories and supported vendors, then exit:
 
 ```powershell
@@ -53,12 +35,6 @@ Enable detailed debug logging:
 python main.py --debug
 ```
 
-Run fuzzy cross-vendor product name matching that edits `product_match.csv`:
-
-```powershell
-python main.py --match-products
-```
-
 | Argument        | Purpose                                                                        |
 | --------------- | ------------------------------------------------------------------------------ |
 | `--no-fetch` | Skips vendor API calls but still refreshes metrics from existing `price_history.` |
@@ -68,6 +44,22 @@ python main.py --match-products
 | `--debug`       | Enables detailed debug-level logging                                           |
 | `--match-products` | Runs fuzzy cross-vendor product name matching from `products.csv` without making vendor API calls |
 
+## Pipeline
+
+`python main.py` runs the following steps in order:
+
+1. **Fetch** — For each category/vendor in `products.yaml`, call vendor APIs (search + specific products), normalise results into `PriceRecord`s, apply category filters, then write new rows to `price_history.csv` and upsert `products.csv`.
+   - Fetch only from specific vendors: `python main.py --vendors <vendor>>`
+   - Fetch only specific categories from `products.yaml`: `python main.py --categories <cateogry> <category>`
+
+
+2. **Match** — If any `(product_id, vendor)` in `products.csv` is not yet in `product_match.csv`, trigger an interactive CLI session to bucket new products into match groups (or singleton groups). Skipped silently if nothing is new.
+
+3. **Metrics** — Update `product_metrics.csv` (all-time `max_price` / `min_price` per product) from the freshly fetched records, then rebuild `grouped_product_metrics.csv` by aggregating per match group.
+
+4. **Analyse** — For each group, find the cheapest most-recent price across its members from `price_history.csv`, compute discount against the group's all-time `max_price`, and assign a status (`cheapest` / `discounted` / `full price`). Groups are ranked against other groups in the same category.
+
+5. **Output** — Print per-category tables to the terminal: cheapest groups, top 5 cheapest, top 5 most discounted.
 
 ## Data Sources & Update Frequency
 

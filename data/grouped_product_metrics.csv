@@ -1,0 +1,212 @@
+group_id,group_name,category,max_price,min_price,last_updated
+1,Colgate Dental Floss Total Mint Waxed 100m,dental_floss,4.99,4.99,2026-05-16
+2,Colgate Total Tartar Control Durable Oral Care Dental Floss 25m,dental_floss,2.99,2.99,2026-05-16
+3,Colgate Total Waxed Dental Floss 50m,dental_floss,2.99,2.99,2026-05-16
+4,Oral B Essential Floss 2x50m,dental_floss,6.49,6.49,2026-05-16
+5,Oral B Floss Waxed Mint 50m,dental_floss,3.49,3.49,2026-05-16
+6,Oral B Glide Deep Clean Dental Floss 40m,dental_floss,5.49,5.49,2026-05-16
+7,Libra,goodnight_pads,8.4,7.0,2026-05-16
+8,Libra,goodnight_pads,4.62,3.08,2026-05-16
+9,Stayfree All Night Sanitary Pads With Wings 10 Pack,goodnight_pads,5.89,2.99,2026-05-16
+10,Stayfree Super Pads With Wings 12 Pack,goodnight_pads,4.0,4.0,2026-05-16
+11,U By Kotex,goodnight_pads,4.46,3.82,2026-05-16
+12,Overnight Long Wing 8 Pack,goodnight_pads,4.46,3.82,2026-05-16
+13,Carefree Breathable Unscented Panty Liners 48 Pack,liners,6.99,3.5,2026-05-16
+14,Libra Liner Dry Long 30 Pack,liners,2.97,2.47,2026-05-16
+15,Libra Liner Extra Protect 50 Pack,liners,3.74,3.12,2026-05-16
+16,Libra Liner Flexi Double Liner Thin 2 in 1 25 Pack,liners,2.97,2.47,2026-05-16
+17,U by Kotex Designer Series Liners Protect 30 Pack,liners,2.94,2.52,2026-05-16
+18,Dermal Therapy Lip Balm,lip_balm,6.49,4.89,2026-05-16
+19,Dermal Therapy Overnight Lip Repair 10ml,lip_balm,11.99,8.99,2026-05-16
+20,Kotex U Ultra Thin Wings Regular 14,regular_pads,4.39,3.82,2026-05-16
+21,Libra Wings Regular 14,regular_pads,4.62,3.08,2026-05-16
+22,Libra Ultra Thins Pads Wings Regular 20,regular_pads,6.3,5.25,2026-05-16
+23,U By Kotex Ultrathin Regular Wing Bulk Pack 20,regular_pads,6.99,6.99,2026-05-16
+24,U by Kotex Extra Pads Wing Regular 16 Pack,regular_pads,4.46,3.82,2026-05-16
+25,Alpecin Caffeine Shampoo C1 250ml,shampoo,11.99,11.99,2026-05-16
+26,Alpecin Caffeine Shampoo C1 375ml,shampoo,13.99,13.99,2026-05-16
+27,Avene Cicalfate+ Restorative Protective Cream 100ml - Multi-purpose Repair cream,shampoo,25.69,25.69,2026-05-07
+28,Bosistos Hand Wash Refill 1L,shampoo,13.99,8.49,2026-05-16
+29,Dettol Hand Wash Aloe Vera Refill 950mL Vitamin E Antibacterial Liquid,shampoo,9.49,5.49,2026-05-16
+30,Dettol Shower Cream Peach & Raspberry 950mL Profresh Body Wash,shampoo,6.99,6.99,2026-05-07
+31,Enya Body Wash Vanilla Bean & Almond 1 Litre,shampoo,3.99,3.99,2026-05-07
+32,La Roche Posay Cicaplast Baume B5+ 100ml,shampoo,36.99,36.99,2026-05-07
+33,La Roche Posay Cicaplast Baume B5+ 40ml,shampoo,22.99,22.99,2026-05-07
+34,Palmolive Hand Wash Refill,shampoo,5.99,3.84,2026-05-16
+36,Palmolive Naturals Body Wash,shampoo,6.49,6.49,2026-05-07
+37,Libra Girl Pads Regular Wing 12 Pack,small_pads,4.62,3.08,2026-05-16
+38,U by Kotex Ultra Thin Teen Regular Wing Pad 14 Pack,small_pads,4.39,3.79,2026-05-16
+39,Colgate Zig Zag Deep Interdental Clean Toothbrush Medium Value 6 Pack,toothbrush,6.75,6.75,2026-05-16
+40,Oral B Toothbrush Cross Action 7 Benefits 5 Pack,toothbrush,8.99,8.99,2026-05-16
+41,Colgate Toothpaste Advanced Whitening Charcoal 180g,toothpaste,6.59,5.49,2026-05-16
+42,Colgate Toothpaste Advanced Whitening Tartar 115g,toothpaste,6.49,6.49,2026-05-16
+43,Colgate Toothpaste Cavity Protection Great Regular Value Pack 240g,toothpaste,4.39,3.99,2026-05-16
+44,Colgate Toothpaste Optic White Purple 100g,toothpaste,4.99,4.99,2026-05-16
+45,Colgate Toothpaste Sensitive ProRelief Enamel Repair 110g,toothpaste,7.69,5.49,2026-05-16
+46,Colgate Toothpaste Total Active Prevention Mint Stripe 115g,toothpaste,3.99,3.99,2026-05-16
+47,Colgate Toothpaste Triple Action 210g,toothpaste,4.39,3.99,2026-05-16
+48,Oral B Toothpaste Gum Care & Intensive Clean 110g,toothpaste,4.99,4.99,2026-05-16
+49,Sensodyne Toothpaste Daily Care + Whitening 160g Exclusive Size,toothpaste,12.99,7.69,2026-05-16
+50,Blue Frog Granola Pic's Crunchy Peanut Butter,granola,9.5,7.0,2026-05-16
+51,Blue Frog Probiotic Granola,granola,9.5,7.0,2026-05-16
+52,Carman's Granola 450g,granola,8.9,6.0,2026-05-16
+53,Carman's Light and Crispy Granola 400g,granola,8.9,6.0,2026-05-16
+54,Carman's Low Sugar Granola Raspberry & Coconut 800g,granola,12.5,12.5,2026-05-16
+55,Coles Finest Granola,granola,8.5,8.5,2026-05-16
+56,Coles Nature's Kitchen Granola Cookie,granola,4.0,3.5,2026-05-16
+57,Dorset Granola,granola,9.0,5.4,2026-05-16
+58,Farmer Jo Gluten Free Granola,granola,11.0,8.9,2026-05-16
+59,Farmer Jo Paleo Granola,granola,16.0,16.0,2026-05-16
+60,Food For Health Gluten Free Granola,granola,8.0,6.0,2026-05-16
+61,Freedom Granola,granola,9.0,8.5,2026-05-16
+62,Heritage Mill Light & Crispy Granola Vanilla Crumble,granola,6.5,6.5,2026-05-16
+63,Irrewarra Granola,granola,15.0,15.0,2026-05-16
+64,Jordan's Crunchy Oat Granola,granola,7.0,7.0,2026-05-16
+65,Jordans Low Sugar Granola,granola,9.0,5.6,2026-05-16
+66,Kellogg'S High Protein Granola,granola,9.0,9.0,2026-05-16
+67,Mayver's High Protein Granola,granola,9.5,7.6,2026-05-16
+68,Paleo Pure Grain Free Granola,granola,15.0,15.0,2026-05-16
+69,Red Tractor Farmers Market Golden Harvest Crunch Granola,granola,2.95,2.95,2026-04-27
+70,Red Tractor Farmers Market Honey & Cinnamon Granola,granola,7.0,7.0,2026-05-16
+71,Red Tractor High Protein Granola,granola,13.0,13.0,2026-05-16
+72,Red Tractor Low Sugar Granola,granola,9.0,6.5,2026-05-16
+73,Sunsol Protein Granola,granola,6.75,6.5,2026-05-16
+74,Vogel's Cluster Crunch Prebiotic Granola Peanut Butter,granola,7.3,7.3,2026-04-27
+75,Yava Granola Bites,granola,7.0,7.0,2026-05-16
+76,Yava Granola With Cashews Chocolate Vanilla,granola,13.0,13.0,2026-05-16
+77,Coles 2-ply Facial Tissues,tissue,1.9,1.9,2026-05-16
+78,Coles Facial Tissues 2-ply White Facial Tissues,tissue,1.35,1.35,2026-05-16
+79,Cottonsoft 2-ply Facial Tissue,tissue,5.0,5.0,2026-05-16
+80,2 Ply,tissue,4.0,4.0,2026-05-16
+81,Kleenex 3 Ply Large N Thick Aloe Vera Facial Tissues,tissue,2.6,2.6,2026-05-16
+82,Kleenex 3 Ply Large N Thick Tissues Facial,tissue,3.5,3.1,2026-05-16
+83,Kleenex 3 Ply Soft & Thick Facial Tissues,tissue,3.8,3.8,2026-05-16
+84,Kleenex 3 Ply Wellbeing Aloe Vera Facial Tissues,tissue,3.0,3.0,2026-05-16
+85,Kleenex Wellbeing Facial Tissues 95 pack,tissue,2.6,2.6,2026-05-16
+86,Kleenex Wellbeing Facial Tissues 140 pack,tissue,4.5,4.5,2026-05-16
+87,Kleenex Ultimate  6ply Facial Tissues 70 pack,tissue,3.8,2.95,2026-05-16
+88,Kleenex Aloe Vera & Vitamin E 3 Ply Facial Tissue,tissue,26.1,26.1,2026-05-16
+89,Kleenex Facial Tissue Everyday 2 Ply,tissue,3.0,3.0,2026-05-16
+90,Kleenex Facial Tissue 6x10 Pack,tissue,2.8,2.8,2026-05-16
+91,Kleenex Kids 2 Ply Facial Tissues,tissue,3.0,3.0,2026-05-16
+92,Kleenex Facial Tissue Soft,tissue,1.45,1.45,2026-05-16
+93,Quilton 2-ply Hypo Allergenic Facial Tissues 250 pack,tissue,2.9,2.0,2026-05-16
+94,Quilton 3 Ply Aloe Vera Facial Tissues,tissue,2.5,2.5,2026-05-16
+95,Quilton 3 Ply Extra Thick Facial Tissues,tissue,2.5,2.5,2026-05-16
+96,Quilton Gold 4ply Facial Tissues Aloe Vera 100 pack,tissue,2.2,1.95,2026-05-16
+97,Quilton Large N Thick Hypo Allergenic Facial Tissues 96 Pack,tissue,3.2,3.2,2026-05-16
+98,Sorbent Facial Tissues Thick & Large White 95 pack,tissue,3.5,1.7,2026-05-16
+99,Sorbent Facial Tissues 4Ply Pocket 6 pack,tissue,2.2,2.2,2026-05-16
+100,Bulk Sorbent 3-ply Double Length White Toilet Paper,toilet_paper,17.6,17.6,2026-05-16
+101,Coles 3-ply So Soft & Strong White Double Length Toilet Paper,toilet_paper,4.6,4.6,2026-04-27
+102,Coles 3-ply So Soft & Strong White Toilet Paper,toilet_paper,9.5,9.0,2026-05-16
+103,Coles Simply 2-ply White Toilet Paper,toilet_paper,7.5,7.5,2026-05-16
+104,Icare 100% Recycled,toilet_paper,8.0,4.0,2026-05-16
+104,Icare 100% Recycled Toilet Paper,toilet_paper,8.0,4.0,2026-05-16
+105,Kleenex Complete Clean Double Length Toilet Paper,toilet_paper,13.5,12.0,2026-05-16
+106,Kleenex Complete Clean Toilet Paper,toilet_paper,9.0,9.0,2026-05-16
+107,Kleenex Family Soft Big Roll Toilet Paper,toilet_paper,12.0,12.0,2026-05-16
+108,Kleenex Quilts 4 Ply Toilet Paper,toilet_paper,4.05,2.9,2026-05-16
+109,Quilton 3 Ply Classic White Toilet Paper,toilet_paper,11.0,11.0,2026-05-16
+110,Quilton 3 Ply Double Length White Toilet Paper,toilet_paper,6.0,6.0,2026-05-16
+111,Quilton 3 Ply Floral Print Soft Double Length Toilet Paper,toilet_paper,13.0,13.0,2026-05-16
+112,Quilton 3 Ply Unscented White Toilet Paper,toilet_paper,8.5,8.5,2026-05-16
+113,Quilton White 3 Ply Toilet Paper 36 pack,toilet_paper,19.0,19.0,2026-05-16
+114,Quilton 4 Ply White Gold Toilet Paper,toilet_paper,5.8,5.8,2026-05-16
+115,Quilton Gold 4 Ply Toilet Paper 30 pack,toilet_paper,19.5,18.0,2026-05-16
+116,Quilton Gold King Size 4 Ply Toilet Paper 20 pack,toilet_paper,13.5,13.5,2026-05-16
+117,Quilton White Toilet Tissue,toilet_paper,6.5,3.25,2026-05-16
+118,Smart Ass Recycled Toilet Paper Double Length,toilet_paper,7.9,5.5,2026-05-16
+119,Sorbent 3 Ply Hypo Allergenic Toilet Paper,toilet_paper,11.0,11.0,2026-05-16
+120,Sorbent 3 Ply Soft & Strong Silky White Toilet Paper,toilet_paper,21.5,19.0,2026-05-16
+121,Sorbent 3 Ply Soft & Strong Toilet Paper,toilet_paper,14.0,10.0,2026-05-16
+122,Sorbent 3-ply Ultra Air Toilet Paper,toilet_paper,2.9,2.9,2026-04-27
+123,Sorbent Thick & Large 4Ply Toilet Paper 6 pack,toilet_paper,5.8,5.8,2026-05-16
+124,Sorbent Hypo Allergenic Flushable Wipes Toilet Tissue,toilet_paper,3.8,3.8,2026-05-16
+125,Raspberry Hair Vinegar (4 Packs),hair_vinegar,30.98,17.66,2026-05-16
+126,345 Relief Cream (2 Packs),korean_moisturiser,59.89,31.04,2026-05-16
+127,Purito Mighty Bamboo Panthenol Cream (1 Pack),korean_moisturiser,34.43,34.43,2026-05-16
+128,Beauty Of Joseon Relief Sun Aqua Fresh Rice B5 (1 Pack),sunscreen,25.84,20.57,2026-05-16
+129,Beauty Of Joseon Relief Sun Rice Probiotics (3 Packs),sunscreen,59.85,59.75,2026-05-16
+130,Madagascar Centella Hyalu Cica Water Fit Sun Serum 100Ml (1 Pack),sunscreen,33.46,22.91,2026-05-16
+131,Madagascar Centella Hyalu Cica Waterfit Sun Serum (2 Packs),sunscreen,60.18,31.33,2026-05-16
+132,Skin1004 Centella Airfit Suncream Light (1 Pack),sunscreen,29.62,28.2,2026-05-16
+133,Arnold'S Farm Granola,granola,5.85,5.85,2026-05-16
+134,Carman's Granola Antioxidant Blueberry & Vanilla 425g,granola,8.5,8.5,2026-05-16
+135,"Carman's Granola Grain Free Raspberry, Blueberry & Cranberry 400g",granola,12.8,12.8,2026-05-16
+136,Carman's Sustained Energy Granola Crisp Apple & Honey 425g,granola,8.9,8.9,2026-05-16
+137,Farmer Jo Granola 400g,granola,16.0,12.0,2026-05-16
+138,Freedom Crafted Blends Protein Granola,granola,9.0,9.0,2026-05-16
+139,Jordans Simply Granola Crunchy Oat & Honey 1.5kg,granola,12.7,12.7,2026-05-16
+140,Sam'S Pantry Granola,granola,7.6,4.5,2026-05-16
+141,Sunsol Granola Almond Pink Lady Apple & Cinnamon 450g,granola,7.5,7.5,2026-05-16
+142,Sunsol Wholegrain Granola,granola,6.0,6.0,2026-05-16
+143,Vogel'S Low Carb Granola,granola,9.5,9.5,2026-05-16
+144,"Vogels Low Carb Granola Raspberry, Blueberry & Almond 360g",granola,10.0,8.0,2026-05-16
+145,"We the many Prebiotic Granola With Green Banana, Fig & Almond 350g",granola,10.0,10.0,2026-05-16
+146,Woolworths Plantitude Granola Cookies 5 pack,granola,4.3,4.0,2026-05-16
+147,Essentials Facial Tissues 224 pack,tissue,1.9,1.9,2026-05-16
+148,Icare Aloe Vera 3 Ply Facial Tissues 95 pack,tissue,2.2,2.2,2026-05-16
+149,Kleenex Allergy Comfort 3 Ply Facial Tissues 85 Pack,tissue,2.6,2.6,2026-05-16
+150,Kleenex Everyday On The Go Facial Tissues 60 pack,tissue,1.8,1.8,2026-05-16
+151,Kleenex Soft & Thick 3 Ply Facial Tissues 95 pack,tissue,2.7,2.7,2026-05-16
+152,Kleenex Ultimate 6ply Tissues 20 pack,tissue,2.0,2.0,2026-05-16
+153,Kleenex Ultra Soft Tissues Pocket 6 pack,tissue,3.5,3.5,2026-05-16
+154,Quilton Facial Tissue White 3Ply White 3Ply 55 pack,tissue,2.3,2.3,2026-05-16
+155,Sorbent Facial Tissues Ultra Soft 170 pack,tissue,2.5,2.0,2026-05-16
+156,Sorbent Hypo-allergenic Pure White Tissues 170 Pack,tissue,2.0,2.0,2026-05-16
+157,Sorbent Lotion Tissues 4 Ply 70 pack,tissue,2.5,2.5,2026-05-16
+158,Symphony Facial Tissues White 228Ss 3 pack,tissue,5.0,5.0,2026-05-16
+159,Vevelle Aloe Vera Tissues 3Ply 95 pack,tissue,1.7,1.7,2026-05-16
+160,Vevelle Facial Tissue 2ply 90 pack,tissue,1.35,1.35,2026-05-16
+161,Who Gives A Crap 3Ply Tissues Assorted 140 pack,tissue,3.5,3.5,2026-05-16
+162,icare Everyday Facial Tissue 200 pack,tissue,2.2,2.2,2026-05-16
+163,Foodbank 3 Ply Toilet Paper 20 pack,toilet_paper,11.0,9.5,2026-05-16
+164,Kleenex CleanRipple Toilet Tissue White 18 pack,toilet_paper,9.0,9.0,2026-04-27
+165,Kleenex Complete Clean Double Length Toilet Paper 4 pack,toilet_paper,7.5,7.5,2026-05-16
+166,Kleenex Complete Clean White Toilet Paper 24 pack,toilet_paper,12.0,12.0,2026-05-16
+167,Kleenex Double Length Toilet Paper 18 pack,toilet_paper,17.0,17.0,2026-05-16
+168,Kleenex Luxury Quilts 3 Ply Toilet Paper 6 pack,toilet_paper,5.8,5.8,2026-05-16
+169,Kleenex Luxury Quilts Toilet Tissue 3 Ply White 150 Sheets 12 Pack,toilet_paper,7.2,7.2,2026-05-16
+170,Naturale 100% Recycled 3 Ply Toilet Tissue 12 pack,toilet_paper,6.0,6.0,2026-05-16
+171,No Issues Bamboo Toilet Paper 275 Sheets 6 pack,toilet_paper,6.95,6.95,2026-05-16
+172,Quilton 3 Ply Toilet Tissue EcoPly 10 pack,toilet_paper,8.9,8.9,2026-05-16
+173,Quilton Classic 3 Ply Toilet Paper 8 pack,toilet_paper,8.6,8.6,2026-05-16
+174,Quilton Coconut Oil 3 Ply Toilet Paper 6 pack,toilet_paper,5.8,4.0,2026-05-16
+175,Quilton Double Length 3 Ply Toilet Paper 8 pack,toilet_paper,8.4,8.4,2026-05-16
+176,Quilton Gold 4 Ply Toilet Paper 12 pack,toilet_paper,10.3,10.3,2026-05-16
+177,Quilton Gold Shea Butter 4 Ply Toilet Paper 6 pack,toilet_paper,5.8,4.0,2026-05-16
+178,Quilton King Size 3 Ply Toilet Paper Unscented 6 pack,toilet_paper,5.8,4.0,2026-05-16
+179,Quilton Platinum 5Ply White Toilet Tissue 10 pack,toilet_paper,11.0,11.0,2026-04-27
+180,Quilton Platinum White 5 Ply Toilet Tissue 24 pack,toilet_paper,16.0,16.0,2026-04-27
+181,Quilton 3 Ply Toilet Paper 180 Sheets 24 pack,toilet_paper,13.6,13.6,2026-05-16
+182,Quilton Softness 3Ply White Toilet Paper Box 18 pack,toilet_paper,14.0,9.8,2026-05-16
+183,Quilton White 3 Ply Toilet Paper 48 pack,toilet_paper,23.0,23.0,2026-05-16
+184,Sorbent Double Length 3 Ply Toilet Paper 4 pack,toilet_paper,5.5,5.5,2026-05-16
+185,Sorbent Double Length 3 Ply Toilet Paper 8 pack,toilet_paper,12.0,12.0,2026-05-16
+186,Sorbent Double Length 3Ply Toilet Paper 10 pack,toilet_paper,10.0,10.0,2026-05-16
+187,Sorbent Hypo-Allergenic 3 Ply Toilet Paper 20 pack,toilet_paper,8.5,8.5,2026-05-16
+188,Sorbent Silky White 3 Ply Toilet Paper 32 pack,toilet_paper,16.0,16.0,2026-05-16
+189,Sorbent Soft & Strong 3 Ply Toilet Paper 10 pack,toilet_paper,9.0,9.0,2026-05-16
+190,Sorbent Soft & Strong 3 Ply Toilet Paper 20 pack,toilet_paper,8.5,8.5,2026-05-16
+191,Sorbent Thick & Soft 4 Ply Toilet Paper 12 pack,toilet_paper,6.9,6.9,2026-05-16
+192,Sorbent Ultra Air Toilet Tissue White 140 Sheets 16 Pack,toilet_paper,9.0,9.0,2026-05-16
+193,Vevelle Double Length 3 Ply Toilet Tissue 4 pack,toilet_paper,4.1,4.1,2026-05-16
+194,Vevelle Double Length 3 Ply Toilet Tissue 8 pack,toilet_paper,8.0,8.0,2026-04-27
+195,Vevelle Luxury Soft 3 Ply Toilet Paper 4 pack,toilet_paper,2.5,2.5,2026-04-27
+196,Vevelle Luxury Soft 3 Ply Toilet Tissue 24 pack,toilet_paper,9.0,9.0,2026-05-16
+197,Vevelle Luxury Soft Double Length 3 Ply Toilet Tissue 24 pack,toilet_paper,19.9,19.9,2026-05-16
+198,Vevelle White 1 Ply Toilet Tissue each,toilet_paper,1.75,1.75,2026-05-16
+199,Vevelle White 2 Ply Toilet Tissue 12 pack,toilet_paper,6.0,6.0,2026-04-27
+200,Who Gives A Crap 100% Bamboo Double Length Christmas Toilet Tissue 16 pack,toilet_paper,19.9,19.9,2026-05-16
+201,Who Gives A Crap Classic Soft Double Length Recycled 3 Ply Toilet Paper 16 pack,toilet_paper,15.0,15.0,2026-05-16
+202,Who Gives A Crap Double Length Recycled 3 Ply Toilet Paper 8 pack,toilet_paper,10.5,9.45,2026-05-16
+203,icare 100% Recycled Double Length 3 Ply Toilet Tissue 6 pack,toilet_paper,7.9,5.9,2026-05-16
+204,Carman's Protein Rich Granola Almond & Hazelnut 800g,granola,12.5,12.5,2026-05-16
+205,Carman's Low Carb Granola Peanut Butter,granola,8.9,6.0,2026-05-16
+206,Heritage Mill Clusters Almond & Cinnamon Limited Edition,granola,6.5,6.5,2026-05-16
+207,Heritage Mill Protein Clusters Honey Roasted Nut,granola,6.5,6.5,2026-05-16
+208,Coles Simply 3-ply Toilet Paper,toilet_paper,9.0,9.0,2026-05-16
+209,Kleenex Eucalyptus 3 Ply Facial Tissues 95 pack,tissue,2.6,2.6,2026-05-16
+210,Quilton Triple Length 3 Ply Toilet Paper 6 pack,toilet_paper,12.0,12.0,2026-05-16
+211,Who Gives A Crap Double Length Bamboo 3 Ply Toilet Paper 8 pack,toilet_paper,12.0,12.0,2026-05-16

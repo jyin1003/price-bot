@@ -1,4 +1,4 @@
-from data.model import CategoryPriceAnalysis, ProductPriceAnalysis
+from data.model import CategoryPriceAnalysis, GroupPriceAnalysis
 
 
 def print_to_terminal(analysis: dict[str, CategoryPriceAnalysis]) -> None:
@@ -31,7 +31,7 @@ def print_to_terminal(analysis: dict[str, CategoryPriceAnalysis]) -> None:
         print("-" * section_width)
 
         if result.cheapest_products:
-            _print_product_table(result.cheapest_products)
+            _print_group_table(result.cheapest_products)
         else:
             print("No products are currently at their cheapest price.")
 
@@ -39,7 +39,7 @@ def print_to_terminal(analysis: dict[str, CategoryPriceAnalysis]) -> None:
         print("-" * section_width)
 
         if result.top_five_cheapest:
-            _print_product_table(result.top_five_cheapest)
+            _print_group_table(result.top_five_cheapest)
         else:
             print("No products available.")
 
@@ -47,20 +47,20 @@ def print_to_terminal(analysis: dict[str, CategoryPriceAnalysis]) -> None:
         print("-" * section_width)
 
         if result.top_five_most_discounted:
-            _print_product_table(result.top_five_most_discounted)
+            _print_group_table(result.top_five_most_discounted)
         else:
             print("No discounted products available.")
 
         print()
 
 
-def _print_product_table(products: list[ProductPriceAnalysis]) -> None:
-    rows = _build_product_rows(products)
+def _print_group_table(groups: list[GroupPriceAnalysis]) -> None:
+    rows = _build_group_rows(groups)
     widths = _calculate_column_widths(rows)
 
     print(
         f"{'Product':<{widths['Product']}}  "
-        f"{'Vendor':<{widths['Vendor']}}  "
+        f"{'Best Vendor':<{widths['Best Vendor']}}  "
         f"{'Price':>{widths['Price']}}  "
         f"{'% Off':>{widths['% Off']}}  "
         f"{'Status':<{widths['Status']}}"
@@ -68,7 +68,7 @@ def _print_product_table(products: list[ProductPriceAnalysis]) -> None:
 
     print(
         f"{'-' * widths['Product']}  "
-        f"{'-' * widths['Vendor']}  "
+        f"{'-' * widths['Best Vendor']}  "
         f"{'-' * widths['Price']}  "
         f"{'-' * widths['% Off']}  "
         f"{'-' * widths['Status']}"
@@ -77,28 +77,28 @@ def _print_product_table(products: list[ProductPriceAnalysis]) -> None:
     for row in rows:
         print(
             f"{row['Product']:<{widths['Product']}}  "
-            f"{row['Vendor']:<{widths['Vendor']}}  "
+            f"{row['Best Vendor']:<{widths['Best Vendor']}}  "
             f"{row['Price']:>{widths['Price']}}  "
             f"{row['% Off']:>{widths['% Off']}}  "
             f"{row['Status']:<{widths['Status']}}"
         )
 
 
-def _build_product_rows(products: list[ProductPriceAnalysis]) -> list[dict[str, str]]:
+def _build_group_rows(groups: list[GroupPriceAnalysis]) -> list[dict[str, str]]:
     return [
         {
-            "Product": str(product.product_name),
-            "Vendor": str(product.vendor),
-            "Price": f"${product.current_price:.2f}",
-            "% Off": f"{product.discount:.1f}%",
-            "Status": str(product.status),
+            "Product": str(group.group_name),
+            "Best Vendor": str(group.best_vendor),
+            "Price": f"${group.current_price:.2f}",
+            "% Off": f"{group.discount:.1f}%",
+            "Status": str(group.status),
         }
-        for product in products
+        for group in groups
     ]
 
 
 def _calculate_column_widths(rows: list[dict[str, str]]) -> dict[str, int]:
-    headers = ["Product", "Vendor", "Price", "% Off", "Status"]
+    headers = ["Product", "Best Vendor", "Price", "% Off", "Status"]
 
     if not rows:
         return {header: len(header) for header in headers}
@@ -112,11 +112,11 @@ def _calculate_column_widths(rows: list[dict[str, str]]) -> dict[str, int]:
     }
 
 
-def _calculate_table_width(products: list[ProductPriceAnalysis]) -> int:
-    if not products:
+def _calculate_table_width(groups: list[GroupPriceAnalysis]) -> int:
+    if not groups:
         return 0
 
-    rows = _build_product_rows(products)
+    rows = _build_group_rows(groups)
     widths = _calculate_column_widths(rows)
 
     spaces_between_columns = 2 * (len(widths) - 1)

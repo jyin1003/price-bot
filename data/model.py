@@ -56,8 +56,10 @@ class PriceRecord:
 
 PriceStatus = Literal["cheapest", "full price", "discounted"]
 
+
 @dataclass
 class ProductPriceAnalysis:
+    """Per-product price analysis (used internally; kept for compatibility)."""
     product_name: str
     current_price: float
     vendor: str
@@ -67,11 +69,30 @@ class ProductPriceAnalysis:
 
 
 @dataclass
+class GroupPriceAnalysis:
+    """
+    Group-level price analysis — one row per product match group.
+
+    current_price / best_vendor reflect the cheapest member of the group
+    based on each member's most recent price in price_history.csv.
+    discount and status are computed against the group's all-time max_price
+    from grouped_product_metrics.csv.
+    """
+    group_id: int
+    group_name: str
+    current_price: float
+    best_vendor: str
+    category: str
+    discount: float
+    status: PriceStatus
+
+
+@dataclass
 class CategoryPriceAnalysis:
     category: str
-    cheapest_products: list[ProductPriceAnalysis]
-    top_five_cheapest: list[ProductPriceAnalysis]
-    top_five_most_discounted: list[ProductPriceAnalysis]
+    cheapest_products: list[GroupPriceAnalysis]
+    top_five_cheapest: list[GroupPriceAnalysis]
+    top_five_most_discounted: list[GroupPriceAnalysis]
 
 
 @dataclass
