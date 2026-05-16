@@ -66,6 +66,26 @@ def parse_args() -> argparse.Namespace:
         ),
     )
 
+    parser.add_argument(
+        "--run-metrics",
+        action="store_true",
+        help=(
+            "Update product_metrics.csv from the latest price history rows, "
+            "then rebuild grouped_product_metrics.csv. "
+            "Does not fetch prices, run matching, or print analysis."
+        ),
+    )
+
+    parser.add_argument(
+        "--analyse",
+        action="store_true",
+        help=(
+            "Run price analysis and print results to the terminal. "
+            "Requires product_metrics.csv and grouped_product_metrics.csv to already exist. "
+            "Does not fetch prices, run matching, or update metrics."
+        ),
+    )
+
     return parser.parse_args()
 
 
@@ -115,6 +135,20 @@ def main() -> None:
     if args.match_products:
         # Interactive matching does not need vendor API keys
         run_interactive_matching()
+        return
+
+    if args.run_metrics:
+        # Step 3 only: update product_metrics.csv + grouped_product_metrics.csv
+        logger.info("Running metrics update from latest price history rows")
+        update_product_metrics_from_latest_history()
+        logger.info("Metrics update complete")
+        return
+
+    if args.analyse:
+        # Steps 4 and 5 only: analyse and print
+        logger.info("Running analysis")
+        analysis = analyse_latest_prices_by_category()
+        print_to_terminal(analysis)
         return
 
     load_environment()

@@ -58,8 +58,10 @@ Run fuzzy cross-vendor product name matching that edits `product_match.csv`:
    - Only run this step with: `python main.py --match-products`
 
 3. **Metrics** — Update `product_metrics.csv` (all-time `max_price` / `min_price` per product) from the freshly fetched records, then rebuild `grouped_product_metrics.csv` by aggregating per match group.
+   - Only run this step with: `python main.py --run-metrics`
 
 4. **Analyse** — For each group, find the cheapest most-recent price across its members from `price_history.csv`, compute discount against the group's all-time `max_price`, and assign a status (`cheapest` / `discounted` / `full price`). Groups are ranked against other groups in the same category.
+   - Only run this step onwards with: `python main.py --analyse`
 
 5. **Output** — Print per-category tables to the terminal: cheapest groups, top 5 cheapest, top 5 most discounted.
 
