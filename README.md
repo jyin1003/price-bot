@@ -17,6 +17,11 @@ Run the full workflow for all configured vendors and categories:
 python main.py
 ````
 
+Launch the dashboard:
+```powershell
+python dashboard/run.py
+````
+
 Run without making vendor API calls. Useful for checking config selection before spending API requests:
 
 ```powershell
@@ -192,12 +197,13 @@ categories:
 - Add scheduled weekly/fortnightly runs
 - Add dashboard UI
 - Add vendor-specific update frequencies
-- Add product matching logic across different vendor naming conventions
 - Add health metric to see if any product names for the same product id has changed or vice versa for a vendor
 - Add unit pricing logic to compare
 - Add favourites to categories
-- Add cheapest for category seen across vendors (plumb fuzzy name matching)
-- product metrics show full price if at max price and then cheapest if at min
+- fix product metrics show full price if at max price and then cheapest if at min
+
 - add cotton buds, saline
+- tissues and toilet paper from chemist warehouse
+- cleaning supplies and laundry
 - w cosmetics
 - paula's choice

@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Price Bot — Dashboard{% endblock %}
+
+{% block nav_links %}
+  <a href="/" class="nav-link active">Dashboard</a>
+{% endblock %}
+
+{% block body %}
+<div class="page">
+
+  <div class="page-title">Dashboard</div>
+  <p class="page-sub">Top 5 cheapest &amp; most discounted per category. Click a category name to drill in.</p>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="search" id="global-search" placeholder="Search products…">
+    </div>
+    <select id="status-filter">
+      <option value="">All statuses</option>
+      <option value="cheapest">Cheapest</option>
+      <option value="discounted">Discounted</option>
+      <option value="full price">Full price</option>
+    </select>
+    <select id="vendor-filter">
+      <option value="">All vendors</option>
+      <option value="woolworths">Woolworths</option>
+      <option value="coles">Coles</option>
+      <option value="chemist_warehouse">Chemist Warehouse</option>
+      <option value="skin_seoul">Skin Seoul</option>
+    </select>
+  </div>
+
+  {% if not categories %}
+    <p style="color:var(--muted); font-family:var(--mono);">No data found. Run the price bot first.</p>
+  {% endif %}
+
+  {% for slug, cat in categories.items() %}
+  <div class="cat-section" data-category="{{ slug }}">
+
+    <div class="cat-header">
+      <a href="/category/{{ slug }}" class="cat-title">{{ slug | replace('_', ' ') }}</a>
+      <span class="cat-count">{{ cat.all_groups | length }} products</span>
+    </div>
+
+    <div class="two-col">
+
+      <!-- Top 5 Cheapest -->
+      <div class="mini-card">
+        <div class="section-label">Top 5 cheapest</div>
+        <div class="col-header" style="grid-template-columns:1fr auto auto auto;">
+          <span>Product</span><span>Vendor</span><span style="text-align:right">Price</span><span style="text-align:right">Updated</span>
+        </div>
+        {% for g in cat.top5_cheapest %}
+        {% set is_multi = g.is_multi %}
+        <div class="group-item dash-item"
+             data-status="{{ g.status }}"
+             data-vendors="{{ g.members | map(attribute='vendor') | join(',') }}">
+          <div class="product-row {% if is_multi %}is-group{% endif %}"
+               style="grid-template-columns:1fr auto auto auto;"
+               {% if not is_multi %}
+               data-max="{{ g.group_max_price }}" data-min="{{ g.group_min_price }}"
+               {% endif %}>
+            <div class="row-name">
+              {% if is_multi %}<span class="expand-icon">▶</span>{% endif %}
+              <span class="row-name-text">{{ g.group_name }}</span>
+              <span class="badge {% if g.status == 'cheapest' %}badge-cheapest{% elif g.status == 'discounted' %}badge-discounted{% else %}badge-full{% endif %}">
+                {% if g.status == 'cheapest' %}✓ low{% elif g.status == 'discounted' %}-{{ g.discount }}%{% else %}full{% endif %}
+              </span>
+            </div>
+            <span class="vendor-pill {{ g.best_vendor }}">{{ g.best_vendor | replace('_', ' ') }}</span>
+            <span class="row-price">${{ "%.2f"|format(g.current_price) }}</span>
+            <span class="row-updated">{{ g.last_updated }}</span>
+          </div>
+          {% if is_multi %}
+          <div class="members-wrap">
+            {% for m in g.members %}
+            <div class="member-row" data-max="{{ m.max_price }}" data-min="{{ m.min_price }}">
+              <span class="vendor-pill {{ m.vendor }}">{{ m.vendor | replace('_', ' ') }}</span>
+              <span class="member-name">{{ m.product_name }}</span>
+              <span class="member-price">{% if m.current_price is not none %}${{ "%.2f"|format(m.current_price) }}{% else %}—{% endif %}</span>
+              <span class="member-updated">{{ m.last_seen_date }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Top 5 Most Discounted -->
+      <div class="mini-card">
+        <div class="section-label">Top 5 most discounted</div>
+        <div class="col-header" style="grid-template-columns:1fr auto auto auto;">
+          <span>Product</span><span>Vendor</span><span style="text-align:right">Price</span><span style="text-align:right">Updated</span>
+        </div>
+        {% for g in cat.top5_discounted %}
+        {% set is_multi = g.is_multi %}
+        <div class="group-item dash-item"
+             data-status="{{ g.status }}"
+             data-vendors="{{ g.members | map(attribute='vendor') | join(',') }}">
+          <div class="product-row {% if is_multi %}is-group{% endif %}"
+               style="grid-template-columns:1fr auto auto auto;"
+               {% if not is_multi %}
+               data-max="{{ g.group_max_price }}" data-min="{{ g.group_min_price }}"
+               {% endif %}>
+            <div class="row-name">
+              {% if is_multi %}<span class="expand-icon">▶</span>{% endif %}
+              <span class="row-name-text">{{ g.group_name }}</span>
+              <span class="badge {% if g.status == 'cheapest' %}badge-cheapest{% elif g.status == 'discounted' %}badge-discounted{% else %}badge-full{% endif %}">
+                {% if g.status == 'cheapest' %}✓ low{% elif g.status == 'discounted' %}-{{ g.discount }}%{% else %}full{% endif %}
+              </span>
+            </div>
+            <span class="vendor-pill {{ g.best_vendor }}">{{ g.best_vendor | replace('_', ' ') }}</span>
+            <span class="row-price">${{ "%.2f"|format(g.current_price) }}</span>
+            <span class="row-updated">{{ g.last_updated }}</span>
+          </div>
+          {% if is_multi %}
+          <div class="members-wrap">
+            {% for m in g.members %}
+            <div class="member-row" data-max="{{ m.max_price }}" data-min="{{ m.min_price }}">
+              <span class="vendor-pill {{ m.vendor }}">{{ m.vendor | replace('_', ' ') }}</span>
+              <span class="member-name">{{ m.product_name }}</span>
+              <span class="member-price">{% if m.current_price is not none %}${{ "%.2f"|format(m.current_price) }}{% else %}—{% endif %}</span>
+              <span class="member-updated">{{ m.last_seen_date }}</span>
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+
+    </div><!-- .two-col -->
+  </div><!-- .cat-section -->
+  {% endfor %}
+
+</div><!-- .page -->
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Attach tooltips to single-product rows (data-max/data-min on the row itself)
+  document.querySelectorAll('.product-row:not(.is-group)').forEach(row => {
+    const max = row.dataset.max !== 'None' && row.dataset.max ? parseFloat(row.dataset.max) : null;
+    const min = row.dataset.min !== 'None' && row.dataset.min ? parseFloat(row.dataset.min) : null;
+    attachTooltip(row, max, min);
+  });
+
+  // Attach tooltips to member rows
+  document.querySelectorAll('.member-row').forEach(row => {
+    const max = row.dataset.max !== 'None' && row.dataset.max ? parseFloat(row.dataset.max) : null;
+    const min = row.dataset.min !== 'None' && row.dataset.min ? parseFloat(row.dataset.min) : null;
+    attachTooltip(row, max, min);
+  });
+
+  // Search
+  const searchInput = document.getElementById('global-search');
+  const statusFilter = document.getElementById('status-filter');
+  const vendorFilter = document.getElementById('vendor-filter');
+
+  function applyFilters() {
+    const q = searchInput.value.trim().toLowerCase();
+    const statusVal = statusFilter.value;
+    const vendorVal = vendorFilter.value;
+
+    document.querySelectorAll('.dash-item').forEach(item => {
+      const text    = item.textContent.toLowerCase();
+      const status  = item.dataset.status || '';
+      const vendors = item.dataset.vendors || '';
+
+      const matchesSearch = !q || text.includes(q);
+      const matchesStatus = !statusVal || status === statusVal;
+      const matchesVendor = !vendorVal || vendors.split(',').includes(vendorVal);
+
+      item.classList.toggle('hidden', !(matchesSearch && matchesStatus && matchesVendor));
+    });
+
+    // Hide category sections that have no visible items
+    document.querySelectorAll('.cat-section').forEach(sec => {
+      const anyVisible = [...sec.querySelectorAll('.dash-item')].some(i => !i.classList.contains('hidden'));
+      sec.classList.toggle('hidden', !anyVisible);
+    });
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+  statusFilter.addEventListener('change', applyFilters);
+  vendorFilter.addEventListener('change', applyFilters);
+</script>
+{% endblock %}

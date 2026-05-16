@@ -4,3 +4,4 @@ PyYAML
 requests
 beautifulsoup4
 rapidfuzz
+flask

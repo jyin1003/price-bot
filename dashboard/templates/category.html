@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}Price Bot — {{ cat.category | replace('_', ' ') | title }}{% endblock %}
+
+{% block nav_links %}
+  <a href="/" class="nav-link">Dashboard</a>
+
+  <a href="/category/{{ cat.slug }}" class="nav-link active">
+    {{ cat.slug | replace('_', ' ') }}
+  </a>
+{% endblock %}
+
+{% block body %}
+<div class="page">
+
+  <div class="page-title">{{ cat.category | replace('_', ' ') | upper }}</div>
+  <p class="page-sub">{{ cat.all_groups | length }} products tracked · click a group row to expand vendor breakdown</p>
+
+  <!-- Top 5 grids -->
+  <div class="two-col" style="margin-bottom:2.5rem;">
+
+    <div class="mini-card">
+      <div class="section-label">Top 5 cheapest</div>
+      {% for g in cat.top5_cheapest %}
+      {% set is_multi = g.is_multi %}
+      <div class="group-item cat-item"
+           data-status="{{ g.status }}"
+           data-vendors="{{ g.members | map(attribute='vendor') | join(',') }}">
+        <div class="product-row {% if is_multi %}is-group{% endif %}"
+             style="grid-template-columns:1fr auto auto auto;"
+             {% if not is_multi %}data-max="{{ g.group_max_price }}" data-min="{{ g.group_min_price }}"{% endif %}>
+          <div class="row-name">
+            {% if is_multi %}<span class="expand-icon">▶</span>{% endif %}
+            <span class="row-name-text">{{ g.group_name }}</span>
+            <span class="badge {% if g.status == 'cheapest' %}badge-cheapest{% elif g.status == 'discounted' %}badge-discounted{% else %}badge-full{% endif %}">
+              {% if g.status == 'cheapest' %}✓ low{% elif g.status == 'discounted' %}-{{ g.discount }}%{% else %}full{% endif %}
+            </span>
+          </div>
+          <span class="vendor-pill {{ g.best_vendor }}">{{ g.best_vendor | replace('_', ' ') }}</span>
+          <span class="row-price">${{ "%.2f"|format(g.current_price) }}</span>
+          <span class="row-updated">{{ g.last_updated }}</span>
+        </div>
+        {% if is_multi %}
+        <div class="members-wrap">
+          {% for m in g.members %}
+          <div class="member-row" data-max="{{ m.max_price }}" data-min="{{ m.min_price }}">
+            <span class="vendor-pill {{ m.vendor }}">{{ m.vendor | replace('_', ' ') }}</span>
+            <span class="member-name">{{ m.product_name }}</span>
+            <span class="member-price">{% if m.current_price is not none %}${{ "%.2f"|format(m.current_price) }}{% else %}—{% endif %}</span>
+            <span class="member-updated">{{ m.last_seen_date }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="mini-card">
+      <div class="section-label">Top 5 most discounted</div>
+      {% for g in cat.top5_discounted %}
+      {% set is_multi = g.is_multi %}
+      <div class="group-item cat-item"
+           data-status="{{ g.status }}"
+           data-vendors="{{ g.members | map(attribute='vendor') | join(',') }}">
+        <div class="product-row {% if is_multi %}is-group{% endif %}"
+             style="grid-template-columns:1fr auto auto auto;"
+             {% if not is_multi %}data-max="{{ g.group_max_price }}" data-min="{{ g.group_min_price }}"{% endif %}>
+          <div class="row-name">
+            {% if is_multi %}<span class="expand-icon">▶</span>{% endif %}
+            <span class="row-name-text">{{ g.group_name }}</span>
+            <span class="badge {% if g.status == 'cheapest' %}badge-cheapest{% elif g.status == 'discounted' %}badge-discounted{% else %}badge-full{% endif %}">
+              {% if g.status == 'cheapest' %}✓ low{% elif g.status == 'discounted' %}-{{ g.discount }}%{% else %}full{% endif %}
+            </span>
+          </div>
+          <span class="vendor-pill {{ g.best_vendor }}">{{ g.best_vendor | replace('_', ' ') }}</span>
+          <span class="row-price">${{ "%.2f"|format(g.current_price) }}</span>
+          <span class="row-updated">{{ g.last_updated }}</span>
+        </div>
+        {% if is_multi %}
+        <div class="members-wrap">
+          {% for m in g.members %}
+          <div class="member-row" data-max="{{ m.max_price }}" data-min="{{ m.min_price }}">
+            <span class="vendor-pill {{ m.vendor }}">{{ m.vendor | replace('_', ' ') }}</span>
+            <span class="member-name">{{ m.product_name }}</span>
+            <span class="member-price">{% if m.current_price is not none %}${{ "%.2f"|format(m.current_price) }}{% else %}—{% endif %}</span>
+            <span class="member-updated">{{ m.last_seen_date }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+
+  <!-- All products (alphabetical) -->
+  <div class="section-label" style="margin-bottom:1rem;">All products — alphabetical</div>
+
+  <div class="toolbar" style="margin-bottom:1rem;">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="search" id="cat-search" placeholder="Filter products in this category…">
+    </div>
+    <select id="cat-status-filter">
+      <option value="">All statuses</option>
+      <option value="cheapest">Cheapest</option>
+      <option value="discounted">Discounted</option>
+      <option value="full price">Full price</option>
+    </select>
+    <select id="cat-vendor-filter">
+      <option value="">All vendors</option>
+      <option value="woolworths">Woolworths</option>
+      <option value="coles">Coles</option>
+      <option value="chemist_warehouse">Chemist Warehouse</option>
+      <option value="skin_seoul">Skin Seoul</option>
+    </select>
+  </div>
+
+  <div class="col-header" style="grid-template-columns:1fr auto auto auto; margin-bottom:0.35rem;">
+    <span>Product</span><span>Vendor</span><span style="text-align:right">Price</span><span style="text-align:right">Updated</span>
+  </div>
+
+  <div id="all-products-list">
+    {% for g in cat.all_groups %}
+    {% set is_multi = g.is_multi %}
+    <div class="group-item cat-item"
+         style="margin-bottom:0.35rem;"
+         data-status="{{ g.status }}"
+         data-vendors="{{ g.members | map(attribute='vendor') | join(',') }}">
+      <div class="product-row {% if is_multi %}is-group{% endif %}"
+           style="grid-template-columns:1fr auto auto auto;"
+           {% if not is_multi %}data-max="{{ g.group_max_price }}" data-min="{{ g.group_min_price }}"{% endif %}>
+        <div class="row-name">
+          {% if is_multi %}<span class="expand-icon">▶</span>{% endif %}
+          <span class="row-name-text">{{ g.group_name }}</span>
+          <span class="badge {% if g.status == 'cheapest' %}badge-cheapest{% elif g.status == 'discounted' %}badge-discounted{% else %}badge-full{% endif %}">
+            {% if g.status == 'cheapest' %}✓ low{% elif g.status == 'discounted' %}-{{ g.discount }}%{% else %}full{% endif %}
+          </span>
+        </div>
+        <span class="vendor-pill {{ g.best_vendor }}">{{ g.best_vendor | replace('_', ' ') }}</span>
+        <span class="row-price">${{ "%.2f"|format(g.current_price) }}</span>
+        <span class="row-updated">{{ g.last_updated }}</span>
+      </div>
+      {% if is_multi %}
+      <div class="members-wrap">
+        {% for m in g.members %}
+        <div class="member-row" data-max="{{ m.max_price }}" data-min="{{ m.min_price }}">
+          <span class="vendor-pill {{ m.vendor }}">{{ m.vendor | replace('_', ' ') }}</span>
+          <span class="member-name">{{ m.product_name }}</span>
+          <span class="member-price">{% if m.current_price is not none %}${{ "%.2f"|format(m.current_price) }}{% else %}—{% endif %}</span>
+          <span class="member-updated">{{ m.last_seen_date }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Tooltips
+  document.querySelectorAll('.product-row:not(.is-group)').forEach(row => {
+    const max = row.dataset.max && row.dataset.max !== 'None' ? parseFloat(row.dataset.max) : null;
+    const min = row.dataset.min && row.dataset.min !== 'None' ? parseFloat(row.dataset.min) : null;
+    attachTooltip(row, max, min);
+  });
+  document.querySelectorAll('.member-row').forEach(row => {
+    const max = row.dataset.max && row.dataset.max !== 'None' ? parseFloat(row.dataset.max) : null;
+    const min = row.dataset.min && row.dataset.min !== 'None' ? parseFloat(row.dataset.min) : null;
+    attachTooltip(row, max, min);
+  });
+
+  // Category-level filter
+  const catSearch = document.getElementById('cat-search');
+  const catStatus = document.getElementById('cat-status-filter');
+  const catVendor = document.getElementById('cat-vendor-filter');
+
+  function applyCatFilters() {
+    const q = catSearch.value.trim().toLowerCase();
+    const sv = catStatus.value;
+    const vv = catVendor.value;
+
+    document.querySelectorAll('#all-products-list .cat-item').forEach(item => {
+      const text = item.textContent.toLowerCase();
+      const status = item.dataset.status || '';
+      const vendors = item.dataset.vendors || '';
+
+      const ok = (!q || text.includes(q))
+               && (!sv || status === sv)
+               && (!vv || vendors.split(',').includes(vv));
+      item.classList.toggle('hidden', !ok);
+    });
+  }
+
+  catSearch.addEventListener('input', applyCatFilters);
+  catStatus.addEventListener('change', applyCatFilters);
+  catVendor.addEventListener('change', applyCatFilters);
+</script>
+{% endblock %}
