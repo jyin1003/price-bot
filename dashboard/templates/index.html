@@ -16,7 +16,7 @@
   <div class="toolbar">
     <div class="search-wrap">
       <span class="search-icon">⌕</span>
-      <input type="search" id="global-search" placeholder="Search products…">
+      <input type="search" id="global-search" placeholder="Search categories">
     </div>
     <select id="status-filter">
       <option value="">All statuses</option>
@@ -142,51 +142,26 @@
 
 {% block scripts %}
 <script>
-  // Attach tooltips to single-product rows (data-max/data-min on the row itself)
+  // Tooltips
   document.querySelectorAll('.product-row:not(.is-group)').forEach(row => {
     const max = row.dataset.max !== 'None' && row.dataset.max ? parseFloat(row.dataset.max) : null;
     const min = row.dataset.min !== 'None' && row.dataset.min ? parseFloat(row.dataset.min) : null;
     attachTooltip(row, max, min);
   });
-
-  // Attach tooltips to member rows
   document.querySelectorAll('.member-row').forEach(row => {
     const max = row.dataset.max !== 'None' && row.dataset.max ? parseFloat(row.dataset.max) : null;
     const min = row.dataset.min !== 'None' && row.dataset.min ? parseFloat(row.dataset.min) : null;
     attachTooltip(row, max, min);
   });
 
-  // Search
+  // Category search — hides/shows entire cat-section blocks
   const searchInput = document.getElementById('global-search');
-  const statusFilter = document.getElementById('status-filter');
-  const vendorFilter = document.getElementById('vendor-filter');
-
-  function applyFilters() {
+  searchInput.addEventListener('input', () => {
     const q = searchInput.value.trim().toLowerCase();
-    const statusVal = statusFilter.value;
-    const vendorVal = vendorFilter.value;
-
-    document.querySelectorAll('.dash-item').forEach(item => {
-      const text    = item.textContent.toLowerCase();
-      const status  = item.dataset.status || '';
-      const vendors = item.dataset.vendors || '';
-
-      const matchesSearch = !q || text.includes(q);
-      const matchesStatus = !statusVal || status === statusVal;
-      const matchesVendor = !vendorVal || vendors.split(',').includes(vendorVal);
-
-      item.classList.toggle('hidden', !(matchesSearch && matchesStatus && matchesVendor));
-    });
-
-    // Hide category sections that have no visible items
     document.querySelectorAll('.cat-section').forEach(sec => {
-      const anyVisible = [...sec.querySelectorAll('.dash-item')].some(i => !i.classList.contains('hidden'));
-      sec.classList.toggle('hidden', !anyVisible);
+      const name = (sec.dataset.category || '').replace(/_/g, ' ').toLowerCase();
+      sec.classList.toggle('hidden', q.length > 0 && !name.includes(q));
     });
-  }
-
-  searchInput.addEventListener('input', applyFilters);
-  statusFilter.addEventListener('change', applyFilters);
-  vendorFilter.addEventListener('change', applyFilters);
+  });
 </script>
 {% endblock %}

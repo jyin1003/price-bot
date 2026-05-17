@@ -195,7 +195,6 @@ categories:
 
 ## Future Improvements
 - Add scheduled weekly/fortnightly runs
-- dashboard UI - search category
 - Add vendor-specific update frequencies
 - Add health metric to see if any product names for the same product id has changed or vice versa for a vendor
 - Add unit pricing logic to compare
